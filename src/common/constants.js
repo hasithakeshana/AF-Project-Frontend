@@ -1,0 +1,1 @@
+export const USER_SIGN_UP = 'app/SignUpPage/USER_SIGN_UP';

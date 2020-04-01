@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState , useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,12 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+
+import PropTypes from 'prop-types';
+
+import {connect} from 'react-redux';
+
+import * as reduxActions from '../common/actions';
 
 function Copyright() {
   return (
@@ -57,10 +63,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+function SignInSide({signUpuser , emails}) {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  console.log('emaillsssssssssss',emails);
+  const [emailsss, setEmails] = useState("");
+
+  useEffect(() => {
+   setEmails(emails);
+   
+  }, []);
+
+ 
   const classes = useStyles();
 
+  
+
+
+  
+
+
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+   
+    console.log('name',email);
+    console.log('password',password);
+}
+
   return (
+
+ 
+
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -70,9 +106,9 @@ export default function SignInSide() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+          {emails}
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -83,6 +119,8 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={e => setEmail(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -94,20 +132,27 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+           
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick = {  () => signUpuser(email,password)   }
             >
-              Sign In
+              Sign Up
             </Button>
+
+
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -128,4 +173,36 @@ export default function SignInSide() {
       </Grid>
     </Grid>
   );
+
+
+ 
 }
+
+SignInSide.propTypes = {
+  
+  signUpuser: PropTypes.func,
+};
+
+
+
+const mapStateToProps = (state)=> {
+
+  console.log('state',state);
+  return{
+    age : state.age,
+    emails : state.email
+  }
+};
+
+
+const mapDispachToProps = (dispach) => {
+
+  return {
+    oneAgeUp : () => dispach({type : 'AGE_UP', value: 1 }) ,
+    signUpuser : (email,password) => dispach(reduxActions.signUpAction({email,password})) ,
+
+
+  }
+}
+
+export default connect(mapStateToProps,mapDispachToProps) (SignInSide);
