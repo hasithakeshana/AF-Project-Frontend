@@ -1,41 +1,62 @@
 
-import {USER_SIGN_UP} from './constants';
+//import {USER_SIGN_UP , USER_REGISTER_SUCCESS , USER_REGISTER_FAILED } from './constants';
+
+import * as ACTIONS from '../common/constants';
 
 export function signUpAction(user){
 
     return{
-        type : USER_SIGN_UP,
+        type : ACTIONS.USER_SIGN_UP,
         payload: {
                user
                  },
     };
 }
 
-// export function registerAction(fullName, email, password) {
-//     return {
-//       type: ACTIONS.USER_REGISTER,
-//       payload: {
-//         fullName,
-//         email,
-//         password,
-//       },
-//     };
-//   }
-  
-//   export function registerSuccessAction(user) {
-//     return {
-//       type: ACTIONS.USER_REGISTER_SUCCESS,
-//       payload: {
-//         user,
-//       },
-//     };
-//   }
-  
-//   export function registerFailAction(error) {
-//     return {
-//       type: ACTIONS.USER_REGISTER_FAILED,
-//       payload: {
-//         error,
-//       },
-//     };
-//   }
+export function registerSuccessAction(user) {
+    return {
+      type: ACTIONS.USER_REGISTER_SUCCESS,
+      payload: {
+        user,
+      },
+    };
+  }
+
+
+export function registerFailAction(error) {
+    return {
+      type: ACTIONS.USER_REGISTER_FAILED,
+      payload: {
+        error,
+      },
+    };
+  }
+
+  export function loginAction(user){
+
+    return{
+        type : ACTIONS.USER_LOGIN,
+        payload: {
+               user
+                 },
+    };
+}
+
+export function loginSuccessAction(user) {
+    return {
+      type: ACTIONS.USER_LOGIN_SUCCESS,
+      payload: {
+        user,
+      },
+    };
+  }
+
+
+export function loginFailAction(error) {
+    return {
+      type: ACTIONS.USER_LOGIN_FAILED,
+      payload: {
+        error,
+      },
+    };
+  }

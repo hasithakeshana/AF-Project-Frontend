@@ -1,32 +1,42 @@
-
+import * as ACTIONS from '../common/constants';
 
 
 const initialState = {
 
-    age : 20,
-    email: 'cc',
+    
+    auth: {
+        currentUser: {},
+        isAuthenticated: false,
+        isTokenChecked: false,
+        isRegistered: false,
+      },
+
+
 };
 
 
-const reducer = (state = initialState,action) => {
+const reducer = (state = initialState, { type, payload }) => {
 
 const newState = {...state};
 
-if(action.type === 'AGE_UP_ASYNC'){
-    newState.age += action.value;
-}
 
-if(action.type === 'SIGN_UP'){
 
-    console.log('sign up reducer starts');
 
-    console.log(' reducer value',action.value);
+if(type === ACTIONS.USER_REGISTER_SUCCESS ){
 
-    console.log(' reducer value eamil reducer',action.value.email);
-
-    newState.email = action.value.email;
+    console.log('USER_REGISTER_SUCCESS');
     
+    newState.auth.currentUser = payload.user ;
 }
+
+
+// action = login success -> currentUser = payload.user/ isauthenticated = true
+
+// action logout -> isauthenticated / false
+
+// register success -> isregistered = success
+
+// toekn checked -> tokenchecked = true
 
 
 return newState;

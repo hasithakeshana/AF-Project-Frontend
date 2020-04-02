@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import {createStore , applyMiddleware } from 'redux';
 import reducer from './store/reducer';
 import createSagaMiddleware from 'redux-saga';
-import {watchAgeUp} from './sagas/saga';
+import {rootWatcher} from './sagas/saga';
 
 
 
@@ -27,7 +27,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(reducer , applyMiddleware(sagaMiddleware));
 
-sagaMiddleware.run(watchAgeUp);
+sagaMiddleware.run(rootWatcher);
 
 ReactDOM.render(<Provider store={store}><App /></Provider> , document.getElementById('root'));
 

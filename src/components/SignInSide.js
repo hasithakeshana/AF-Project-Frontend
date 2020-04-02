@@ -63,16 +63,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignInSide({signUpuser , emails}) {
+function SignInSide({loginUser}) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  console.log('emaillsssssssssss',emails);
-  const [emailsss, setEmails] = useState("");
+  
 
   useEffect(() => {
-   setEmails(emails);
+  
    
   }, []);
 
@@ -106,7 +105,7 @@ function SignInSide({signUpuser , emails}) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-          {emails}
+          
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
@@ -147,7 +146,7 @@ function SignInSide({signUpuser , emails}) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick = {  () => signUpuser(email,password)   }
+              onClick = {  () => loginUser(email,password)  }
             >
               Sign Up
             </Button>
@@ -180,7 +179,7 @@ function SignInSide({signUpuser , emails}) {
 
 SignInSide.propTypes = {
   
-  signUpuser: PropTypes.func,
+  loginUser: PropTypes.func,
 };
 
 
@@ -189,8 +188,8 @@ const mapStateToProps = (state)=> {
 
   console.log('state',state);
   return{
-    age : state.age,
-    emails : state.email
+   
+    state : state
   }
 };
 
@@ -198,8 +197,8 @@ const mapStateToProps = (state)=> {
 const mapDispachToProps = (dispach) => {
 
   return {
-    oneAgeUp : () => dispach({type : 'AGE_UP', value: 1 }) ,
-    signUpuser : (email,password) => dispach(reduxActions.signUpAction({email,password})) ,
+   
+    loginUser : (email,password) => dispach(reduxActions.loginAction({email,password})) ,
 
 
   }

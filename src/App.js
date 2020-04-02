@@ -4,12 +4,13 @@ import "./index.css";
 //import logo from "./logo.png";
 
 import SignInSide from './components/SignInSide';
+import SignUp from './components/SignUp';
 
 class App extends Component {
   render() {
     return (
       <MDBContainer>
-       <SignInSide></SignInSide>
+      <SignInSide></SignInSide>
       </MDBContainer>
     );
   }

@@ -1,31 +1,67 @@
-import {takeLatest , all ,  put} from 'redux-saga/effects';
-
-import {USER_SIGN_UP} from '../common/constants';
+import {takeLatest , all ,  put , call} from 'redux-saga/effects';
 
 
+import * as CONSTANTS from '../common/constants';
 
-function* ageUpAsync(){
+import {fetchData , fetchLogin} from '../common/apiRoutes';
 
-    yield put ( {type : 'AGE_UP_ASYNC',value:1})
+//import {registerSuccessAction , registerFailAction } from '../common/actions';
 
-
-
-}
+import * as globalActions from '../common/actions';
 
 function* signUpUserWorker({ payload: { user } }){
 
     
-    yield put ( {type : 'SIGN_UP',value: user })
+   console.log('saga working');
 
-    console.log('saga working');
+   console.log('saga user',user);
 
-    console.log('saga user',user);
+ 
 
- //   console.log('sage password',password);
+    try{
+        const data  = yield call (fetchData ,{user}) || {};
 
+        console.log('correct data',data);
+
+        if (data) yield put(globalActions.registerSuccessAction(data.user));
+
+       
+        
+    }
+    catch(err){
+        console.log(err);
+        yield put(globalActions.registerFailAction(err.message));
+    }
+   
 
 }
 
+function* loginUserWorker({ payload: { user } }){
+
+    
+    console.log('saga working');
+ 
+    console.log('saga user',user);
+ 
+  
+ 
+     try{
+         const data  = yield call (fetchLogin ,{user}) || {};
+ 
+         console.log('correct data',data);
+ 
+         if (data) yield put(globalActions.loginSuccessAction(data.user));
+ 
+        
+         
+     }
+     catch(err){
+         console.log(err);
+         yield put(globalActions.loginFailAction(err.message));
+     }
+    
+ 
+ }
 
 
 
@@ -34,11 +70,13 @@ function* signUpUserWorker({ payload: { user } }){
 
 
 
-export function* watchAgeUp(){
+
+export function* rootWatcher(){
 
     yield  all ([
 
-        takeLatest('AGE_UP',ageUpAsync),
-        takeLatest(USER_SIGN_UP,signUpUserWorker),
+    takeLatest(CONSTANTS.USER_SIGN_UP,signUpUserWorker),
+    takeLatest(CONSTANTS.USER_LOGIN,loginUserWorker),
+   
     ]);
 }
