@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <MDBContainer>
-     <RatingsCom></RatingsCom>
+     <SignUp></SignUp>
       </MDBContainer>
     );
   }
