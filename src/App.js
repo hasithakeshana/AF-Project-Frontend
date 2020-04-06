@@ -5,12 +5,13 @@ import "./index.css";
 
 import SignInSide from './components/SignInSide';
 import SignUp from './components/SignUp';
+import RatingsCom from './components/RatingsCom';
 
 class App extends Component {
   render() {
     return (
       <MDBContainer>
-      <SignInSide></SignInSide>
+     <RatingsCom></RatingsCom>
       </MDBContainer>
     );
   }

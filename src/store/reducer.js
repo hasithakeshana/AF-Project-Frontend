@@ -10,7 +10,10 @@ const initialState = {
         isTokenChecked: false,
         isRegistered: false,
       },
+    item:{
+        itemRatingDetails:{}
 
+    }
 
 };
 

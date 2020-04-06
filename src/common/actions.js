@@ -60,3 +60,33 @@ export function loginFailAction(error) {
       },
     };
   }
+
+
+  export function AddRatingAction(data){
+
+    return{
+        type : ACTIONS.ADD_RATE_COMMENT,
+        payload: {
+               data
+                 },
+    };
+}
+
+export function AddRatingSuccessAction(data) {
+    return {
+      type: ACTIONS.ADD_RATE_COMMENT_SUCCESS,
+      payload: {
+        data,
+      },
+    };
+  }
+
+
+export function AddRatingFailAction(error) {
+    return {
+      type: ACTIONS.ADD_RATE_COMMENT_FAILED,
+      payload: {
+        error,
+      },
+    };
+  }
