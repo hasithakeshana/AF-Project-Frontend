@@ -67,9 +67,6 @@ function SignInSide({loginUser}) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  
-
   useEffect(() => {
   
    
@@ -77,13 +74,6 @@ function SignInSide({loginUser}) {
 
  
   const classes = useStyles();
-
-  
-
-
-  
-
-
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -188,7 +178,6 @@ const mapStateToProps = (state)=> {
 
   console.log('state',state);
   return{
-   
     state : state
   }
 };
@@ -197,10 +186,7 @@ const mapStateToProps = (state)=> {
 const mapDispachToProps = (dispach) => {
 
   return {
-   
-    loginUser : (email,password) => dispach(reduxActions.loginAction({email,password})) ,
-
-
+    loginUser : (email,password) => dispach(reduxActions.loginAction({email,password}))
   }
 }
 

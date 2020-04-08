@@ -12,7 +12,6 @@ export function signUpAction(user){
                  },
     };
 }
-
 export function registerSuccessAction(user) {
     return {
       type: ACTIONS.USER_REGISTER_SUCCESS,
@@ -60,3 +59,38 @@ export function loginFailAction(error) {
       },
     };
   }
+
+export function update_name(name) {
+
+    return {
+        type:'UPDATE_NAME',
+        payload:name
+    }
+}
+export function update_name_success(name) {
+
+    return {
+        type:'UPDATE_NAME_SUCCESS',
+        payload:name
+    }
+
+}
+
+export function update_users(name) {
+
+    return {
+        type:'UPDATE_USERS',
+        payload:name
+    }
+
+}
+
+export function update_users_success(data) {
+
+    return {
+        type:'UPDATE_USERS_SUCCESS',
+        payload:data
+    }
+
+}
+

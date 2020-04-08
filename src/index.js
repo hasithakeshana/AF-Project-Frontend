@@ -1,24 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './registerServiceWorker';
-import store from './store/index'
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware, compose} from 'redux';
+import reducer from './store/reducer';
+import createSagaMiddleware from 'redux-saga';
+import {rootWatcher} from './sagas/saga';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
+import "./index.css";
+import App from "./App";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 
+import registerServiceWorker from './registerServiceWorker';
 
-let render =()=>{ReactDOM.render(
-    <React.StrictMode>
-        <Provider store = {store}>
-            <App />
-        </Provider>
-    </React.StrictMode>,
-    document.getElementById('root')
-);
-}
+const sagaMiddleware = createSagaMiddleware();
+const  middlewares = [sagaMiddleware]
+//sagaMiddleware.run()
+const composeEnhansers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-render();
+const store = createStore(reducer,composeEnhansers(applyMiddleware(...middlewares)) );
 
-// If you want your app to work offline and load faster, you can change
-// unregister()
-serviceWorker.unregister();
+sagaMiddleware.run(rootWatcher);
+
+ReactDOM.render(<Provider store={store}><App /></Provider> , document.getElementById('root'));
+
+registerServiceWorker();
