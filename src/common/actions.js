@@ -62,7 +62,7 @@ export function loginFailAction(error) {
   }
 
 
-  export function AddRatingAction(data){
+export function AddRatingAction(data){
 
     return{
         type : ACTIONS.ADD_RATE_COMMENT,
@@ -85,6 +85,35 @@ export function AddRatingSuccessAction(data) {
 export function AddRatingFailAction(error) {
     return {
       type: ACTIONS.ADD_RATE_COMMENT_FAILED,
+      payload: {
+        error,
+      },
+    };
+  }
+
+  export function GetRatingAction(ProductId){
+
+    return{
+        type : ACTIONS.GET_RATE_COMMENTS,
+        payload: {
+          ProductId
+                 },
+    };
+}
+
+export function GetRatingSuccessAction(data) {
+    return {
+      type: ACTIONS.GET_RATE_COMMENTS_SUCCESS,
+      payload: {
+        data,
+      },
+    };
+  }
+
+
+export function GetRatingFailAction(error) {
+    return {
+      type: ACTIONS.GET_RATE_COMMENTS_FAILED,
       payload: {
         error,
       },

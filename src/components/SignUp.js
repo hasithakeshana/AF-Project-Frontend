@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignUp({signUpuser}) {
+function SignUp({signUpusers}) {
 
     const [firstName, setFname] = useState("");
     const [lastName, setLname] = useState("");
@@ -158,7 +158,7 @@ function SignUp({signUpuser}) {
             color="primary"
             className={classes.submit}
 
-            onClick = {  () => signUpuser(firstName,lastName,email,password)  }
+            onClick = {  () => signUpusers(firstName,lastName,email,password)  }
           >
             Sign Up
           </Button>
@@ -180,7 +180,7 @@ function SignUp({signUpuser}) {
 
 SignUp.propTypes = {
   
-    signUpuser: PropTypes.func,
+    signUpusers: PropTypes.func,
   };
   
   
@@ -199,9 +199,10 @@ SignUp.propTypes = {
   
     return {
      
-      signUpuser : (firstName,lastName,email,password) => dispach(reduxActions.signUpAction({firstName,lastName,email,password})) ,
+      signUpusers : (firstName,lastName,email,password) => dispach(reduxActions.signUpAction({firstName,lastName,email,password})) ,
   
-  
+  //obj returb key 
+  // payload // type
     }
   }
   

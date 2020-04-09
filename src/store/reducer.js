@@ -5,13 +5,23 @@ const initialState = {
 
     
     auth: {
-        currentUser: {},
+        currentUser: {
+
+            role : 'guest'
+        },
         isAuthenticated: false,
         isTokenChecked: false,
         isRegistered: false,
+        
       },
     item:{
-        itemRatingDetails:{}
+        itemRatingDetails:{
+            countRatings : {} ,
+            avgRating : 0,
+            ratingCount : {},
+            ratingList : {},
+            
+        }
 
     }
 
@@ -30,6 +40,20 @@ if(type === ACTIONS.USER_REGISTER_SUCCESS ){
     console.log('USER_REGISTER_SUCCESS');
     
     newState.auth.currentUser = payload.user ;
+}
+
+if(type === ACTIONS.GET_RATE_COMMENTS_SUCCESS){
+
+   // console.log(payload.data);
+
+    newState.item.itemRatingDetails.countRatings = payload.data.countRatings;
+    
+    newState.item.itemRatingDetails.avgRating = payload.data.avg;
+
+    newState.item.itemRatingDetails.ratingCount = payload.data.noOfRatings;
+
+    newState.item.itemRatingDetails.ratingList = payload.data.ratings
+
 }
 
 

@@ -6,13 +6,22 @@ import "./index.css";
 import SignInSide from './components/SignInSide';
 import SignUp from './components/SignUp';
 import RatingsCom from './components/RatingsCom';
+import RatingList from './components/RatingsList';
+import RatingProgress from './components/RatingProgress';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Example from './components/RatingView';
+
+
+
+import Particles from 'react-particles-js';
 
 class App extends Component {
   render() {
     return (
-      <MDBContainer>
-    <RatingsCom></RatingsCom>
-      </MDBContainer>
+      
+    
+<RatingsCom></RatingsCom>
+      
     );
   }
 }

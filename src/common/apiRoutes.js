@@ -150,3 +150,15 @@ export const fetchRatingsAdd = async (user) =>{
 
   
 }
+
+export const getRatingComments = async (productId) => {
+
+console.log('productId ',productId);
+
+const response = await axios.get(`http://localhost:4000/api/getRatingsWithComments/${productId}`);
+
+console.log('response',response);
+
+return response;
+
+}
