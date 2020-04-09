@@ -16,8 +16,14 @@ export const initialState = {
         price:0.0,
         description : "",
     },
-    categories : ['Men','Women','Kids','Sports'],
-    selectedCategory : "All"
+
+    menCategories :['Jeans','Shirts','T-Shirts','Footwear'],
+    womenCategories :['Jeans','Blouses','Life Style','Footwear'],
+    kidsCategories :['Jeans','Shirts','T-Shirts','Footwear'],
+    sportsCategories :['Jeans','Shirts','T-Shirts','Footwear'],
+    discountCategories :['Jeans','Shirts','Footwear'],
+    selectedMainCategory : "",
+    selectedSubCategory:""
 
 };
 
@@ -30,18 +36,14 @@ const reducer = (state = initialState, { type, payload }) => {
 
         console.log('USER_REGISTER_SUCCESS');
         newState.auth.currentUser = payload.user ;
+    }else if (type === 'UPDATE_MAIN_CATEGORY'){
 
-    }else if(type === 'UPDATE_NAME'){
-        console.log("Success "+payload);
-        newState.person.name = payload;
-    }else  if(type === 'UPDATE_USERS_SUCCESS'){
-        console.log("UPDATE_USERS_SUCCESS" + payload)
-        newState.users=payload;
-    }else if (type === 'UPDATE_CATEGORY'){
-
-        newState.selectedCategory = payload;
+        newState.selectedMainCategory = payload;
     }
+    else if (type === 'UPDATE_SUB_CATEGORY'){
 
+        newState.selectedSubCategory = payload;
+    }
     return newState;
 
 }
