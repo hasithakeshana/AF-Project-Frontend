@@ -10,6 +10,7 @@ import RatingList from './components/RatingsList';
 import RatingProgress from './components/RatingProgress';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Example from './components/RatingView';
+import CardExample from './components/EcommercePage';
 
 
 
@@ -18,9 +19,11 @@ import Particles from 'react-particles-js';
 class App extends Component {
   render() {
     return (
-      
-    
-<RatingsCom></RatingsCom>
+      <div>
+ <CardExample></CardExample>
+      </div>
+   
+
       
     );
   }
