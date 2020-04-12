@@ -162,3 +162,20 @@ console.log('response',response);
 return response;
 
 }
+
+export const getItemDetails = async (productId) => {
+
+  console.log('productId ',productId);
+  
+  const response = await axios.get(`http://localhost:4000/api/items/${productId}`);
+  
+  console.log('response',response);
+  
+  return response;
+  
+  }
+  
+
+
+
+

@@ -14,15 +14,16 @@ import CardExample from './components/EcommercePage';
 
 
 
+import Carousel from './components/Carousel';
+
+import ViewItem from './components/ViewItem';
+
 import Particles from 'react-particles-js';
 
 class App extends Component {
   render() {
     return (
-      <div>
- <CardExample></CardExample>
-      </div>
-   
+     <ViewItem></ViewItem>
 
       
     );

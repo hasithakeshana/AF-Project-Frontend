@@ -13,6 +13,9 @@ import RatingList from './RatingsList';
 import RatingProgress from './RatingProgress';
 import ParticlesBg from "particles-bg";
 
+import Moment from 'react-moment';
+import Button from '@material-ui/core/Button';
+
 const labels = {
   0.5: 'Useless',
   1: 'Useless+',
@@ -35,104 +38,175 @@ const useStyles = makeStyles({
 });
 
 
+
 //npm install @material-ui/lab
+const handleSubmit = (evt) => {
+  evt.preventDefault();
+ 
+ 
+  
+}
+
 
 
 
 export function RatingsCom({addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings}) {
 
+const [itemId, setItemId] = useState("5e874f74d1bd592a75600858"); // get from the store
+const [userName, setUserName] = useState("Hashi"); // get from the store
+const [userReview, setUserReview] = useState("");
+useEffect(() => {
+
+    
+    getRatings(itemId);
+
+    
+
+
+
+
+  
+},[])
+
+useEffect(() => {
+
+    
+ 
+  change(userName,ratingList);
+  
+},[ratingList])
+
+
 console.log('userRole',progressRating);
 
-//const returnedArray = Array.from(ratingList);
 
-  useEffect(() => {
 
-     
-      getRatings(itemId)
 
-  },[])
 
-  const [itemId, setItemId] = useState("5e877028a1dcc10dee1d253e"); // get from the store
+const [comment, setComment] = useState("");
 
-  const [userName, setUserName] = useState("keshana@meetrix.io"); // get from the store
+const [userAlreadyRated, setuserAlreadyRated] = useState(false);
 
-  const [comment, setComment] = useState("");
+//const rated = userRated(userName,returnedArray);
 
-  // const [role, setRole] = useState(userRole);
 
-  // setRole(userRole);
 
-  // console.log('roleeeeeeeee',role);
- 
 
-  const [value, setValue] = React.useState(2);
+const [value, setValue] = React.useState(0);
 
   const [hover, setHover] = React.useState(-1);
   const classes = useStyles();
 
   const validate = (itemId,userName,value,comment) =>
   {
-    addRating(itemId,userName,value,comment);
+    const date = new Date();
+    console.log(date);
+    addRating(itemId,userName,value,comment,date);
   }
+ 
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+  function  change(userName,returnedArray){
+
+    console.log('detaaaaaaaaaaaaaaaaaaaaa',userName,returnedArray);
+
+    const returnedArrays = Array.from(returnedArray);
+console.log('returnedArray',returnedArray);
+
+    // console.log(u)
+     let isRated = false;
+     for(const value of returnedArrays) {
+       if(value.userName === userName)
+       {
+         isRated = true;
+         setuserAlreadyRated(true);
+         setUserReview(value);
+         break;
+       }
+     }
    
-    console.log('comment',comment);
-    console.log('rate',value);
     
-}
+   
+   
+     
+   }
 
-
-  console.log('value = ',value);
-    return (
+   console.log('isRated,user',userAlreadyRated,userReview);
+  
+return (
+      
      
         <div>
-          <form onSubmit={handleSubmit}>
 
-            {
-
-              userRole === 'guest' ? <h1>cant add ratings only view </h1> : <h2>can add rate and comments</h2>
-
-
-            }
-        <input type="text" 
-         onChange={e => setComment(e.target.value)}
-        /> 
-        <br></br>
-        <button
-         onClick = {  () => validate(itemId,userName,value,comment)  }
-        
-        >button</button>
-
-        <div className={classes.root}>
-      <Rating
-        name="hover-feedback"
-        value={value}
-        precision={0.5}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        onChangeActive={(event, newHover) => {
-          setHover(newHover);
-        }}
-      />
-      {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
-
-     
-    </div>
-    </form>
-    <RatingProgress 
+<RatingProgress 
     progress={progressRating}
     avgRating={avgRating}
     countRatings={countRatings}
     
     ></RatingProgress>
 
-<RatingList list={ratingList}>
+
+          <form onSubmit={handleSubmit}>
+
+            <Rating
+
+             name="hover-feedback"
+            value={value}
+            precision={0.5}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+                        }}
+            onChangeActive={(event, newHover) => {
+           setHover(newHover);
+                }}
+                size="large"
+
+              />
+
+              
+
+{value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+
+<textarea class="form-control" onChange={e => setComment(e.target.value)} id="exampleFormControlTextarea1" rows="3"></textarea>
 
 
-</RatingList>
+        <br></br>
+        
+        <button type="button"  onClick = {  () => validate(itemId,userName,value,comment)  } class="btn btn-outline-success">Rate Us!</button>
+
+        <div className={classes.root}>
+     
+    
+
+
+     
+     
+    </div>
+    </form>
+
+    {
+
+userAlreadyRated === true ? 
+
+<div class="alert alert-danger" role="alert">
+<Rating name="size-small" defaultValue={userReview.rate} size="small" readOnly={true} />
+<h5 class="alert-heading">{userReview.userName} </h5>
+       <p><Moment format="YYYY/MM/DD">{userReview.date}</Moment></p>
+<hr></hr>
+       <p class="mb-0">{ userReview.comment} </p>
+
+       
+</div>
+
+: <h2>can add rate and comments</h2>
+
+
+      }
+  
+
+<RatingList 
+list={ratingList}
+ userName={userName} 
+ ></RatingList>
   
 
 
@@ -176,7 +250,7 @@ const mapDispachToProps = (dispach) => {
 
   return {
    
-    addRating : (itemId,userName,rate,comment) => dispach(reduxActions.AddRatingAction({itemId,userName,rate,comment})) ,
+    addRating : (itemId,userName,rate,comment,date) => dispach(reduxActions.AddRatingAction({itemId,userName,rate,comment,date})) ,
     getRatings : (ProductId) => dispach(reduxActions.GetRatingAction(ProductId)),
 
 

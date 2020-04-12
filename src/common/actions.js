@@ -119,3 +119,34 @@ export function GetRatingFailAction(error) {
       },
     };
   }
+
+
+export function GetViewItemAction(ProductId){
+
+    return{
+        type : ACTIONS.GET_VIEW_ITEM,
+        payload: {
+          ProductId
+                 },
+    };
+}
+
+export function GetViewItemSuccessAction(data){
+
+  return{
+      type : ACTIONS.GET_VIEW_ITEM_SUCCESS,
+      payload: {
+        data
+               },
+  };
+}
+
+export function GetViewItemFailAction(error){
+
+  return{
+      type : ACTIONS.GET_VIEW_ITEM_SUCCESS,
+      payload: {
+        error
+               },
+  };
+}

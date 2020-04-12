@@ -14,3 +14,6 @@ export const GET_RATE_COMMENTS = 'app/RatingPage/GET_RATE_COMMENTS';
 export const GET_RATE_COMMENTS_SUCCESS = 'app/RatingPage/GET_RATE_COMMENTS_SUCCESS';
 export const GET_RATE_COMMENTS_FAILED = 'app/RatingPage/GET_RATE_COMMENTS_FAILED';
 
+export const GET_VIEW_ITEM = 'app/RatingPage/GET_VIEW_ITEM';
+export const GET_VIEW_ITEM_SUCCESS = 'app/RatingPage/GET_VIEW_ITEM_SUCCESS';
+export const GET_VIEW_ITEM_FAILED = 'app/RatingPage/GET_VIEW_ITEM_FAILED';

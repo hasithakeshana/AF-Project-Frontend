@@ -1,11 +1,29 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ParticlesBg from "particles-bg";
 
-function RatingsList({list}) {
+import Rating from '@material-ui/lab/Rating';
+import { makeStyles } from '@material-ui/core/styles';
+import Moment from 'react-moment';
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    '& > * + *': {
+      marginTop: theme.spacing(1),
+    },
+  },
+}));
+
+function RatingsList({list,userName}) {
+
+    const classes = useStyles();
 
    const lists = Array.from(list);
-    console.log('props',list);
+    console.log('props lists',list);
+  //  console.log('props userName',userName);
+
+ 
  
     return (
         <div>
@@ -16,8 +34,9 @@ lists.map((rating) =>
 
 
 <div class="alert alert-success" role="alert">
-  <h4 class="alert-heading">{rating.userName} </h4>
-             <p>{rating.rate}</p>
+<Rating name="size-small" defaultValue={rating.rate} size="small" readOnly={true} />
+  <h5 class="alert-heading">{rating.userName} </h5>
+  <p><Moment format="YYYY/MM/DD">{rating.date}</Moment></p> 
   <hr></hr>
              <p class="mb-0">{ rating.comment} </p>
 </div>

@@ -3,7 +3,7 @@ import {takeLatest , all ,  put , call} from 'redux-saga/effects';
 
 import * as CONSTANTS from '../common/constants';
 
-import {fetchData , fetchLogin , fetchRatingsAdd , getRatingComments } from '../common/apiRoutes';
+import {fetchData , fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails } from '../common/apiRoutes';
 
 //import {registerSuccessAction , registerFailAction } from '../common/actions';
 
@@ -124,6 +124,35 @@ function* loginUserWorker({ payload: { user } }){
  
  }
 
+ function* getViewItemDetails({ payload: { ProductId } }){
+
+    
+    console.log('saga working');
+ 
+    console.log('saga productid ',ProductId);
+ 
+  
+ 
+     try{
+        const data  = yield call (getItemDetails ,ProductId) || {};
+ 
+        console.log('correct data',data.data.item);
+ 
+      if (data) yield put(globalActions.GetViewItemSuccessAction(data.data.item));
+ 
+        
+         
+     }
+     catch(err){
+
+       // yield put(globalActions.GetRatingFailAction(err));
+         console.log(err);
+        
+     }
+    
+ 
+ }
+
 
 
 
@@ -140,7 +169,8 @@ export function* rootWatcher(){
     takeLatest(CONSTANTS.USER_LOGIN,loginUserWorker),
     takeLatest(CONSTANTS.ADD_RATE_COMMENT,rateAddedWorker),
     takeLatest(CONSTANTS.GET_RATE_COMMENTS,getRateCommentsWorker),
-   
+    takeLatest(CONSTANTS.GET_VIEW_ITEM,getViewItemDetails),
+        
    
     ]);
 }

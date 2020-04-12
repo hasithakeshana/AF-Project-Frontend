@@ -19,14 +19,13 @@ function RatingProgress(props) {
 
     return (
         <div>
-            <span class="heading">User Rating</span>
-<span class="fa fa-star checked"></span>
-<span class="fa fa-star checked"></span>
-<span class="fa fa-star checked"></span>
-<span class="fa fa-star checked"></span>
-<span class="fa fa-star"></span>
+           
 
-    <p>{avgRating.avg}average based on {countRatings.noOfRatings} reviews</p>
+            <button type="button" class="btn btn-primary">
+  Reviews <span class="badge badge-light">{countRatings.noOfRatings}</span>
+</button>
+
+    <p>{avgRating.avg} average based on {countRatings.noOfRatings} reviews</p>
 
 <div class="row">
   <div class="side">
@@ -36,7 +35,7 @@ function RatingProgress(props) {
     <div class="bar-container">
      
     <Progress multi>
-     <Progress bar animated color="warning"  value="50" max={100}>5</Progress>
+     <Progress bar animated color="warning"  value={progress.five} max={100}>{progress.five}</Progress>
       
     </Progress>
    
@@ -54,7 +53,7 @@ function RatingProgress(props) {
     <div class="bar-container">
       
     <Progress multi>
-      <Progress bar animated color="danger" value={19} max={55}>5</Progress>
+      <Progress bar animated color="danger" value={progress.four} max={100}>{progress.four}</Progress>
       
     </Progress>
 
@@ -70,7 +69,7 @@ function RatingProgress(props) {
     <div class="bar-container">
     
     <Progress multi>
-    <Progress bar animated color="info" value="20" max={100}>10</Progress>
+    <Progress bar animated color="info" value={progress.three} max={100}>{progress.three}</Progress>
       
     </Progress>
 
@@ -87,7 +86,7 @@ function RatingProgress(props) {
     <div class="bar-container">
     
 <Progress multi>
-<Progress bar animated color="success" value="50" max={100}>10</Progress>
+<Progress bar animated color="success" value={progress.two} max={100}>{progress.two}</Progress>
 </Progress>
 
 
@@ -104,7 +103,7 @@ function RatingProgress(props) {
      
 
     <Progress multi>
-       <Progress bar animated  value="5" max={55}>5</Progress>
+       <Progress bar animated  value={progress.one} max={100}>{progress.one}</Progress>
       
     </Progress>
     </div>

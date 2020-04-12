@@ -15,6 +15,7 @@ const initialState = {
         
       },
     item:{
+        currentSelectedItem : {} ,
         itemRatingDetails:{
             countRatings : {} ,
             avgRating : 0,
@@ -53,6 +54,14 @@ if(type === ACTIONS.GET_RATE_COMMENTS_SUCCESS){
     newState.item.itemRatingDetails.ratingCount = payload.data.noOfRatings;
 
     newState.item.itemRatingDetails.ratingList = payload.data.ratings
+
+}
+
+if(type === ACTIONS.GET_VIEW_ITEM_SUCCESS){
+
+    newState.item.currentSelectedItem = payload.data;
+
+
 
 }
 
