@@ -6,5 +6,7 @@ export const USER_LOGIN = 'app/SignInPage/USER_LOGIN';
 export const USER_LOGIN_SUCCESS = 'app/SignInPage/USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAILED = 'app/SignInPage/USER_LOGIN_FAILED';
 
-
+export const ADD_ITEM = 'app/AddItem/ADD_ITEM';
+export const ADD_ITEM_SUCCESS = 'app/AddItem/ADD_ITEM_SUCCESS';
+export const ADD_ITEM_FAILED = 'app/ADD_ITEM/ADD_ITEM_FAILED';
 

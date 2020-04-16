@@ -20,7 +20,7 @@ export function registerSuccessAction(user) {
         user,
       },
     };
-  }
+}
 
 
 export function registerFailAction(error) {
@@ -30,9 +30,9 @@ export function registerFailAction(error) {
         error,
       },
     };
-  }
+}
 
-  export function loginAction(user){
+export function loginAction(user){
 
     return{
         type : ACTIONS.USER_LOGIN,
@@ -49,7 +49,7 @@ export function loginSuccessAction(user) {
         user,
       },
     };
-  }
+}
 
 
 export function loginFailAction(error) {
@@ -59,4 +59,33 @@ export function loginFailAction(error) {
         error,
       },
     };
-  }
+}
+
+
+
+export function addItemAction(item){
+    return{
+        type : ACTIONS.ADD_ITEM,
+        payload: {
+               item
+                 },
+    };
+}
+
+export function addItemActionSuccess(item) {
+  return {
+    type: ACTIONS.ADD_ITEM_SUCCESS,
+    payload: {
+      item,
+    },
+  };
+}
+
+export function addItemActionFail(error) {
+  return {
+    type: ACTIONS.ADD_ITEM_FAILED,
+    payload: {
+      error,
+    },
+  };
+}

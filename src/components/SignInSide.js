@@ -19,6 +19,9 @@ import {connect} from 'react-redux';
 
 import * as reduxActions from '../common/actions';
 
+import { useFormik } from 'formik';
+import * as Yup from "yup";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -63,38 +66,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const validationSchema = Yup.object({
+  email: Yup.string().email("Please enter a valid email").required("Please enter email"),
+  password: Yup.string().min(8).required("Please enter password")
+});
+
 function SignInSide({loginUser}) {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const email= useState("");
+  const password = useState("");
 
   
 
-  useEffect(() => {
-  
-   
-  }, []);
+  useEffect(() => { });
 
  
   const classes = useStyles();
 
+
+
+  const { handleSubmit, handleChange, values, errors } = useFormik({
+    initialValues: {
+      email: "",
+      password: ""
+    },
+    validationSchema,
+    onSubmit(values) {
+      console.log(values);
+    }
+  });
+    
   
+  const isDisabled = Object.keys(errors).some(x => errors[x]);
 
-
-  
-
-
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-   
-    console.log('name',email);
-    console.log('password',password);
-}
 
   return (
-
- 
 
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -111,29 +117,28 @@ function SignInSide({loginUser}) {
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
               autoFocus
-              value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={handleChange}
             />
+            {errors.email}
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               name="password"
               label="Password"
               type="password"
               id="password"
               autoComplete="current-password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={handleChange}
             />
+            {errors.password}
+            <br></br>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -146,7 +151,8 @@ function SignInSide({loginUser}) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick = {  () => loginUser(email,password)  }
+              disabled={isDisabled}
+              onClick = {  () => loginUser(values.email,values.password)  }
             >
               Sign Up
             </Button>
@@ -172,10 +178,10 @@ function SignInSide({loginUser}) {
       </Grid>
     </Grid>
   );
-
+  }
 
  
-}
+
 
 SignInSide.propTypes = {
   

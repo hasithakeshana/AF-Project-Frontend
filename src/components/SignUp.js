@@ -20,6 +20,10 @@ import {connect} from 'react-redux';
 
 import * as reduxActions from '../common/actions';
 
+import { useFormik } from 'formik';
+import * as Yup from "yup";
+import axios from "axios";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -50,26 +54,44 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-  },
+  }
 }));
+
+const validationSchema = Yup.object({
+  firstName: Yup.string().required("Please fill the field"),
+  lastName: Yup.string().required("Please fill the field"),
+  email: Yup.string().email("Please enter a valid email").required("Please fill the field"),
+  password: Yup.string().min(8).required("Please fill the field"),
+  confirm_password: Yup.string().required("Please fill the field").oneOf([Yup.ref('password'), null], 'Passwords do not match',),
+});
+
+
 
 function SignUp({signUpuser}) {
 
-    const [firstName, setFname] = useState("");
-    const [lastName, setLname] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const firstName = useState("");
+    const lastName = useState("");
+    const email = useState("");
+    const password = useState("");
+    
 
 
-    const handleSubmit = (evt) => {
-        evt.preventDefault();
-       
-        console.log('details ',firstName,lastName,email,password);
-       
-
-    }
-
-
+    const { handleSubmit, handleChange, values, errors } = useFormik({
+      initialValues: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirm_password: "",
+      },
+      validationSchema,
+      onSubmit(values) {
+          console.log(values);
+        
+      }
+    });
+    
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
 
 
   const classes = useStyles();
@@ -85,65 +107,72 @@ function SignUp({signUpuser}) {
           Sign up
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <TextField
+                error
                 autoComplete="fname"
                 name="firstName"
                 variant="outlined"
-                required
                 fullWidth
                 id="firstName"
                 label="First Name"
                 autoFocus
-
-              value={firstName}
-              onChange={e => setFname(e.target.value)}
-              />
+                onChange={handleChange}
+              />{errors.firstName}
             </Grid>
+            
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 id="lastName"
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
-
-              value={lastName}
-              onChange={e => setLname(e.target.value)}
-              />
+                onChange={handleChange}
+              />{errors.lastName}
             </Grid>
+            
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-
-              value={email}
-              onChange={e => setEmail(e.target.value)}
+                onChange={handleChange}
               />
             </Grid>
+            {errors.email}
+
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 name="password"
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
-
-              value={password}
-              onChange={e => setPassword(e.target.value)}
+                onChange={handleChange}
               />
             </Grid>
+            {errors.password}
+
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                name="confirm_password"
+                label="Confirm Password"
+                type="password"
+                id="confirm_password"
+                onChange={handleChange}
+              />
+            </Grid>
+            {errors.confirm_password}
+
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -151,14 +180,15 @@ function SignUp({signUpuser}) {
               />
             </Grid>
           </Grid>
+
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-
-            onClick = {  () => signUpuser(firstName,lastName,email,password)  }
+            disabled={isDisabled}
+            onClick = {  () => signUpuser(values.firstName,values.lastName,values.email,values.password)  }
           >
             Sign Up
           </Button>
