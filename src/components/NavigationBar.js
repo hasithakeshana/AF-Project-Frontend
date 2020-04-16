@@ -1,10 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {update_selected_main_category, update_selected_sub_category} from "../store/actions";
+import {
+    update_buildSelectedItemsArray,
+    update_selected_main_category,
+    update_selected_sub_category
+} from "../store/actions";
+import {Link} from 'react-router-dom'
 
 
 function NavigationBar(props) {
+
+    useEffect(() => {
+
+        props.selectedItemsArray(props.state.items)
+
+    }, []);
+
+    function buildSelectedItemsArray(mainCategory, subCategory) {
+        let selectedItemsArray = []
+        props.state.items.map(item => {
+            //console.log(item.mainCategory + " " + item.subCategory + "      " + mainCategory + " " + subCategory)
+            if ((item.mainCategory === mainCategory && item.subCategory === subCategory) || mainCategory === 'All' ) {
+                selectedItemsArray.push(item)
+            }
+
+        });
+        //console.log(selectedItemsArray);
+        props.selectedItemsArray(selectedItemsArray);
+    }
 
     return (
         <div>
@@ -18,9 +42,23 @@ function NavigationBar(props) {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="/#">Shop Here <span className="sr-only">(current)</span></a>
+                        <Link to='/'>
+                            <li className="nav-item ">
+                                <a className="nav-link" >Home </a>
+                            </li>
+                        </Link>
+
+                        <Link to="/products">
+                        <li className="nav-item " onClick={()=>{
+
+                            props.selectSub("All");
+                            props.selectMain("All")
+                            buildSelectedItemsArray("All", "All")
+
+                        }}>
+                            <a className="nav-link" href=" ">All Products </a>
                         </li>
+                        </Link>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="/#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -28,13 +66,18 @@ function NavigationBar(props) {
                             </a>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {props.state.menCategories.map(subCategory =>
-                                    <li className="dropdown-item" onClick={() => {
-                                        props.selectSub(subCategory);
-                                        props.selectMain("Men")
-                                    }} key={subCategory}>{subCategory}</li>
+                                    <Link to='/products'>
+                                        <li className="dropdown-item"  onClick={() => {
+                                            props.selectSub(subCategory);
+                                            props.selectMain("Men")
+                                            buildSelectedItemsArray("Men", subCategory)
+
+                                        }} key={subCategory}>{subCategory}</li>
+                                    </Link>
                                 )}
                             </div>
                         </li>
+
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="/#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -42,10 +85,14 @@ function NavigationBar(props) {
                             </a>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {props.state.womenCategories.map(subCategory =>
-                                    <li className="dropdown-item" onClick={() => {
-                                        props.selectSub(subCategory);
-                                        props.selectMain("Women")
-                                    }} key={subCategory}>{subCategory}</li>
+                                    <Link to='/products'>
+                                        <li className="dropdown-item" onClick={() => {
+                                            props.selectSub(subCategory);
+                                            props.selectMain("Women");
+                                            buildSelectedItemsArray("Women", subCategory);
+
+                                        }} key={subCategory}>{subCategory}</li>
+                                    </Link>
                                 )}
                             </div>
                         </li>
@@ -56,10 +103,13 @@ function NavigationBar(props) {
                             </a>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {props.state.kidsCategories.map(subCategory =>
-                                    <li className="dropdown-item" onClick={() => {
-                                        props.selectSub(subCategory);
-                                        props.selectMain("Kids")
-                                    }} key={subCategory}>{subCategory}</li>
+                                    <Link to='/products'>
+                                        <li className="dropdown-item" onClick={() => {
+                                            props.selectSub(subCategory);
+                                            props.selectMain("Kids");
+                                            buildSelectedItemsArray("Kids", subCategory);
+                                        }} key={subCategory}>{subCategory}</li>
+                                    </Link>
                                 )}
                             </div>
                         </li>
@@ -70,10 +120,13 @@ function NavigationBar(props) {
                             </a>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {props.state.sportsCategories.map(subCategory =>
-                                    <li className="dropdown-item" onClick={() => {
-                                        props.selectSub(subCategory);
-                                        props.selectMain("Sports")
-                                    }} key={subCategory}>{subCategory}</li>
+                                    <Link to='/products'>
+                                        <li className="dropdown-item" onClick={() => {
+                                            props.selectSub(subCategory);
+                                            props.selectMain("Sports")
+                                            buildSelectedItemsArray("Sports", subCategory)
+                                        }} key={subCategory}>{subCategory}</li>
+                                    </Link>
                                 )}
                             </div>
                         </li>
@@ -84,10 +137,13 @@ function NavigationBar(props) {
                             </a>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {props.state.discountCategories.map(subCategory =>
-                                    <li className="dropdown-item" onClick={() => {
-                                        props.selectSub(subCategory);
-                                        props.selectMain("SpecialDiscounts")
-                                    }} key={subCategory}>{subCategory}</li>
+                                    <Link to='/products'>
+                                        <li className="dropdown-item" onClick={() => {
+                                            props.selectSub(subCategory);
+                                            props.selectMain("SpecialDiscounts")
+                                            buildSelectedItemsArray("SpecialDiscounts", subCategory)
+                                        }} key={subCategory}>{subCategory}</li>
+                                    </Link>
                                 )}
                             </div>
                         </li>
@@ -113,13 +169,15 @@ const mapStateToProps = state => {
     return {
         state: state
     }
-}
+};
 
 const mapDispatchToProps = dispatch => {
     return {
         selectMain: (mainCategory) => dispatch(update_selected_main_category(mainCategory)),
-        selectSub: (subCategory) => dispatch(update_selected_sub_category(subCategory))
+        selectSub: (subCategory) => dispatch(update_selected_sub_category(subCategory)),
+        selectedItemsArray: (selectedItemsArray) => dispatch(update_buildSelectedItemsArray(selectedItemsArray))
+
     }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from 'react-redux';
-import {createStore, applyMiddleware, compose} from 'redux';
+import {applyMiddleware, compose, createStore} from 'redux';
 import reducer from './store/reducer';
 import createSagaMiddleware from 'redux-saga';
 import {rootWatcher} from './sagas/saga';
@@ -18,14 +18,16 @@ import 'bootstrap/dist/js/bootstrap.js';
 import registerServiceWorker from './registerServiceWorker';
 
 const sagaMiddleware = createSagaMiddleware();
-const  middlewares = [sagaMiddleware]
+const middlewares = [sagaMiddleware]
 //sagaMiddleware.run()
 const composeEnhansers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducer,composeEnhansers(applyMiddleware(...middlewares)) );
+const store = createStore(reducer, composeEnhansers(applyMiddleware(...middlewares)));
 
 sagaMiddleware.run(rootWatcher);
 
-ReactDOM.render(<Provider store={store}><App /></Provider> , document.getElementById('root'));
+ReactDOM.render(<Provider store={store}>
+    <App/>
+</Provider>, document.getElementById('root'));
 
 registerServiceWorker();

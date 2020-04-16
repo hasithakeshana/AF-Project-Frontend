@@ -1,6 +1,6 @@
 import React from "react";
-import  image1 from  '../images/ImageSlider/imageSlider1.jpeg'
-import  image2 from  '../images/ImageSlider/imageSlider2.jpeg'
+import  image1 from  '../images/ImageSlider/imageSlider1.jpg'
+import  image2 from  '../images/ImageSlider/imageSlider2.jpg'
 
 import '../index.css'
 function ImageSlider() {

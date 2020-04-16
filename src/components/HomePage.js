@@ -12,9 +12,6 @@ function HomePage(props) {
         <div>
             <Header/>
         <NavigationBar> </NavigationBar>
-            <h1> {props.state.selectedMainCategory}</h1>
-            <h1> {props.state.selectedSubCategory}</h1>
-            <ImageSlider/>
 
         </div>
 

@@ -4,9 +4,72 @@
     margin-right: auto;
     width: 45%;
 }
-.imageSlider{
 
+.imageSlider {
     width: 50%;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
 
+.item{
+    margin-left: 45px;
+    margin-right: 45px;
+    color: #383332 ;
+}
+.itemIcons{
+    margin-left: 160px;
+    align-content: center;
+    color: #383332 ;
+}
+.noItems{
+
+    color: darkgrey ;
+    margin-left: 550px;
+    margin-top: 150px;
+}
+.itemContainer{
+
+    margin-top: 50px;
+}
+.cart{
+    margin-top: 150px;
 
 }
+.table{
+
+    align-items: center;
+}
+
+.tableContainer{
+    width: 900px;
+    margin-left: 220px;
+    margin-top: 50px;
+}
+.tableheaderCenter{
+    alignment: center;
+}
+.tableDataPrice{
+    width: 260px;
+}
+.tableDataQ{
+    width: 200px;
+}
+.tableDataTotal{
+     width: 260px;
+ }
+.cartButton{
+
+    color: rosybrown;
+    height: 20px;
+}
+
+.total{
+    background-color: #2E2726;
+    text-align:center;
+    color: whitesmoke;
+}
+
+
+
+
+
