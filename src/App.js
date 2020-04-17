@@ -3,7 +3,7 @@ import HomePage from "./components/HomePage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cart from "./components/Cart/Cart";
 import ItemContainer from './components/ItemContainer';
-import ModalTest from "./components/ModalTest";
+import TestModel from "./components/TestModel";
 import ImageSlider from "./components/ImagSlider";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
@@ -15,7 +15,6 @@ class App extends Component {
         <Router>
         <div>
         <HomePage/>
-        <ModalTest/>
         <switch>
         <Route path = "/" exact component ={ImageSlider}/>
         <Route path = "/products" exact component ={ItemContainer}/>

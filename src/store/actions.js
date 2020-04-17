@@ -58,3 +58,23 @@ export function add_to_total(item) {
     }
 }
 
+export function cart_check_true() {
+    return{
+        type: 'CART_CHECK_TRUE',
+        payload:1
+    }
+}
+export function cart_check_false() {
+    console.log('false')
+    return{
+        type: 'CART_CHECK_FALSE',
+        payload:1
+    }
+}
+export function check_cart(item) {
+    return{
+        type: 'CHECK_CART',
+        payload:item
+    }
+}
+

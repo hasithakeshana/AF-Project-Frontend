@@ -23,9 +23,10 @@ export const initialState = {
         description: "50% OFF TODAY",
         mainCategory: "Men",
         subCategory: "Jeans",
-        quantityInCart: 1
+        quantityInCart: 1,
+        cartIn: false
     }, {
-        itemID: 1,
+        itemID: 2,
         itemRatingDetails: {},
         images: ['http://localhost:4000/1.jpeg'],
         name: "Crocodile Shirt",
@@ -33,10 +34,11 @@ export const initialState = {
         description: "50% OFF TODAY",
         mainCategory: "Men",
         subCategory: "Jeans",
-        quantityInCart: 1
+        quantityInCart: 1,
+        cartIn: false
     },
         {
-            itemID: 2,
+            itemID: 3,
             itemRatingDetails: {},
             images: ['http://localhost:4000/2.jpeg'],
             name: "Ralph Loren Shirt",
@@ -44,10 +46,11 @@ export const initialState = {
             description: "70% OFF TODAY",
             mainCategory: "Women",
             subCategory: "Jeans",
-            quantityInCart: 1
+            quantityInCart: 1,
+            cartIn: false
         },
         {
-            itemID: 1,
+            itemID: 4,
             itemRatingDetails: {},
             images: ['http://localhost:4000/1.jpeg'],
             name: "Crocodile Shirt",
@@ -55,10 +58,11 @@ export const initialState = {
             description: "50% OFF TODAY",
             mainCategory: "Men",
             subCategory: "Shirts",
-            quantityInCart: 1
+            quantityInCart: 1,
+            cartIn: false
         },
         {
-            itemID: 2,
+            itemID: 5,
             itemRatingDetails: {},
             images: ['http://localhost:4000/1.jpeg'],
             name: "Crocodile Shirt",
@@ -66,61 +70,68 @@ export const initialState = {
             description: "50% OFF TODAY",
             mainCategory: "Women",
             subCategory: "Jeans",
-            quantityInCart: 1
+            quantityInCart: 1,
+            cartIn: false
         },
         {
-            itemID: 23,
+            itemID: 6,
             itemRatingDetails: {},
             images: ['http://localhost:4000/2.jpeg'],
             name: "Ralph Loren Shirt",
             price: 655.00,
             description: "70% OFF TODAY",
-            quantityInCart: 1
+            quantityInCart: 1,
+            cartIn: false
         }, {
-            itemID: 133,
+            itemID: 7,
             itemRatingDetails: {},
             images: ['http://localhost:4000/1.jpeg'],
             name: "Crocodile Shirt",
             price: 500.00,
             description: "50% OFF TODAY",
-            quantityInCart: 1
+            quantityInCart: 1,
+            cartIn: false
         },
         {
-            itemID: 2232,
+            itemID: 8,
             itemRatingDetails: {},
             images: ['http://localhost:4000/2.jpeg'],
             name: "Ralph Loren Shirt",
             price: 655.00,
             description: "70% OFF TODAY",
-            quantityInCart: 1
+            quantityInCart: 1,
+            cartIn: false
         }, {
-            itemID: 12323,
+            itemID: 9,
             itemRatingDetails: {},
             images: ['http://localhost:4000/1.jpeg'],
             name: "Crocodile Shirt",
             price: 500.00,
             description: "50% OFF TODAY",
-            quantityInCart: 1
+            quantityInCart: 1,
+            cartIn: false
         },
         {
-            itemID: 2232,
+            itemID: 10,
             itemRatingDetails: {},
             images: ['http://localhost:4000/2.jpeg'],
             name: "Ralph Loren Shirt",
             price: 655.00,
             description: "70% OFF TODAY",
-            quantityInCart: 1
+            quantityInCart: 1,
+            cartIn: false
         }, {
-            itemID: 231,
+            itemID: 11,
             itemRatingDetails: {},
             images: ['http://localhost:4000/1.jpeg'],
             name: "Crocodile Shirt",
             price: 500.00,
             description: "50% OFF TODAY",
-            quantityInCart: 1
+            quantityInCart: 1,
+            cartIn: false
         },
         {
-            itemID: 6562,
+            itemID: 12,
             itemRatingDetails: {},
             images: ['http://localhost:4000/2.jpeg'],
             name: "Ralph Loren Shirt",
@@ -128,7 +139,8 @@ export const initialState = {
             description: "70% OFF TODAY",
             mainCategory: "Kids",
             subCategory: "Jeans",
-            quantityInCart: 1
+            quantityInCart: 1,
+            cartIn: false
         }
     ],
 
@@ -142,6 +154,7 @@ export const initialState = {
     selectedItemsArray: [],
     itemInCartCount: 0,
     cartTotal:0.0,
+    cartCheck: false,
     cart: [/*{
         itemID: 1,
         itemRatingDetails: {},
@@ -190,6 +203,15 @@ const reducer = (state = initialState, {type, payload}) => {
 
     }else if(type === 'ADD_TO_TOTAL'){
         newState.cartTotal = newState.cartTotal+payload.price;
+    }else if(type === 'CART_CHECK_TRUE'){
+            //console.log('CART_CHECK_TRUE')
+            newState.cartCheck = !newState.cartCheck;
+    }else if(type === 'CART_CHECK_FALSE'){
+        console.log('CART_CHECK_F')
+        newState.cartCheck = false;
+    }else if(type === 'CHECK_CART'){
+        let index = newState.items.findIndex(x=> x.itemID===payload.itemID);
+        newState.items[index].cartIn=true;
 
     }
     return newState;

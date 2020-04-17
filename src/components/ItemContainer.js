@@ -1,26 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
 import {MDBRow} from "mdbreact";
 import '../index.css'
 import Item from './Item';
 import {connect} from "react-redux";
-import Button from 'react-bootstrap/Button';
-var Modal = require('react-bootstrap-modal')
-
-
-
+import TestModel from "./TestModel";
 
 function ItemContainer(props) {
 
-
         return (
         <div>
+
+            {
+               props.cartCheck ? <TestModel/> : console.log()
+            }
+
             <MDBRow className="itemContainer">
 
                 {props.selectedItemsArray.length === 0 ?
                     <div>
                         <h5 className="noItems">Currently No Items Available </h5>
                     </div>
-                :
+                    :
                     props.selectedItemsArray.map(item =>
 
                         <Item
@@ -36,6 +36,7 @@ function ItemContainer(props) {
                     )
                 }
             </MDBRow>
+
         </div>
     )
 
@@ -44,7 +45,8 @@ function ItemContainer(props) {
 const mapStateToProps = state => {
     return {
         items: state.items,
-        selectedItemsArray : state.selectedItemsArray
+        selectedItemsArray : state.selectedItemsArray,
+        cartCheck : state.cartCheck
     }
 }
 

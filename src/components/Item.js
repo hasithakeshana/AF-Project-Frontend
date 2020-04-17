@@ -1,17 +1,35 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import {MDBCol, MDBMask, MDBView, MDBBtn } from "mdbreact";
 import '../index.css'
 import {connect} from "react-redux";
-import {add_to_total, update_cart, update_cart_count} from "../store/actions";
+import {add_to_total, cart_check_true, check_cart, update_cart, update_cart_count} from "../store/actions";
+import TestModel from "./TestModel";
 
 
 function Item(props) {
 
    /* const {id,images,description,price,name,selectedcategory,selectedSubCategory} = props;*/
     const{item} = props
+    const [inCart , setIncart] = useState(false);
+
+     const allIn =(item) => {
+        if(item.cartIn===false) {
+            props.updateCart(item);
+            props.updateCartCount();
+            props.updateTotalInCart(item);
+            props.checkCart(item);
+
+        }else{
+            props.updateCartCheckTrue();
+            return (
+                <diV> <TestModel/></diV>
+            )
+        }
+
+    }
 
     return (
 
@@ -33,10 +51,10 @@ function Item(props) {
             </h6>
             <MDBBtn className="fas fa-heart fa-2x itemIcons mb-3" />
             <MDBBtn className="fal fa-shopping-bag fa-2x mb-3"  onClick={()=>{
-                props.updateCart(item);
-                props.updateCartCount()
-                props.updateTotalInCart(item)
+               allIn(item)
+
             }}/>
+
 
       </MDBCol>
 
@@ -45,6 +63,7 @@ function Item(props) {
 const mapStateToProps = state => {
     return {
         items: state.items,
+        cart :state.cart,
         selectedItemsArray : state.selectedItemsArray
     }
 }
@@ -54,8 +73,9 @@ const mapDispatchToProps = dispatch => {
 
         updateCart : (item)=>dispatch( update_cart(item)),
         updateCartCount : () =>dispatch(update_cart_count()),
-        updateTotalInCart : (item) => dispatch(add_to_total(item))
-
+        updateTotalInCart : (item) => dispatch(add_to_total(item)),
+        updateCartCheckTrue : () => dispatch(cart_check_true()),
+        checkCart :(item) => dispatch(check_cart(item))
     }
 }
 
