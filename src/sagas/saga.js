@@ -3,7 +3,7 @@ import {takeLatest , all ,  put , call} from 'redux-saga/effects';
 
 import * as CONSTANTS from '../common/constants';
 
-import {fetchData , fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails } from '../common/apiRoutes';
+import {fetchData , fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails , getUserWishList , removeItemFromWishList } from '../common/apiRoutes';
 
 //import {registerSuccessAction , registerFailAction } from '../common/actions';
 
@@ -154,6 +154,68 @@ function* loginUserWorker({ payload: { user } }){
  }
 
 
+ function* getWishListWorker({ payload: { userId } }){
+
+    
+    console.log('saga working');
+ 
+    console.log('saga productid ',userId);
+ 
+  
+ 
+     try{
+        const data  = yield call (getUserWishList ,userId) || {};
+ 
+        console.log('correct data',data.data.wishlist);
+ 
+     if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
+ 
+        
+         
+     }
+     catch(err){
+
+       // yield put(globalActions.GetRatingFailAction(err));
+         console.log(err);
+        
+     }
+    
+ 
+ }
+
+
+ function* removeWishListItemWorker({ payload: { userId ,wishListOredrId } }){
+
+    
+    console.log('saga working');
+ 
+    console.log('saga productid ',userId,wishListOredrId);
+ 
+  
+ 
+     try{
+        const data  = yield call (removeItemFromWishList ,{userId,wishListOredrId}) || {};
+
+        const datas  = yield call (getUserWishList ,userId) || {};
+ 
+        console.log('correct data',data);
+
+        console.log('correct datass',datas);
+ 
+    // if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
+ 
+     if (datas) yield put(globalActions.GetUserWishListSuccessAction(datas.data.wishlist));
+         
+     }
+     catch(err){
+
+       // yield put(globalActions.GetRatingFailAction(err));
+         console.log(err);
+        
+     }
+    
+ 
+ }
 
 
 
@@ -170,7 +232,11 @@ export function* rootWatcher(){
     takeLatest(CONSTANTS.ADD_RATE_COMMENT,rateAddedWorker),
     takeLatest(CONSTANTS.GET_RATE_COMMENTS,getRateCommentsWorker),
     takeLatest(CONSTANTS.GET_VIEW_ITEM,getViewItemDetails),
-        
+    takeLatest(CONSTANTS.GET_USER_WISHLIST,getWishListWorker),
+    takeLatest(CONSTANTS.REMOVE_WISHLIST_ITEM,removeWishListItemWorker),
+    
    
     ]);
 }
+
+//REMOVE_WISHLIST_ITEM

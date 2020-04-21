@@ -150,3 +150,43 @@ export function GetViewItemFailAction(error){
                },
   };
 }
+
+
+export function GetUserWishListAction(userId){
+
+  return{
+      type : ACTIONS.GET_USER_WISHLIST,
+      payload: {
+        userId
+               },
+  };
+}
+
+export function GetUserWishListSuccessAction(data) {
+  return {
+    type: ACTIONS.GET_USER_WISHLIST_SUCCESS,
+    payload: {
+      data,
+    },
+  };
+}
+
+
+export function GetUserWishListFailAction(error) {
+  return {
+    type: ACTIONS.GET_USER_WISHLIST_FAILED,
+    payload: {
+      error,
+    },
+  };
+}
+
+export function RemoveWishListItemAction(userId,wishListOredrId){
+
+  return{
+      type : ACTIONS.REMOVE_WISHLIST_ITEM,
+      payload: {
+        userId,wishListOredrId
+               },
+  };
+}

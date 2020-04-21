@@ -176,6 +176,65 @@ export const getItemDetails = async (productId) => {
   }
   
 
+ // getUserWishList
 
+ export const getUserWishList = async (userId) => {
 
+  console.log('productId ',userId);
+  
+  const response = await axios.get(`http://localhost:4001/api/getWishList/${userId}`);
+  
+  console.log('response',response);
+  
+  return response;
+  
+  }
 
+  // removeItemFromWishList
+
+  export const removeItemFromWishList = async (user) =>{
+ 
+    try{
+  
+    const data = user ;
+     console.log('api data = ',data);
+  
+      //  const correctData = user["user"];
+      //   console.log('correctData',correctData);
+  
+  
+    const response = await axios.request({
+            method: 'POST',
+            url: `http://localhost:4001/api/deleteWishListProduct`,
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                      "Access-Control-Allow-Origin": "*"
+            },
+            data: JSON.stringify(data),
+          
+          }).then((res) => {
+  
+             console.log('output',res);
+  
+            // console.log('out',res.data);
+  
+            // const result =  res.data;
+           
+            //return result;
+          });
+  
+       // const resData = await response;
+       
+       // console.log('responsee api',resData);
+        
+       //return resData;
+         
+  
+  
+    }
+    catch(e){
+        console.log(e);
+    }
+  
+    
+  }

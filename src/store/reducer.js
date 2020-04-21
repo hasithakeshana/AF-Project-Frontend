@@ -12,6 +12,7 @@ const initialState = {
         isAuthenticated: false,
         isTokenChecked: false,
         isRegistered: false,
+        wishList : {},
         
       },
     item:{
@@ -63,6 +64,12 @@ if(type === ACTIONS.GET_VIEW_ITEM_SUCCESS){
 
 
 
+}
+
+if(type === ACTIONS.GET_USER_WISHLIST_SUCCESS){
+
+    console.log('reducer',payload.data);
+    newState.auth.wishList = payload.data;
 }
 
 
