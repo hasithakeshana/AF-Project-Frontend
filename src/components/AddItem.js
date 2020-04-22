@@ -1,14 +1,12 @@
-import React , { useState , useEffect } from 'react';
+import React , { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import uuid from 'react-uuid';
 
 
 import PropTypes from 'prop-types';
@@ -63,15 +61,9 @@ const validationSchema = Yup.object({
 
 
 function AddItem({addItem}) {
-
-    const title = useState("");
-    const category = useState("");
-    const description = useState("");
-    const price = useState("");
-    const  quantity = useState("");
+  
+    const id = uuid();
     
-
-
     const { handleSubmit, handleChange, values, errors } = useFormik({
       initialValues: {
         title: "",
@@ -174,7 +166,7 @@ function AddItem({addItem}) {
             color="primary"
             className={classes.submit}
             disabled={isDisabled}
-            onClick = {  () => addItem(values.title,values.description,values.category,values.price, values.quantity)  }
+            onClick = {  () => addItem(id, values.title,values.description,values.category,values.price, values.quantity)  }
           >
             Add Item
           </Button>
@@ -204,7 +196,7 @@ const mapDispachToProps = (dispach) => {
   
   return {
    
-    addItem : (title,description,category,price, quantity) => dispach(reduxActions.addItemAction({title,description,category,price, quantity})) ,
+    addItem : (id,title,description,category,price, quantity) => dispach(reduxActions.addItemAction({id,title,description,category,price, quantity})) ,
 
 
   }
