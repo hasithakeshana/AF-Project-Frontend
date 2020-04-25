@@ -52,9 +52,11 @@ const handleSubmit = (evt) => {
 
 export function RatingsCom({addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings}) {
 
-const [itemId, setItemId] = useState("5e874f74d1bd592a75600858"); // get from the store
-const [userName, setUserName] = useState("Hashi"); // get from the store
+const [itemId, setItemId] = useState("5e933a529b9e6363f89edebb"); // get from the store
+const [userName, setUserName] = useState("mal"); // get from the store
 const [userReview, setUserReview] = useState("");
+const [modifiedArray, setModifiedArray] = useState("");
+
 useEffect(() => {
 
     
@@ -89,7 +91,14 @@ const [userAlreadyRated, setuserAlreadyRated] = useState(false);
 
 //const rated = userRated(userName,returnedArray);
 
+/*
 
+
+todo - first user has no ratings then he add 2 ratings view - need to correct
+
+
+
+*/
 
 
 const [value, setValue] = React.useState(0);
@@ -123,6 +132,11 @@ console.log('returnedArray',returnedArray);
          break;
        }
      }
+
+   const someArray = returnedArrays.filter(x => x.userName !== 'mal');
+
+     console.log('somearry',someArray);
+     setModifiedArray(someArray);
    
     
    
@@ -205,6 +219,7 @@ userAlreadyRated === true ?
 
 <RatingList 
 list={ratingList}
+newList={modifiedArray}
  userName={userName} 
  ></RatingList>
   
