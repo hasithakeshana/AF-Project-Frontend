@@ -100,17 +100,23 @@ handleDelete = (id) => {
  removeItemFromWishList(this.state.id,id);
 }
 
-addTocartFromWishList = (id) => {
+addTocartFromWishList = (id,itemName,price,quantity) => {
 
   console.log('id',id);
 
-  const { addToCartFromWishList} = this.props;
+  const { addToCartFromWishList , removeItemFromWishList } = this.props;
 
-  const userid = this.state.id;
+  const userId = this.state.id;
 
-  const data = { userid ,id };
+  const product = {id,itemName,price,quantity};
+
+  const data = { userId , product };
+  //const { removeItemFromWishList} = this.props;
 
   addToCartFromWishList(data);
+
+  removeItemFromWishList(this.state.id,id);
+  
 }
 
 
@@ -145,7 +151,7 @@ render() {
 
 'button2':
 <MDBTooltip placement="top">
-    <MDBBtn color="primary" size="sm" onClick={() => this.addTocartFromWishList(row._id)}>
+    <MDBBtn color="primary" size="sm" onClick={() => this.addTocartFromWishList(row._id,row.itemName,row.price,row.quantity)}>
         Add To Cart
     </MDBBtn>
     <div>Remove item</div>

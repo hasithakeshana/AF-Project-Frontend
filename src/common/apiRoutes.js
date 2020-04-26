@@ -238,3 +238,58 @@ export const getItemDetails = async (productId) => {
   
     
   }
+
+
+export const addToCartFromWishList = async (data) =>{
+ 
+    try{
+  
+    const { userId , product } = data ;
+     
+     const reqBody = product;
+
+     const id = userId;
+     
+  
+     console.log('api body',reqBody);
+     
+   
+   
+  
+    const response = await axios.request({
+            method: 'POST',
+            url: `http://localhost:4001/api/addItemWishListFromCart/${id}`,
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                      "Access-Control-Allow-Origin": "*"
+            },
+            data: JSON.stringify(reqBody),
+           
+             
+          
+          }).then((res) => {
+  
+            console.log('output',res.data);
+  
+           // console.log('out',res.data);
+  
+            const result =  res.data;
+           
+            return result;
+          });
+  
+       const resData = await response;
+       
+       console.log('responsee api',resData);
+        
+      // return resData;
+         
+  
+  
+    }
+    catch(e){
+        console.log(e);
+    }
+  
+    
+  }

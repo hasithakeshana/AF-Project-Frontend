@@ -3,7 +3,7 @@ import {takeLatest , all ,  put , call} from 'redux-saga/effects';
 
 import * as CONSTANTS from '../common/constants';
 
-import {fetchData , fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails , getUserWishList , removeItemFromWishList } from '../common/apiRoutes';
+import {fetchData , fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails , getUserWishList , removeItemFromWishList , addToCartFromWishList } from '../common/apiRoutes';
 
 //import {registerSuccessAction , registerFailAction } from '../common/actions';
 
@@ -227,8 +227,8 @@ function* addToCartFromWishListWorker({ payload: data }){
  
   
  
-    //  try{
-    //     const data  = yield call (getUserWishList ,userId) || {};
+     try{
+        const data  = yield call (addToCartFromWishList ,data) || {};
  
     //     console.log('correct data',data.data.wishlist);
  
@@ -236,13 +236,13 @@ function* addToCartFromWishListWorker({ payload: data }){
  
         
          
-    //  }
-    //  catch(err){
+     }
+     catch(err){
 
-    //    // yield put(globalActions.GetRatingFailAction(err));
-    //      console.log(err);
+       // yield put(globalActions.GetRatingFailAction(err));
+         console.log(err);
         
-    //  }
+     }
     
  
  }
