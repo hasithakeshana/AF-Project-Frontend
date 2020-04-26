@@ -71,6 +71,10 @@ state = {
       {
         label: '',
         field: 'button'
+      },
+      {
+        label: '',
+        field: 'button2'
       }
   ],
   id : '5e8481268ec4322c1965d6ff'
@@ -94,6 +98,19 @@ handleDelete = (id) => {
  const { removeItemFromWishList} = this.props;
 
  removeItemFromWishList(this.state.id,id);
+}
+
+addTocartFromWishList = (id) => {
+
+  console.log('id',id);
+
+  const { addToCartFromWishList} = this.props;
+
+  const userid = this.state.id;
+
+  const data = { userid ,id };
+
+  addToCartFromWishList(data);
 }
 
 
@@ -124,7 +141,16 @@ render() {
                 X
             </MDBBtn>
             <div>Remove item</div>
-        </MDBTooltip>
+        </MDBTooltip>,
+
+'button2':
+<MDBTooltip placement="top">
+    <MDBBtn color="primary" size="sm" onClick={() => this.addTocartFromWishList(row._id)}>
+        Add To Cart
+    </MDBBtn>
+    <div>Remove item</div>
+</MDBTooltip>
+        
         }
       )
     });
@@ -148,7 +174,8 @@ render() {
 eCommercePage.propTypes = {
   removeItemFromWishList : PropTypes.func,
   getWishList: PropTypes.func,
-  wishList : PropTypes.array
+  wishList : PropTypes.array,
+  addToCartFromWishList : PropTypes.func
   
 };
 
@@ -172,6 +199,7 @@ const mapDispachToProps = (dispach) => {
    
     removeItemFromWishList : (userId,wishListOredrId) => dispach(reduxActions.RemoveWishListItemAction(userId,wishListOredrId)) ,
     getWishList : (userId) => dispach(reduxActions.GetUserWishListAction(userId)),
+    addToCartFromWishList : (data) => dispach(reduxActions.AddToCartFromWishListAction(data)),
 
 
   }

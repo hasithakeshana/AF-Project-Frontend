@@ -190,3 +190,32 @@ export function RemoveWishListItemAction(userId,wishListOredrId){
                },
   };
 }
+
+export function AddToCartFromWishListAction(data){
+
+  return{
+      type : ACTIONS.ADD_TO_CART_FROM_WISHLIST,
+      payload: data
+          
+  };
+}
+
+export function AddToCartFromWishListSuccessAction(data){
+
+  return{
+      type : ACTIONS.ADD_TO_CART_FROM_WISHLIST_SUCCESS,
+      payload: {
+        data
+          },
+  };
+}
+
+export function AddToCartFromWishListFailAction(error){
+
+  return{
+      type : ACTIONS.ADD_TO_CART_FROM_WISHLIST_FAILED,
+      payload: {
+        error
+          },
+  };
+}

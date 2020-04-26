@@ -184,7 +184,7 @@ function* loginUserWorker({ payload: { user } }){
  }
 
 
- function* removeWishListItemWorker({ payload: { userId ,wishListOredrId } }){
+function* removeWishListItemWorker({ payload: { userId ,wishListOredrId } }){
 
     
     console.log('saga working');
@@ -218,6 +218,36 @@ function* loginUserWorker({ payload: { user } }){
  }
 
 
+function* addToCartFromWishListWorker({ payload: data }){
+
+    
+    console.log('saga working');
+ 
+    console.log('saga productid ',data);
+ 
+  
+ 
+    //  try{
+    //     const data  = yield call (getUserWishList ,userId) || {};
+ 
+    //     console.log('correct data',data.data.wishlist);
+ 
+    //  if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
+ 
+        
+         
+    //  }
+    //  catch(err){
+
+    //    // yield put(globalActions.GetRatingFailAction(err));
+    //      console.log(err);
+        
+    //  }
+    
+ 
+ }
+
+
 
 
 
@@ -234,9 +264,11 @@ export function* rootWatcher(){
     takeLatest(CONSTANTS.GET_VIEW_ITEM,getViewItemDetails),
     takeLatest(CONSTANTS.GET_USER_WISHLIST,getWishListWorker),
     takeLatest(CONSTANTS.REMOVE_WISHLIST_ITEM,removeWishListItemWorker),
+    takeLatest(CONSTANTS.ADD_TO_CART_FROM_WISHLIST,addToCartFromWishListWorker)
     
    
     ]);
 }
 
 //REMOVE_WISHLIST_ITEM
+//ADD_TO_CART_FROM_WISHLIST
