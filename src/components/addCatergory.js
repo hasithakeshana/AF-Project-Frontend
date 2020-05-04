@@ -19,7 +19,7 @@ export default class addCatergory extends React.Component{
       }
     
       handleSubmit(event) {
-        alert("Your favorite flavor is: " + this.state.value);
+        alert("ADDED SUCCESSFULLY: ");
         event.preventDefault();
       }
     

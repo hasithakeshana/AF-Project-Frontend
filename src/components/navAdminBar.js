@@ -1,4 +1,7 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import managerForm from '../components/managerForm';
+import addCatergory from '../components/addCatergory';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -10,23 +13,33 @@ export default class navBarAdmin extends React.Component{
 
             
             
-            
-            <nav className="navbar navbar-inverse">
-            <div className="container-fluid">
-                <div className="navbar-header">
-                <a className="navbar-brand" href="#">Admin</a>
-                </div>
-                <ul className="nav navbar-nav">
-                <li className="active"><a href="#">Add Manager</a></li>
-                <li><a href="#">Add Catergory</a></li>
-                <li><a href="#">Add Item</a></li>
-                </ul>
-             <ul className="nav navbar-nav navbar-right">
-                <li><a href="#"><span className="glyphicon glyphicon-user"></span> Sign Out</a></li>
-      
-            </ul>
+            <Router>
+        <div className="container">
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="https://codingthesmartway.com" target="_blank">
+              
+            </a>
+            <div className="navbar-brand">Admin Panel</div>
+            <div className="collpase navbar-collapse">
+              <ul className="navbar-nav mr-auto">
+                <li className="navbar-item">
+                  <Link to="/addManager" className="nav-link">Add Manager</Link>
+                </li>
+                <li className="navbar-item">
+                  <Link to="/addCatergory" className="nav-link">Add Catergory</Link>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <br/>
+          <Route path="/" exact component={managerForm} />
+          <Route path="/addManager" component={managerForm} />
+          <Route path="/addCatergory" component={addCatergory} />
         </div>
-    </nav>
+      </Router>
+           
+      
+            
         )
     }
 }
