@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function SignUp({signUpuser}) {
+function SignUp({signUpusers}) {
 
     const [firstName, setFname] = useState("");
     const [lastName, setLname] = useState("");
@@ -64,124 +64,128 @@ function SignUp({signUpuser}) {
         evt.preventDefault();
     }
 
-    const classes = useStyles();
 
-    return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline/>
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon/>
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign up
-                </Typography>
-                <form className={classes.form} noValidate onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                autoComplete="fname"
-                                name="firstName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="firstName"
-                                label="First Name"
-                                autoFocus
 
-                                value={firstName}
-                                onChange={e => setFname(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="Last Name"
-                                name="lastName"
-                                autoComplete="lname"
 
-                                value={lastName}
-                                onChange={e => setLname(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
+  const classes = useStyles();
 
-                                value={email}
-                                onChange={e => setEmail(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
 
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary"/>}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
-                            />
-                        </Grid>
-                    </Grid>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
+              value={firstName}
+              onChange={e => setFname(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="lname"
 
-                        onClick={() => signUpuser(firstName, lastName, email, password)}
-                    >
-                        Sign Up
-                    </Button>
-                    <Grid container justify="flex-end">
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                                Already have an account? Sign in
-                            </Link>
-                        </Grid>
-                    </Grid>
-                </form>
-            </div>
-            <Box mt={5}>
-                <Copyright/>
-            </Box>
-        </Container>
-    );
+              value={lastName}
+              onChange={e => setLname(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="I want to receive inspiration, marketing promotions and updates via email."
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+
+            onClick = {  () => signUpusers(firstName,lastName,email,password)  }
+          >
+            Sign Up
+          </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href="#" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+      <Box mt={5}>
+        <Copyright />
+      </Box>
+    </Container>
+  );
 }
 
 SignUp.propTypes = {
-
-    signUpuser: PropTypes.func,
-};
-
-
-const mapStateToProps = (state) => {
-
-    console.log('state', state);
-    return {
-
-        emails: state.email
+  
+    signUpusers: PropTypes.func,
+  };
+  
+  
+  
+  const mapStateToProps = (state)=> {
+  
+    console.log('state',state);
+    return{
+     
+      emails : state.email
     }
 };
 
@@ -189,14 +193,11 @@ const mapStateToProps = (state) => {
 const mapDispachToProps = (dispach) => {
 
     return {
-
-        signUpuser: (firstName, lastName, email, password) => dispach(reduxActions.signUpAction({
-            firstName,
-            lastName,
-            email,
-            password
-        })),
-
+     
+      signUpusers : (firstName,lastName,email,password) => dispach(reduxActions.signUpAction({firstName,lastName,email,password})) ,
+  
+  //obj returb key 
+  // payload // type
     }
 }
 

@@ -3,13 +3,28 @@ import * as ACTIONS from '../common/constants';
 
 export const initialState = {
 
+    item:{
+        currentSelectedItem : {} ,
+        itemRatingDetails:{
+            countRatings : {} ,
+            avgRating : 0,
+            ratingCount : {},
+            ratingList : {},
+            
+        }
 
+    },
     user: {
         cart: [],
         cartTotal:0
     },
     auth: {
-        currentUser: {},
+
+        currentUser: {
+
+            role : 'guest'
+        },
+        wishList : {},
         isAuthenticated: false,
         isTokenChecked: false,
         isRegistered: false,
@@ -168,6 +183,10 @@ export const initialState = {
         quantityInCart: 0,
 
     }*/]
+        
+        
+     
+   
 
 };
 
@@ -189,8 +208,7 @@ const reducer = (state = initialState, {type, payload}) => {
     } else if (type === 'UPDATE_CART_COUNT') {
         newState.itemInCartCount++;
     } else if (type === 'UP_COUNT_IN_CART') {
-
-
+        
         let index = state.cart.findIndex(x=> x.itemID===payload);
         newState.cart[index].quantityInCart =   newState.cart[index].quantityInCart+1;
         newState.cartTotal = newState.cartTotal + newState.cart[index].price;
@@ -214,6 +232,40 @@ const reducer = (state = initialState, {type, payload}) => {
         newState.items[index].cartIn=true;
 
     }
+
+  
+
+if(type === ACTIONS.GET_RATE_COMMENTS_SUCCESS){
+
+   // console.log(payload.data);
+
+    newState.item.itemRatingDetails.countRatings = payload.data.countRatings;
+    
+    newState.item.itemRatingDetails.avgRating = payload.data.avg;
+
+    newState.item.itemRatingDetails.ratingCount = payload.data.noOfRatings;
+
+    newState.item.itemRatingDetails.ratingList = payload.data.ratings
+
+}
+
+if(type === ACTIONS.GET_VIEW_ITEM_SUCCESS){
+
+    newState.item.currentSelectedItem = payload.data;
+
+
+
+}
+
+if(type === ACTIONS.GET_USER_WISHLIST_SUCCESS){
+
+    console.log('reducer',payload.data);
+    newState.auth.wishList = payload.data;
+}
+
+
+// action = login success -> currentUser = payload.user/ isauthenticated = true
+
     return newState;
 
 }

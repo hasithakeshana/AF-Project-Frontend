@@ -94,3 +94,161 @@ export function update_users_success(data) {
 
 }
 
+
+export function AddRatingAction(data){
+
+    return{
+        type : ACTIONS.ADD_RATE_COMMENT,
+        payload: {
+               data
+                 },
+    };
+}
+
+export function AddRatingSuccessAction(data) {
+    return {
+      type: ACTIONS.ADD_RATE_COMMENT_SUCCESS,
+      payload: {
+        data,
+      },
+    };
+  }
+
+
+export function AddRatingFailAction(error) {
+    return {
+      type: ACTIONS.ADD_RATE_COMMENT_FAILED,
+      payload: {
+        error,
+      },
+    };
+  }
+
+  export function GetRatingAction(ProductId){
+
+    return{
+        type : ACTIONS.GET_RATE_COMMENTS,
+        payload: {
+          ProductId
+                 },
+    };
+}
+
+export function GetRatingSuccessAction(data) {
+    return {
+      type: ACTIONS.GET_RATE_COMMENTS_SUCCESS,
+      payload: {
+        data,
+      },
+    };
+  }
+
+
+export function GetRatingFailAction(error) {
+    return {
+      type: ACTIONS.GET_RATE_COMMENTS_FAILED,
+      payload: {
+        error,
+      },
+    };
+  }
+
+
+export function GetViewItemAction(ProductId){
+
+    return{
+        type : ACTIONS.GET_VIEW_ITEM,
+        payload: {
+          ProductId
+                 },
+    };
+}
+
+export function GetViewItemSuccessAction(data){
+
+  return{
+      type : ACTIONS.GET_VIEW_ITEM_SUCCESS,
+      payload: {
+        data
+               },
+  };
+}
+
+export function GetViewItemFailAction(error){
+
+  return{
+      type : ACTIONS.GET_VIEW_ITEM_SUCCESS,
+      payload: {
+        error
+               },
+  };
+}
+
+
+export function GetUserWishListAction(userId){
+
+  return{
+      type : ACTIONS.GET_USER_WISHLIST,
+      payload: {
+        userId
+               },
+  };
+}
+
+export function GetUserWishListSuccessAction(data) {
+  return {
+    type: ACTIONS.GET_USER_WISHLIST_SUCCESS,
+    payload: {
+      data,
+    },
+  };
+}
+
+
+export function GetUserWishListFailAction(error) {
+  return {
+    type: ACTIONS.GET_USER_WISHLIST_FAILED,
+    payload: {
+      error,
+    },
+  };
+}
+
+export function RemoveWishListItemAction(userId,wishListOredrId){
+
+  return{
+      type : ACTIONS.REMOVE_WISHLIST_ITEM,
+      payload: {
+        userId,wishListOredrId
+               },
+  };
+}
+
+export function AddToCartFromWishListAction(data){
+
+  return{
+      type : ACTIONS.ADD_TO_CART_FROM_WISHLIST,
+      payload: data
+          
+  };
+}
+
+export function AddToCartFromWishListSuccessAction(data){
+
+  return{
+      type : ACTIONS.ADD_TO_CART_FROM_WISHLIST_SUCCESS,
+      payload: {
+        data
+          },
+  };
+}
+
+export function AddToCartFromWishListFailAction(error){
+
+  return{
+      type : ACTIONS.ADD_TO_CART_FROM_WISHLIST_FAILED,
+      payload: {
+        error
+          },
+  };
+}
