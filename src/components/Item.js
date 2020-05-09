@@ -6,6 +6,7 @@ import {MDBCol, MDBMask, MDBView, MDBBtn } from "mdbreact";
 import '../index.css'
 import {connect} from "react-redux";
 import {add_to_total, cart_check_true, check_cart, update_cart, update_cart_count} from "../store/actions";
+import  * as ACTIONS from "../common/actions";
 import TestModel from "./TestModel";
 
 
@@ -14,6 +15,8 @@ function Item(props) {
    /* const {id,images,description,price,name,selectedcategory,selectedSubCategory} = props;*/
     const{item} = props
     const [inCart , setIncart] = useState(false);
+
+    const [userId , setUserId] = useState("5eb68be4a37f442020387c0e");
 
      const allIn =(item) => {
         if(item.cartIn===false) {
@@ -29,6 +32,11 @@ function Item(props) {
             )
         }
 
+    }
+
+    const addWish = (item) =>{
+
+        props.addToWishList({userId,item});
     }
 
     return (
@@ -49,7 +57,13 @@ function Item(props) {
             <h6 className=" mb-3 itemIcons" >
              Price :   {item.price}LKR
             </h6>
-            <MDBBtn className="fas fa-heart fa-2x itemIcons mb-3" />
+            <MDBBtn className="fas fa-heart fa-2x itemIcons mb-3" 
+            
+            onClick={()=>{
+                addWish(item)
+ 
+             }}
+            />
             <MDBBtn className="fal fa-shopping-bag fa-2x mb-3"  onClick={()=>{
                allIn(item)
 
@@ -75,9 +89,11 @@ const mapDispatchToProps = dispatch => {
         updateCartCount : () =>dispatch(update_cart_count()),
         updateTotalInCart : (item) => dispatch(add_to_total(item)),
         updateCartCheckTrue : () => dispatch(cart_check_true()),
-        checkCart :(item) => dispatch(check_cart(item))
+        checkCart :(item) => dispatch(check_cart(item)),
+        addToWishList : (item) => dispatch(ACTIONS.itemAddToWishlist(item))
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Item)
 
+// itemAddToWishlist

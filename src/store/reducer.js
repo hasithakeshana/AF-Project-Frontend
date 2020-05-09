@@ -8,11 +8,26 @@ export const initialState = {
         cart: [],
         cartTotal:0
     },
+    item:{
+        currentSelectedItem : {} ,
+        itemRatingDetails:{
+            countRatings : {} ,
+            avgRating : 0,
+            ratingCount : {},
+            ratingList : {},
+            
+        }
+
+    },
     auth: {
-        currentUser: {},
+        currentUser: {
+
+            role : 'guest'
+        },
         isAuthenticated: false,
         isTokenChecked: false,
         isRegistered: false,
+        wishList : {},
     }, items: [{
         itemID: 1,
         itemRatingDetails: {},
@@ -178,38 +193,38 @@ const reducer = (state = initialState, {type, payload}) => {
 
     if (type === ACTIONS.USER_REGISTER_SUCCESS) {
         newState.auth.currentUser = payload.user;
-    } else if (type === 'UPDATE_MAIN_CATEGORY') {
+    }  if (type === 'UPDATE_MAIN_CATEGORY') {
         newState.selectedMainCategory = payload;
-    } else if (type === 'UPDATE_SUB_CATEGORY') {
+    }  if (type === 'UPDATE_SUB_CATEGORY') {
         newState.selectedSubCategory = payload;
-    } else if (type === 'UPDATE_SELECTED_ITEMS_ARRAY') {
+    }  if (type === 'UPDATE_SELECTED_ITEMS_ARRAY') {
         newState.selectedItemsArray = payload;
-    } else if (type === 'UPDATE_CART') {
+    }  if (type === 'UPDATE_CART') {
         newState.cart.push(payload)
-    } else if (type === 'UPDATE_CART_COUNT') {
+    }  if (type === 'UPDATE_CART_COUNT') {
         newState.itemInCartCount++;
-    } else if (type === 'UP_COUNT_IN_CART') {
+    }  if (type === 'UP_COUNT_IN_CART') {
 
 
         let index = state.cart.findIndex(x=> x.itemID===payload);
         newState.cart[index].quantityInCart =   newState.cart[index].quantityInCart+1;
         newState.cartTotal = newState.cartTotal + newState.cart[index].price;
 
-    }else if (type === 'DOWN_COUNT_IN_CART') {
+    }if (type === 'DOWN_COUNT_IN_CART') {
 
         let index = state.cart.findIndex(x=> x.itemID===payload);
         newState.cart[index].quantityInCart =   newState.cart[index].quantityInCart-1;
         newState.cartTotal = newState.cartTotal - newState.cart[index].price;
 
-    }else if(type === 'ADD_TO_TOTAL'){
+    } if(type === 'ADD_TO_TOTAL'){
         newState.cartTotal = newState.cartTotal+payload.price;
-    }else if(type === 'CART_CHECK_TRUE'){
+    }if(type === 'CART_CHECK_TRUE'){
             //console.log('CART_CHECK_TRUE')
             newState.cartCheck = !newState.cartCheck;
-    }else if(type === 'CART_CHECK_FALSE'){
+    } if(type === 'CART_CHECK_FALSE'){
         console.log('CART_CHECK_F')
         newState.cartCheck = false;
-    }else if(type === 'CHECK_CART'){
+    }if(type === 'CHECK_CART'){
         let index = newState.items.findIndex(x=> x.itemID===payload.itemID);
         newState.items[index].cartIn=true;
 
