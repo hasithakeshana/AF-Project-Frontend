@@ -191,11 +191,22 @@ function* addToCartFromWishListWorker({ payload: data }){
     console.log('saga working');
  
     console.log('saga productid ',data);
+
+    const {userId} = data;
+
+    console.log('user id saga',userId);
  
   
  
      try{
         const data  = yield call (addToCartFromWishList ,data) || {};
+
+
+    //     const datas  = yield call (getUserWishList ,userId) || {};
+ 
+    //     console.log('correct data',datas.data.wishlist);
+ 
+    //  if (datas) yield put(globalActions.GetUserWishListSuccessAction(datas.data.wishlist));
  
     //     console.log('correct data',data.data.wishlist);
  
@@ -221,6 +232,10 @@ function* addToCartFromWishListWorker({ payload: data }){
  
     // addToWishList
     const item ={data};
+
+    const {userId} = data;
+
+    console.log('user id saga',userId);
     
   
     
@@ -228,6 +243,13 @@ function* addToCartFromWishListWorker({ payload: data }){
         const data  = yield call (addToWishList,item) || {};
  
         console.log('result saga',data);
+
+        
+        const datas  = yield call (getUserWishList ,userId) || {};
+ 
+        console.log('correct data',datas.data.wishlist);
+ 
+     if (datas) yield put(globalActions.GetUserWishListSuccessAction(datas.data.wishlist));
  
     //  if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
    }

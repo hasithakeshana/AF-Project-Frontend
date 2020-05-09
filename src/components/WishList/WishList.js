@@ -1,57 +1,94 @@
-import React from 'react'
+import React, { Component } from "react";
 import '../../index.css'
 import {connect} from "react-redux";
 import WishListItem from "./WishListItem";
+import * as reduxActions from '../../common/actions';
 
+class WishList extends Component {
+    constructor(props){
+        super(props);
+    }
+    state = {
+        id : '5eb68be4a37f442020387c0e'
+    }
 
-function WishList(props) {
+    componentDidMount(){
 
-    console.log(props)
-    return(
+        const { getWishList , wishList} = this.props;
+        
+        getWishList(this.state.id);
+      
+        console.log('wishList',wishList);
+      }
 
-       <div className="tableContainer" >
-           <table className="table">
-               <thead className="table">
-               <tr>
-                   <th scope="col">Product</th>
-                   <th scope="col" >Price</th>
-                   <th scope="col">Quantity</th>
-                   <th scope="col"  >Total</th>
-               </tr>
-               </thead>
-           </table>
+    //console.log(props)
 
-           {
-               props.cart.map(item=>
-                   <WishListItem
-                       item={item}
-                   > </WishListItem>
-               )
-           }
+    render(){
+    const { wishList} = this.props;
+  console.log('wwwwwwwwwwwwww',wishList);
 
+  const lists = Array.from(wishList);
+  console.log('lists',lists);
 
-               <div  ><p className="total mt-3">Total : {props.cartTotal} LKR</p>
-                   <button className="btn btn-sm btn-block btn-outline-dark mb-2">Proceed to Payment</button>
-               </div>
+        return(
 
+            <div className="tableContainer" >
+                <table className="table">
+                    <thead className="table">
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col" >Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Remove</th>
+                        <th scope="col">AddtoCart</th>
+                    </tr>
+                    </thead>
+                </table>
+     
+                {
+                    lists.map(item=>
+                        <WishListItem
+                            item={item}
+                        > </WishListItem>
+                    )
+                }
+     
+     
+                    <div  ><p className="total mt-3">Total : {this.props.cartTotal} LKR</p>
+                        <button className="btn btn-sm btn-block btn-outline-dark mb-2">Proceed to Payment</button>
+                    </div>
+     
+     
+                </div>
+     
+         );
 
-           </div>
-
-    )
+    }
+    
 
 }
 
 
 const mapStateToProps = state => {
+
     return {
         cart: state.cart,
         selectedItemsArray : state.selectedItemsArray,
-        cartTotal : state.cartTotal
+        cartTotal : state.cartTotal,
+        wishList : state.auth.wishList
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {}
-}
+const mapDispachToProps = (dispach) => {
 
-export default connect(mapStateToProps, mapDispatchToProps)(WishList)
+    return {
+     
+      removeItemFromWishList : (userId,wishListOredrId) => dispach(reduxActions.RemoveWishListItemAction(userId,wishListOredrId)) ,
+      getWishList : (userId) => dispach(reduxActions.GetUserWishListAction(userId)),
+      addToCartFromWishList : (data) => dispach(reduxActions.AddToCartFromWishListAction(data)),
+  
+  
+    }
+  }
+
+export default connect(mapStateToProps, mapDispachToProps)(WishList)

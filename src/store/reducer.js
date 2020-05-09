@@ -28,6 +28,7 @@ export const initialState = {
         isTokenChecked: false,
         isRegistered: false,
         wishList : {},
+        wishListCount : 0
     }, items: [{
         itemID: 1,
         itemRatingDetails: {},
@@ -229,6 +230,49 @@ const reducer = (state = initialState, {type, payload}) => {
         newState.items[index].cartIn=true;
 
     }
+    if(type === ACTIONS.GET_RATE_COMMENTS_SUCCESS){
+
+        // console.log(payload.data);
+     
+         newState.item.itemRatingDetails.countRatings = payload.data.countRatings;
+         
+         newState.item.itemRatingDetails.avgRating = payload.data.avg;
+     
+         newState.item.itemRatingDetails.ratingCount = payload.data.noOfRatings;
+     
+         newState.item.itemRatingDetails.ratingList = payload.data.ratings
+     
+     }
+     
+     if(type === ACTIONS.GET_VIEW_ITEM_SUCCESS){
+     
+         newState.item.currentSelectedItem = payload.data;
+     
+     
+     
+     }
+     
+     if(type === ACTIONS.GET_USER_WISHLIST_SUCCESS){
+     
+         console.log('reducer',payload.data);
+         newState.auth.wishList = payload.data;
+
+         const count = payload.data.length;
+
+         console.log('count',count); // wishListCount
+         
+         newState.auth.wishListCount = count;
+     }
+     
+     
+     // action = login success -> currentUser = payload.user/ isauthenticated = true
+     
+     // action logout -> isauthenticated / false
+     
+     // register success -> isregistered = success
+     
+     // toekn checked -> tokenchecked = true
+     
     return newState;
 
 }

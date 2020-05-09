@@ -172,7 +172,7 @@ export const fetchRatingsAdd = async (user) =>{
   
     console.log('productId ',userId);
     
-    const response = await axios.get(`http://localhost:4001/api/getWishList/${userId}`);
+    const response = await axios.get(`http://localhost:4000/api/getWishList/${userId}`);
     
     console.log('response',response);
     
@@ -195,7 +195,7 @@ export const fetchRatingsAdd = async (user) =>{
     
       const response = await axios.request({
               method: 'POST',
-              url: `http://localhost:4001/api/deleteWishListProduct`,
+              url: `http://localhost:4000/api/deleteWishListProduct`,
               headers: {
                   'Content-Type': 'application/json;charset=UTF-8',
                         "Access-Control-Allow-Origin": "*"
@@ -248,7 +248,7 @@ export const fetchRatingsAdd = async (user) =>{
     
       const response = await axios.request({
               method: 'POST',
-              url: `http://localhost:4001/api/addItemWishListFromCart/${id}`,
+              url: `http://localhost:4000/api/addItemWishListFromCart/${id}`,
               headers: {
                   'Content-Type': 'application/json;charset=UTF-8',
                         "Access-Control-Allow-Origin": "*"
