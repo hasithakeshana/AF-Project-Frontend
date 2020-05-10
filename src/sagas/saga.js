@@ -281,7 +281,7 @@ export function* rootWatcher() {
         takeLatest(CONSTANTS.ADD_TO_CART_FROM_WISHLIST,addToCartFromWishListWorker),
         takeLatest(CONSTANTS.USER_SIGN_UP, signUpUserWorker),
         takeLatest(CONSTANTS.USER_LOGIN, loginUserWorker),
-        takeLatest("UPDATE_USERS", updateUsers)
+        takeLatest("SIGNUP", updateUsers)
 
     ]);
 

@@ -192,7 +192,7 @@ const reducer = (state = initialState, {type, payload}) => {
     const newState = {...state};
 
 
-    if (type === ACTIONS.USER_REGISTER_SUCCESS) {
+    if (type === 'SIGNUP') {
         newState.auth.currentUser = payload.user;
     }  if (type === 'UPDATE_MAIN_CATEGORY') {
         newState.selectedMainCategory = payload;

@@ -3,10 +3,10 @@
 
 import * as ACTIONS from '../common/constants';
 
-export function signUpAction(user){
+export function signUpAction(user){    
 
     return{
-        type : ACTIONS.USER_SIGN_UP,
+        type : 'SIGNUP',
         payload: {
                user
                  },
@@ -31,13 +31,13 @@ export function registerFailAction(error) {
     };
   }
 
-  export function loginAction(user){
+  export function loginAction(email,password){
 
     return{
         type : ACTIONS.USER_LOGIN,
-        payload: {
-               user
-                 },
+        payload: 
+          email,password
+                 ,
     };
 }
 
