@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import * as reduxActions from '../common/actions';
-import Particles from 'react-particles-js';
+//import Particles from 'react-particles-js';
 import RatingList from './RatingsList';
 import RatingProgress from './RatingProgress';
-import ParticlesBg from "particles-bg";
+// import ParticlesBg from "particles-bg";
 
 import Moment from 'react-moment';
 import Button from '@material-ui/core/Button';
@@ -52,29 +52,20 @@ const handleSubmit = (evt) => {
 
 export function RatingsCom({addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings}) {
 
-const [itemId, setItemId] = useState("5e933a529b9e6363f89edebb"); // get from the store
-const [userName, setUserName] = useState("mal"); // get from the store
+const [itemId, setItemId] = useState("5eb68ab6a37f442020387c0a"); // get from the store
+const [userName, setUserName] = useState("kavi"); // get from the store
 const [userReview, setUserReview] = useState("");
 const [modifiedArray, setModifiedArray] = useState("");
 
 useEffect(() => {
 
-    
-    getRatings(itemId);
+getRatings(itemId);
 
-    
-
-
-
-
-  
 },[])
 
 useEffect(() => {
 
-    
- 
-  change(userName,ratingList);
+change(userName,ratingList);
   
 },[ratingList])
 
@@ -121,7 +112,7 @@ const [value, setValue] = React.useState(0);
     const returnedArrays = Array.from(returnedArray);
 console.log('returnedArray',returnedArray);
 
-    // console.log(u)
+    
      let isRated = false;
      for(const value of returnedArrays) {
        if(value.userName === userName)
@@ -133,18 +124,14 @@ console.log('returnedArray',returnedArray);
        }
      }
 
-   const someArray = returnedArrays.filter(x => x.userName !== 'mal');
+   const someArray = returnedArrays.filter(x => x.userName !== userName);
 
      console.log('somearry',someArray);
      setModifiedArray(someArray);
    
-    
-   
-   
-     
-   }
+}
 
-   console.log('isRated,user',userAlreadyRated,userReview);
+console.log('isRated,user',userAlreadyRated,userReview);
   
 return (
       
@@ -155,47 +142,10 @@ return (
     progress={progressRating}
     avgRating={avgRating}
     countRatings={countRatings}
-    
-    ></RatingProgress>
+></RatingProgress>
 
 
-          <form onSubmit={handleSubmit}>
-
-            <Rating
-
-             name="hover-feedback"
-            value={value}
-            precision={0.5}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-                        }}
-            onChangeActive={(event, newHover) => {
-           setHover(newHover);
-                }}
-                size="large"
-
-              />
-
-              
-
-{value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
-
-<textarea class="form-control" onChange={e => setComment(e.target.value)} id="exampleFormControlTextarea1" rows="3"></textarea>
-
-
-        <br></br>
-        
-        <button type="button"  onClick = {  () => validate(itemId,userName,value,comment)  } class="btn btn-outline-success">Rate Us!</button>
-
-        <div className={classes.root}>
-     
-    
-
-
-     
-     
-    </div>
-    </form>
+         
 
     {
 
@@ -211,7 +161,37 @@ userAlreadyRated === true ?
        
 </div>
 
-: <h2>can add rate and comments</h2>
+:  <form onSubmit={handleSubmit}>
+
+<Rating
+
+ name="hover-feedback"
+value={value}
+precision={0.5}
+onChange={(event, newValue) => {
+  setValue(newValue);
+            }}
+onChangeActive={(event, newHover) => {
+setHover(newHover);
+    }}
+    size="large"
+
+  />
+
+  
+
+{value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+
+<textarea class="form-control" onChange={e => setComment(e.target.value)} id="exampleFormControlTextarea1" rows="3"></textarea>
+
+
+<br></br>
+
+<button type="button"  onClick = {  () => validate(itemId,userName,value,comment)  } class="btn btn-outline-success">Rate Us!</button>
+
+<div className={classes.root}>
+</div>
+</form>
 
 
       }

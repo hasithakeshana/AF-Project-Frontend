@@ -101,11 +101,17 @@ export const fetchRatingsAdd = async (user) =>{
  
   try{
 
+ console.log('userrrrrrrrrrrr rating',user);
+
   const {itemId,userName,rate,comment} = user.data ;
    console.log('api data = ',rate,comment);
 
    const reqBody = {userName,rate,comment};
    const id = itemId;
+
+   //const id = '5eb68ab6a37f442020387c0a';
+
+   console.log('apiiiiiiiiiiiiiiiiiiiiiiiiiiii',itemId);
 
    console.log('body',reqBody);
  
@@ -182,7 +188,7 @@ export const getItemDetails = async (productId) => {
 
   console.log('productId ',userId);
   
-  const response = await axios.get(`http://localhost:4001/api/getWishList/${userId}`);
+  const response = await axios.get(`http://localhost:4000/api/getWishList/${userId}`);
   
   console.log('response',response);
   
@@ -205,7 +211,7 @@ export const getItemDetails = async (productId) => {
   
     const response = await axios.request({
             method: 'POST',
-            url: `http://localhost:4001/api/deleteWishListProduct`,
+            url: `http://localhost:4000/api/deleteWishListProduct`,
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8',
                       "Access-Control-Allow-Origin": "*"
@@ -258,7 +264,7 @@ export const addToCartFromWishList = async (data) =>{
   
     const response = await axios.request({
             method: 'POST',
-            url: `http://localhost:4001/api/addItemWishListFromCart/${id}`,
+            url: `http://localhost:4000/api/addItemWishListFromCart/${id}`,
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8',
                       "Access-Control-Allow-Origin": "*"

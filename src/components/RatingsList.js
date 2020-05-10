@@ -1,6 +1,6 @@
 import React ,{useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ParticlesBg from "particles-bg";
+// import ParticlesBg from "particles-bg";
 
 import Rating from '@material-ui/lab/Rating';
 import { makeStyles } from '@material-ui/core/styles';

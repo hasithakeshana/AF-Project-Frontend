@@ -71,6 +71,8 @@ function* loginUserWorker({ payload: { user } }){
     console.log('saga RATE ',data.itemId);
  
     const ProductId = data.itemId;
+
+    console.log('payload rate add worker',data);
   
  
      try{
