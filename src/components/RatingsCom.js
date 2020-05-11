@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
 
-import * as reduxActions from '../../common/actions';
+import * as reduxActions from '../common/actions';
 //import Particles from 'react-particles-js';
 import RatingList from './RatingsList';
 import RatingProgress from './RatingProgress';
@@ -53,7 +53,8 @@ const handleSubmit = (evt) => {
 export function RatingsCom({addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings}) {
 
 const [itemId, setItemId] = useState("5eb68ab6a37f442020387c0a"); // get from the store
-const [userName, setUserName] = useState("Hasitha"); // get from the store
+//5eb68ab6a37f442020387c0a
+const [userName, setUserName] = useState("Mahela"); // get from the store
 const [userReview, setUserReview] = useState("");
 const [modifiedArray, setModifiedArray] = useState("");
 

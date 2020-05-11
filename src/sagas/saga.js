@@ -77,15 +77,15 @@ function* rateAddedWorker({ payload: { data } }){
   
  
      try{
-         const data  = yield call (fetchRatingsAdd ,{data}) || {};
+         const data  = yield call (fetchRatingsAdd ,data) || {};
 
          const result = yield call (getRatingComments ,ProductId) || {};
 
-         console.log('result get',result);
+       console.log('result get',result);
  
-        // console.log('correct data',data);
+        console.log('correct data',data);
  
-       if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
+if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
  
         
          
