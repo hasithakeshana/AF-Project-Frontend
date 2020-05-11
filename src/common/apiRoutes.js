@@ -148,13 +148,13 @@ export const fetchRatingsAdd = async (user) =>{
   
    console.log('userrrrrrrrrrrr rating',user);
   
-    const {itemId,userName,rate,comment} =  user.data ;
+    const {itemId,userName,rate,comment} = user.data ;
      console.log('api data = ',rate,comment);
   
      const reqBody = {userName,rate,comment};
-    const id = itemId;
+     const id = itemId;
   
-    // const id = '5eb68ab6a37f442020387c0a';
+     //const id = '5eb68ab6a37f442020387c0a';
   
      console.log('apiiiiiiiiiiiiiiiiiiiiiiiiiiii',itemId);
   

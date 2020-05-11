@@ -53,7 +53,7 @@ const handleSubmit = (evt) => {
 export function RatingsCom({addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings}) {
 
 const [itemId, setItemId] = useState("5eb68ab6a37f442020387c0a"); // get from the store
-const [userName, setUserName] = useState("Hasitha"); // get from the store
+const [userName, setUserName] = useState("Lahiru"); // get from the store
 const [userReview, setUserReview] = useState("");
 const [modifiedArray, setModifiedArray] = useState("");
 

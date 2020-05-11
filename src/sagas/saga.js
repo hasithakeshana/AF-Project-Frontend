@@ -73,19 +73,20 @@ function* rateAddedWorker({ payload: { data } }){
  
     const ProductId = data.itemId;
 
-    console.log('item sagaaaaaaa',data);
+    console.log('payload rate add worker',data);
+
   
  
      try{
-         const data  = yield call (fetchRatingsAdd ,data) || {};
+        const datas  = yield call (fetchRatingsAdd ,{data}) || {};
 
-         const result = yield call (getRatingComments ,ProductId) || {};
+     const result = yield call (getRatingComments ,ProductId) || {};
 
-       console.log('result get',result);
+    console.log('result get',result);
  
-        console.log('correct data',data);
+        //console.log('correct data',datas);
  
-if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
+       if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
  
         
          
@@ -97,6 +98,7 @@ if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
     
  
  }
+
 
  function* getRateCommentsWorker({ payload: { ProductId } }){
 
