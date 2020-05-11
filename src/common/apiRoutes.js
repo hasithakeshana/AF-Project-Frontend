@@ -87,16 +87,76 @@ axios.get('https://reqres.in/api/users')
     })
 */
 
+// export const fetchRatingsAdd = async (user) =>{
+ 
+//     try{
+  
+//         console.log('rating api user',user);
+//     const {itemId,userName,rate,comment} = user.data ;
+//      console.log('api data = ',rate,comment);
+  
+//      const reqBody = {userName,rate,comment};
+//      const id = itemId;
+  
+//      console.log('body',reqBody);
+   
+      
+//      // console.log('api rate = ',data.data);
+//   //  `/fetch/${date}`
+  
+//     const response = await axios.request({
+//             method: 'POST',
+//             url: `http://localhost:4000/api/addRatingWithComment/${id}`,
+//             headers: {
+//                 'Content-Type': 'application/json;charset=UTF-8',
+//                       "Access-Control-Allow-Origin": "*"
+//             },
+//             data: JSON.stringify(reqBody),
+           
+             
+          
+//           }).then((res) => {
+  
+//             console.log('output',res.data);
+  
+//            // console.log('out',res.data);
+  
+//             const result =  res.data;
+           
+//             return result;
+//           });
+  
+//        const resData = await response;
+       
+//        console.log('responsee api',resData);
+        
+//       return resData;
+         
+  
+  
+//     }
+//     catch(e){
+//         console.log(e);
+//     }
+  
+    
+//   }
+
 export const fetchRatingsAdd = async (user) =>{
  
     try{
   
-        console.log('rating api user',user);
+   console.log('userrrrrrrrrrrr rating',user);
+  
     const {itemId,userName,rate,comment} = user.data ;
      console.log('api data = ',rate,comment);
   
      const reqBody = {userName,rate,comment};
      const id = itemId;
+  
+     //const id = '5eb68ab6a37f442020387c0a';
+  
+     console.log('apiiiiiiiiiiiiiiiiiiiiiiiiiiii',itemId);
   
      console.log('body',reqBody);
    

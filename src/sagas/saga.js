@@ -30,6 +30,40 @@ function* updateUsers() {
 }
 
 
+// function* rateAddedWorker({ payload: { data } }){
+
+    
+//     console.log('saga working');
+ 
+//     console.log('saga RATE ',data.itemId);
+ 
+//     const ProductId = data.itemId;
+
+//     console.log('item sagaaaaaaa',data);
+  
+ 
+//      try{
+//          const data  = yield call (fetchRatingsAdd ,data) || {};
+
+//          const result = yield call (getRatingComments ,ProductId) || {};
+
+//          console.log('result get',result);
+ 
+//         // console.log('correct data',data);
+ 
+//        if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
+ 
+        
+         
+//      }
+//      catch(err){
+//          console.log(err);
+        
+//      }
+    
+ 
+//  }
+
 function* rateAddedWorker({ payload: { data } }){
 
     
@@ -43,7 +77,7 @@ function* rateAddedWorker({ payload: { data } }){
   
  
      try{
-         const data  = yield call (fetchRatingsAdd ,data) || {};
+         const data  = yield call (fetchRatingsAdd ,{data}) || {};
 
          const result = yield call (getRatingComments ,ProductId) || {};
 
