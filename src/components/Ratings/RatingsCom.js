@@ -7,13 +7,13 @@ import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
 
-// import * as reduxActions from '../common/actions';
+import * as reduxActions from '../../common/actions';
 //import Particles from 'react-particles-js';
-//import RatingList from './RatingsList';
-//import RatingProgress from './RatingProgress';
+import RatingList from './RatingsList';
+import RatingProgress from './RatingProgress';
 //import ParticlesBg from "particles-bg";
 
-//import Moment from 'react-moment';
+import Moment from 'react-moment';
 import Button from '@material-ui/core/Button';
 
 const labels = {
@@ -40,24 +40,65 @@ const useStyles = makeStyles({
 
 
 //npm install @material-ui/lab
+const handleSubmit = (evt) => {
+  evt.preventDefault();
+ 
+ 
+  
+}
 
 
 
 
-
-export function RatingsCom() {
+export function RatingsCom({addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings}) {
 
 const [itemId, setItemId] = useState("5e933a529b9e6363f89edebb"); // get from the store
 const [userName, setUserName] = useState("mal"); // get from the store
 const [userReview, setUserReview] = useState("");
 const [modifiedArray, setModifiedArray] = useState("");
 
+useEffect(() => {
+
+    
+    getRatings(itemId);
+
+    
+
+
+
+
+  
+},[])
+
+useEffect(() => {
+
+    
+ 
+  change(userName,ratingList);
+  
+},[ratingList])
+
+
+console.log('userRole',progressRating);
+
+
+
+
 
 const [comment, setComment] = useState("");
 
 const [userAlreadyRated, setuserAlreadyRated] = useState(false);
 
+//const rated = userRated(userName,returnedArray);
 
+/*
+
+
+todo - first user has no ratings then he add 2 ratings view - need to correct
+
+
+
+*/
 
 
 const [value, setValue] = React.useState(0);
@@ -65,22 +106,57 @@ const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
   const classes = useStyles();
 
- 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    console.log(value);
-   
-    
+  const validate = (itemId,userName,value,comment) =>
+  {
+    const date = new Date();
+    console.log(date);
+    addRating(itemId,userName,value,comment,date);
   }
  
-  
+
+  function  change(userName,returnedArray){
+
+    console.log('detaaaaaaaaaaaaaaaaaaaaa',userName,returnedArray);
+
+    const returnedArrays = Array.from(returnedArray);
+console.log('returnedArray',returnedArray);
+
+    // console.log(u)
+     let isRated = false;
+     for(const value of returnedArrays) {
+       if(value.userName === userName)
+       {
+         isRated = true;
+         setuserAlreadyRated(true);
+         setUserReview(value);
+         break;
+       }
+     }
+
+   const someArray = returnedArrays.filter(x => x.userName !== 'mal');
+
+     console.log('somearry',someArray);
+     setModifiedArray(someArray);
+   
+    
+   
+   
+     
+   }
+
+   console.log('isRated,user',userAlreadyRated,userReview);
   
 return (
-     
+      
      
         <div>
 
-
+<RatingProgress 
+    progress={progressRating}
+    avgRating={avgRating}
+    countRatings={countRatings}
+    
+    ></RatingProgress>
 
 
           <form onSubmit={handleSubmit}>
@@ -109,7 +185,7 @@ return (
 
         <br></br>
         
-        <button type="button" class="btn btn-outline-success">Rate Us!</button>
+        <button type="button"  onClick = {  () => validate(itemId,userName,value,comment)  } class="btn btn-outline-success">Rate Us!</button>
 
         <div className={classes.root}>
      
@@ -121,10 +197,31 @@ return (
     </div>
     </form>
 
-   
+    {
+
+userAlreadyRated === true ? 
+
+<div class="alert alert-danger" role="alert">
+<Rating name="size-small" defaultValue={userReview.rate} size="small" readOnly={true} />
+<h5 class="alert-heading">{userReview.userName} </h5>
+       <p><Moment format="YYYY/MM/DD">{userReview.date}</Moment></p>
+<hr></hr>
+       <p class="mb-0">{ userReview.comment} </p>
+
+       
+</div>
+
+: <h2>can add rate and comments</h2>
+
+
+      }
   
 
-
+<RatingList 
+list={ratingList}
+newList={modifiedArray}
+ userName={userName} 
+ ></RatingList>
   
 
 
@@ -168,7 +265,8 @@ const mapDispachToProps = (dispach) => {
 
   return {
    
-    
+    addRating : (itemId,userName,rate,comment,date) => dispach(reduxActions.AddRatingAction({itemId,userName,rate,comment,date})) ,
+    getRatings : (ProductId) => dispach(reduxActions.GetRatingAction(ProductId)),
 
 
   }
