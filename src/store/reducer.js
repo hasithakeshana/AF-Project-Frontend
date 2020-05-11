@@ -56,7 +56,7 @@ export const initialState = {
         {
             itemID: 3,
             itemRatingDetails: {},
-            images: ['http://localhost:4000/2.jpeg'],
+            images: ['https://unsplash.com/photos/QXevDflbl8A'],
             name: "Ralph Loren Shirt",
             price: 655.00,
             description: "70% OFF TODAY",
@@ -80,7 +80,7 @@ export const initialState = {
         {
             itemID: 5,
             itemRatingDetails: {},
-            images: ['http://localhost:4000/1.jpeg'],
+            images: ['https://www.123rf.com/stock-photo/fashion.html?sti=mjd9dc032p07t42mfx|&mediapopup=74168363'],
             name: "Crocodile Shirt",
             price: 500.00,
             description: "50% OFF TODAY",

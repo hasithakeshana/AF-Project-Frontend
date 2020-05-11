@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 import {add_to_total, cart_check_true, check_cart, update_cart, update_cart_count} from "../store/actions";
 import  * as ACTIONS from "../common/actions";
 import TestModel from "./TestModel";
-
+import img1 from "../images/fashion7.jpg"
 
 function Item(props) {
 
@@ -45,7 +45,7 @@ function Item(props) {
         <MDBView hover className="rounded z-depth-4 mb-3 item" waves>
           <img
             className="img-fluid "
-            src={item.images[0]}
+            src={img1}
             alt=""
           />
           <MDBMask overlay="white-slight" />

@@ -3,7 +3,7 @@ import HomePage from "./components/HomePage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cart from "./components/Cart/Cart";
 import WishList from "./components/WishList/WishList";
-import Rating from "./components/Ratings/Rating";
+import Rating from "./components/Ratings/RatingsCom";
 import ItemContainer from './components/ItemContainer';
 import TestModel from "./components/TestModel";
 import ImageSlider from "./components/ImagSlider";

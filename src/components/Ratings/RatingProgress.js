@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../src/ratings.css';
+import '../Ratings/ratings.css';
 import { Progress } from 'reactstrap';
 
 
