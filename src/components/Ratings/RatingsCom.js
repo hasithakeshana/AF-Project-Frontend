@@ -53,7 +53,7 @@ const handleSubmit = (evt) => {
 export function RatingsCom({addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings}) {
 
 const [itemId, setItemId] = useState("5eb68ab6a37f442020387c0a"); // get from the store
-const [userName, setUserName] = useState("Lahiru"); // get from the store
+const [userName, setUserName] = useState("Ushan"); // get from the store
 const [userReview, setUserReview] = useState("");
 const [modifiedArray, setModifiedArray] = useState("");
 
@@ -72,24 +72,9 @@ change(userName,ratingList);
 
 console.log('userRole',progressRating);
 
-
-
-
-
 const [comment, setComment] = useState("");
 
 const [userAlreadyRated, setuserAlreadyRated] = useState(false);
-
-//const rated = userRated(userName,returnedArray);
-
-/*
-
-
-todo - first user has no ratings then he add 2 ratings view - need to correct
-
-
-
-*/
 
 
 const [value, setValue] = React.useState(0);
@@ -137,13 +122,16 @@ return (
       
      
         <div>
-
+<div style={{marginLeft: '5%', marginRight: "5%", marginTop: "5%", marginBottom:"5%"}}>
+<div className="row">
+<div className="col" style={{marginLeft: '5%', marginRight: "5%"}}>
 <RatingProgress 
     progress={progressRating}
     avgRating={avgRating}
     countRatings={countRatings}
 ></RatingProgress>
-
+</div>
+<div className="col" style={{textAlign:'center'}}>
 
          
 
@@ -182,6 +170,8 @@ setHover(newHover);
 
 {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
 
+<br/>
+
 <textarea class="form-control" onChange={e => setComment(e.target.value)} id="exampleFormControlTextarea1" rows="3"></textarea>
 
 
@@ -195,17 +185,28 @@ setHover(newHover);
 
 
       }
-  
-
+      </div>
+      </div>
+      </div>
+      <div>
+      <div style={{backgroundColor: '#123245', marginLeft:"5%", marginRight:"5%"}}>
+      
+      <div className="container" style={{width: "50%"}}>
+      <div style={{}}>
+      <br/>
+      <br/>
 <RatingList 
 list={ratingList}
 newList={modifiedArray}
  userName={userName} 
  ></RatingList>
-  
+ <br/>
+ <br/>
 
-
-
+</div>
+</div>
+</div>
+    </div>
     </div>
     
 

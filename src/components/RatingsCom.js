@@ -54,7 +54,7 @@ export function RatingsCom({addRating,getRatings,ratingList,userRole,progressRat
 
 const [itemId, setItemId] = useState("5eb68ab6a37f442020387c0a"); // get from the store
 //5eb68ab6a37f442020387c0a
-const [userName, setUserName] = useState("Mahela"); // get from the store
+const [userName, setUserName] = useState("nm"); // get from the store
 const [userReview, setUserReview] = useState("");
 const [modifiedArray, setModifiedArray] = useState("");
 

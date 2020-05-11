@@ -9,14 +9,6 @@ function RatingProgress(props) {
 
   console.log('avgRating cdddddddddd',countRatings.noOfRatings,avgRating.avg);
 
-  //const avgRate =  avgRating.toFixed(2);
-
-  //const count = countRatings;
-  
- // console.log('progress 5',progress.one);
-
-  
-
     return (
         <div>
            
