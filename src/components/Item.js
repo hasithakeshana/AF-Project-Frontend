@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 import {add_to_total, cart_check_true, check_cart, update_cart, update_cart_count} from "../store/actions";
 import  * as ACTIONS from "../common/actions";
 import TestModel from "./TestModel";
-import img1 from "../images/fashion7.jpg"
+import img1 from "../images/fashion5.jpg"
 
 function Item(props) {
 

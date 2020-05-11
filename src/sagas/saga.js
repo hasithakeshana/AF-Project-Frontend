@@ -38,10 +38,12 @@ function* rateAddedWorker({ payload: { data } }){
     console.log('saga RATE ',data.itemId);
  
     const ProductId = data.itemId;
+
+    console.log('item sagaaaaaaa',data);
   
  
      try{
-         const data  = yield call (fetchRatingsAdd ,{data}) || {};
+         const data  = yield call (fetchRatingsAdd ,data) || {};
 
          const result = yield call (getRatingComments ,ProductId) || {};
 

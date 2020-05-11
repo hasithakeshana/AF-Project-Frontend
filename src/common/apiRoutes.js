@@ -91,6 +91,7 @@ export const fetchRatingsAdd = async (user) =>{
  
     try{
   
+        console.log('rating api user',user);
     const {itemId,userName,rate,comment} = user.data ;
      console.log('api data = ',rate,comment);
   
