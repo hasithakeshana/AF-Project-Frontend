@@ -319,3 +319,30 @@ export function itemAddToWishlist(data){
             
   };
 }
+
+
+export function GetAllProducts(){
+
+  return{
+      type : ACTIONS.GET_ALL_PRODUCTS,
+      payload: {},
+  };
+  }
+  
+  export function GetAllProductsSuccessAction(data) {
+  return {
+    type: ACTIONS.GET_ALL_PRODUCTS_SUCCESS,
+    payload: data
+  };
+  }
+  
+  
+  export function GetAllProductsFailedAction(error) {
+  return {
+    type: ACTIONS.GET_ALL_PRODUCTS_FAILED,
+    payload: {
+      error,
+    },
+  };
+  }
+  

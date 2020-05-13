@@ -396,4 +396,16 @@ export const addToWishList = async (data) =>{
         }
         
 }
+
+export const getAllProducts = async () => {
+  
+    console.log('get all axios working');
+    
+    const response = await axios.get(`http://localhost:4000/api/allitems`);
+    
+    console.log('response',response);
+    
+    return response;
+    
+}
       

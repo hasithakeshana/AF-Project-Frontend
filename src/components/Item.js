@@ -45,7 +45,7 @@ function Item(props) {
         <MDBView hover className="rounded z-depth-4 mb-3 item" waves>
           <img
             className="img-fluid "
-            src={img1}
+            src="http://localhost:4000/uploads/2020-05-13T06-53-21.525Z-fashion1.jpg"
             alt=""
           />
           <MDBMask overlay="white-slight" />

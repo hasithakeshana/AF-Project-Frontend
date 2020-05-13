@@ -33,3 +33,7 @@ export const ADD_TO_CART_FROM_WISHLIST_FAILED = 'app/WishListPage/ADD_TO_CART_FR
 export const ADD_TO_WISHLIST = 'app/WishListPage/ADD_TO_WISHLIST';
 export const ADD_TO_WISHLIST_SUCCESS = 'app/WishListPage/ADD_TO_WISHLIST_SUCCESS';
 export const ADD_TO_WISHLIST_FAILED = 'app/WishListPage/ADD_TO_WISHLIST_FAILED';
+
+export const GET_ALL_PRODUCTS = 'app/Products/GET_ALL_PRODUCTS';
+export const  GET_ALL_PRODUCTS_SUCCESS = 'app/Products/GET_ALL_PRODUCTS_SUCCESS';
+export const GET_ALL_PRODUCTS_FAILED = 'app/Products/GET_ALL_PRODUCTS_FAILED';

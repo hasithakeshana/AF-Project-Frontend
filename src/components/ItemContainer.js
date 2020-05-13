@@ -1,11 +1,19 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import {MDBRow} from "mdbreact";
 import '../index.css'
 import Item from './Item';
 import {connect} from "react-redux";
 import TestModel from "./TestModel";
 
+import * as reduxActions from '../common/actions';
+
 function ItemContainer(props) {
+
+    useEffect(() => {
+
+        props.getAllProducts();
+        
+        },[])
 
         return (
         <div>
@@ -51,7 +59,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {}
+    return {
+        getAllProducts : () => dispatch(reduxActions.GetAllProducts()),
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemContainer)

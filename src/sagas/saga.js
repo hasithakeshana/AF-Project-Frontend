@@ -1,6 +1,6 @@
 import {takeLatest, all, put, call} from 'redux-saga/effects';
 import * as CONSTANTS from '../common/constants';
-import {fetchData ,fetchUsers, fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails , getUserWishList , removeItemFromWishList , addToCartFromWishList,addToWishList} from '../common/apiRoutes';
+import {fetchData ,fetchUsers, fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails , getUserWishList , removeItemFromWishList , addToCartFromWishList,addToWishList,getAllProducts} from '../common/apiRoutes';
 import * as globalActions from '../common/actions';
 
 
@@ -301,7 +301,36 @@ function* addToCartFromWishListWorker({ payload: data }){
  
  }
 
+ function* getAllProductsWorker({ payload: {  } }){
 
+    
+    console.log('saga working');
+ 
+   
+ 
+  
+ 
+     try{
+        const data  = yield call (getAllProducts) || {};
+ 
+        console.log('saga data',data.data.item);
+
+        const products = data.data.item;
+ 
+    if (data) yield put(globalActions.GetAllProductsSuccessAction(products));
+ 
+        
+         
+     }
+     catch(err){
+
+       // yield put(globalActions.GetRatingFailAction(err));
+         console.log(err);
+        
+     }
+    
+ 
+ }
 
 
 
@@ -319,7 +348,8 @@ export function* rootWatcher() {
         takeLatest(CONSTANTS.ADD_TO_CART_FROM_WISHLIST,addToCartFromWishListWorker),
         takeLatest(CONSTANTS.USER_SIGN_UP, signUpUserWorker),
         takeLatest(CONSTANTS.USER_LOGIN, loginUserWorker),
-        takeLatest("SIGNUP", updateUsers)
+        takeLatest("SIGNUP", updateUsers),
+        takeLatest(CONSTANTS.GET_ALL_PRODUCTS, getAllProductsWorker),
 
     ]);
 

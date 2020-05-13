@@ -1,9 +1,18 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import  image1 from  '../images/ImageSlider/imageSlider1.jpg'
 import  image2 from  '../images/ImageSlider/imageSlider2.jpg'
-
+import {connect} from "react-redux";
 import '../index.css'
-function ImageSlider() {
+
+import * as reduxActions from '../common/actions';
+
+function ImageSlider(props) {
+
+    useEffect(() => {
+
+        props.getAllProducts();
+        
+        },[])
 
     return(
         <center>
@@ -45,4 +54,18 @@ function ImageSlider() {
 
 }
 
-export default ImageSlider
+const mapStateToProps = state => {
+    return {
+        items: state.items,
+        selectedItemsArray : state.selectedItemsArray,
+        cartCheck : state.cartCheck
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getAllProducts : () => dispatch(reduxActions.GetAllProducts()),
+    }
+}
+
+export default  connect(mapStateToProps, mapDispatchToProps)(ImageSlider)

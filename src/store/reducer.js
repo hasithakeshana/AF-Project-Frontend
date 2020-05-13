@@ -8,6 +8,7 @@ export const initialState = {
         cart: [],
         cartTotal:0
     },
+    products : [],
     item:{
         currentSelectedItem : {} ,
         itemRatingDetails:{
@@ -263,8 +264,18 @@ const reducer = (state = initialState, {type, payload}) => {
          
          newState.auth.wishListCount = count;
      }
+     // GET_ALL_PRODUCTS_SUCCESS
+     if(type === ACTIONS.GET_ALL_PRODUCTS_SUCCESS){
      
-     
+        console.log('reducer',payload);
+        newState.products = payload;
+
+        // const count = payload.data.length;
+
+        // console.log('count',count); // wishListCount
+        
+        // newState.auth.wishListCount = count;
+    }
      // action = login success -> currentUser = payload.user/ isauthenticated = true
      
      // action logout -> isauthenticated / false
