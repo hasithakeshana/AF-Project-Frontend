@@ -65,8 +65,13 @@ function Item(props) {
         <MDBView hover className="rounded z-depth-4 mb-3 item" waves>
           
           <img
+
             className="img-fluid"
             src= {"http://localhost:4000/uploads/"+item.images[0].productImage}
+
+            className="img-fluid "
+            src= {item.images[0]}
+
             alt=""
             onClick={handleClick}
           />

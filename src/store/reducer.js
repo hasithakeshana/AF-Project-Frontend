@@ -3,7 +3,7 @@ import * as ACTIONS from '../common/constants';
 
 export const initialState = {
 
-   usernames: "hashini",
+   usernames: "test",
     user: {
         cart: [],
         cartTotal:0
@@ -22,16 +22,17 @@ export const initialState = {
     },
     auth: {
         currentUser: {
-
+            wishListCount : 0,
             role : 'guest'
         },
         isAuthenticated: false,
         isTokenChecked: false,
         isRegistered: false,
         wishList : {},
+
         wishListCount : 0},
         items: [],
-    // }, items: [{
+     //items: [{
     //     itemID: 1,
     //     itemRatingDetails: {},
     //     images: ['http://localhost:4000/1.jpeg'],
@@ -161,6 +162,139 @@ export const initialState = {
     //         cartIn: false
     //     }
     // ],
+
+       
+    // }, items: [{
+    //     itemID: 1,
+    //     itemRatingDetails: {},
+    //     images: ['http://localhost:4000/1.jpeg'],
+    //     name: "Crocodile Shirt",
+    //     price: 500.00,
+    //     size: "XL",
+    //     description: "50% OFF TODAY",
+    //     mainCategory: "Men",
+    //     subCategory: "Jeans",
+    //     quantityInCart: 1,
+    //     cartIn: false
+    // }, {
+    //     itemID: 2,
+    //     itemRatingDetails: {},
+    //     images: ['http://localhost:4000/1.jpeg'],
+    //     name: "Crocodile Shirt",
+    //     price: 500.00,
+    //     description: "50% OFF TODAY",
+    //     mainCategory: "Men",
+    //     subCategory: "Jeans",
+    //     quantityInCart: 1,
+    //     cartIn: false
+    // },
+    //     {
+    //         itemID: 3,
+    //         itemRatingDetails: {},
+    //         images: ['http://localhost:4000/1.jpeg'],
+    //         name: "Ralph Loren Shirt",
+    //         price: 655.00,
+    //         description: "70% OFF TODAY",
+    //         mainCategory: "Women",
+    //         subCategory: "Jeans",
+    //         quantityInCart: 1,
+    //         cartIn: false
+    //     },
+    //     {
+    //         itemID: 4,
+    //         itemRatingDetails: {},
+    //         images: ['http://localhost:4000/1.jpeg'],
+    //         name: "Crocodile Shirt",
+    //         price: 500.00,
+    //         description: "50% OFF TODAY",
+    //         mainCategory: "Men",
+    //         subCategory: "Shirts",
+    //         quantityInCart: 1,
+    //         cartIn: false
+    //     },
+    //     {
+    //         itemID: 5,
+    //         itemRatingDetails: {},
+    //         images: ['http://localhost:4000/1.jpeg'],
+    //         name: "Crocodile Shirt",
+    //         price: 500.00,
+    //         description: "50% OFF TODAY",
+    //         mainCategory: "Women",
+    //         subCategory: "Jeans",
+    //         quantityInCart: 1,
+    //         cartIn: false
+    //     },
+    //     {
+    //         itemID: 6,
+    //         itemRatingDetails: {},
+    //         images: ['http://localhost:4000/2.jpeg'],
+    //         name: "Ralph Loren Shirt",
+    //         price: 655.00,
+    //         description: "70% OFF TODAY",
+    //         quantityInCart: 1,
+    //         cartIn: false
+    //     }, {
+    //         itemID: 7,
+    //         itemRatingDetails: {},
+    //         images: ['http://localhost:4000/1.jpeg'],
+    //         name: "Crocodile Shirt",
+    //         price: 500.00,
+    //         description: "50% OFF TODAY",
+    //         quantityInCart: 1,
+    //         cartIn: false
+    //     },
+    //     {
+    //         itemID: 8,
+    //         itemRatingDetails: {},
+    //         images: ['http://localhost:4000/2.jpeg'],
+    //         name: "Ralph Loren Shirt",
+    //         price: 655.00,
+    //         description: "70% OFF TODAY",
+    //         quantityInCart: 1,
+    //         cartIn: false
+    //     }, {
+    //         itemID: 9,
+    //         itemRatingDetails: {},
+    //         images: ['http://localhost:4000/1.jpeg'],
+    //         name: "Crocodile Shirt",
+    //         price: 500.00,
+    //         description: "50% OFF TODAY",
+    //         quantityInCart: 1,
+    //         cartIn: false
+    //     },
+    //     {
+    //         itemID: 10,
+    //         itemRatingDetails: {},
+    //         images: ['http://localhost:4000/2.jpeg'],
+    //         name: "Ralph Loren Shirt",
+    //         price: 655.00,
+    //         description: "70% OFF TODAY",
+    //         quantityInCart: 1,
+    //         cartIn: false
+    //     }, {
+    //         itemID: 11,
+    //         itemRatingDetails: {},
+    //         images: ['http://localhost:4000/1.jpeg'],
+    //         name: "Crocodile Shirt",
+    //         price: 500.00,
+    //         description: "50% OFF TODAY",
+    //         quantityInCart: 1,
+    //         cartIn: false
+    //     },
+    //     {
+    //         itemID: 12,
+    //         itemRatingDetails: {},
+    //         images: ['http://localhost:4000/2.jpeg'],
+    //         name: "Ralph Loren Shirt",
+    //         price: 655.00,
+    //         description: "70% OFF TODAY",
+    //         mainCategory: "Kids",
+    //         subCategory: "Jeans",
+    //         quantityInCart: 1,
+    //         cartIn: false
+    //     }
+    // ],
+
 
     menCategories: ['Jeans', 'Shirts', 'T-Shirts', 'Footwear'],
     womenCategories: ['Jeans', 'Blouses', 'Life Style', 'Footwear'],
