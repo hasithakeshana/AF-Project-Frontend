@@ -50,24 +50,30 @@ const handleSubmit = (evt) => {
 
 
 
-export function RatingsCom({addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings}) {
-
-const [itemId, setItemId] = useState("5ebce64f04843613ac1edce8"); // get from the store
-const [userName, setUserName] = useState("Ushan"); // get from the store
+export function RatingsCom({username,addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings,product}) {
+  console.log('idddddddddddddddddddddddddddddddddddfu',product,username);
+// const [itemId, setItemId] = useState("5ebce64f04843613ac1edce8"); // get from the store
+//const [userName, setUserName] = useState("keshana"); // get from the store
 const [userReview, setUserReview] = useState("");
 const [modifiedArray, setModifiedArray] = useState("");
 
-useEffect(() => {
-
-getRatings(itemId);
-
-},[])
+const [idd, setItemIdd] = useState("");
 
 useEffect(() => {
 
-change(userName,ratingList);
+setItemIdd(product);
+getRatings(product);
+console.log('iddddddddddddddddddddddddddddddddddd',product);
+
+},[product])
+
+useEffect(() => {
+
+change(username,ratingList);
   
 },[ratingList])
+
+
 
 
 console.log('userRole',progressRating);
@@ -82,11 +88,11 @@ const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
   const classes = useStyles();
 
-  const validate = (itemId,userName,value,comment) =>
+  const validate = (id,userName,value,comment) =>
   {
     const date = new Date();
     console.log(date);
-    addRating(itemId,userName,value,comment,date);
+    addRating(id,userName,value,comment,date);
   }
  
 
@@ -109,12 +115,17 @@ console.log('returnedArray',returnedArray);
        }
      }
 
-   const someArray = returnedArrays.filter(x => x.userName !== userName);
+   const someArray = returnedArrays.filter(x => x.userName !== username);
 
      console.log('somearry',someArray);
      setModifiedArray(someArray);
    
 }
+// useEffect(() => {
+
+//   change(username,ratingList);
+    
+//   },[userAlreadyRated])
 
 console.log('isRated,user',userAlreadyRated,userReview);
   
@@ -177,7 +188,7 @@ setHover(newHover);
 
 <br></br>
 
-<button type="button"  onClick = {  () => validate(itemId,userName,value,comment)  } class="btn btn-outline-success">Rate Us!</button>
+<button type="button"  onClick = {  () => validate(product,username,value,comment)  } class="btn btn-outline-success">Rate Us!</button>
 
 <div className={classes.root}>
 </div>
@@ -198,7 +209,7 @@ setHover(newHover);
 <RatingList 
 list={ratingList}
 newList={modifiedArray}
- userName={userName} 
+ userName={username} 
  ></RatingList>
  <br/>
  <br/>
@@ -236,7 +247,8 @@ const mapStateToProps = (state)=> {
     userRole : state.auth.currentUser.role,
     progressRating : state.item.itemRatingDetails.ratingCount,
     avgRating : state.item.itemRatingDetails.avgRating, 
-    countRatings : state.item.itemRatingDetails.countRatings
+    countRatings : state.item.itemRatingDetails.countRatings,
+    username : state.usernames
     
   }
 };
