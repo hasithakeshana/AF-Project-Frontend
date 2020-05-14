@@ -6,5 +6,7 @@ export const USER_LOGIN = 'app/SignInPage/USER_LOGIN';
 export const USER_LOGIN_SUCCESS = 'app/SignInPage/USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAILED = 'app/SignInPage/USER_LOGIN_FAILED';
 
+//export const ADD_MANAGER = 'app/'
+
 
 

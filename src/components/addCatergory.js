@@ -1,17 +1,19 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+const axios = require('axios').default;
+
 export default class addCatergory extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
           value: "mCatergory",
-          countries: [
-            { id: "1", country: "Male" },
-            { id: "2", country: "Female" },
-            { id: "3", country: "Kids" },
-            {id : "4", country: "Sports"},
-            {id: "5", country: "Special Discount"}
+          mCat: [
+            { id: "1", Catergory: "Male" },
+            { id: "2", Catergory: "Female" },
+            { id: "3", Catergory: "Kids" },
+            {id : "4", Catergory: "Sports"},
+            {id: "5", Catergory: "Special Discount"}
           ]
         };
     
@@ -19,6 +21,7 @@ export default class addCatergory extends React.Component{
       }
     
       handleSubmit(event) {
+        this.addCat();
         alert("ADDED SUCCESSFULLY: ");
         event.preventDefault();
       }
@@ -26,20 +29,67 @@ export default class addCatergory extends React.Component{
       handleChange = event => {
         this.setState({ value: event.target.value });
       };
+
+      addCat= async (user) =>{
+ 
+        try{
+      
+        const data = user ;
+         console.log('api data = ',data);
+      
+          //  const correctData = user["user"];
+          //   console.log('correctData',correctData);
+      
+      
+        const response = await axios.request({
+                method: 'POST',
+                url: `http://localhost:4000/api/addCatergory`,
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                          "Access-Control-Allow-Origin": "*"
+                },
+                data: JSON.stringify(data),
+              
+              }).then((res) => {
+      
+                 console.log('output',res);
+      
+                // console.log('out',res.data);
+      
+                // const result =  res.data;
+               
+                //return result;
+              });
+      
+           // const resData = await response;
+           
+           // console.log('responsee api',resData);
+            
+           //return resData;
+             
+      
+      
+        }
+        catch(e){
+            console.log(e);
+        }
+      
+        
+      }
     
       render() {
         return (
-          <form onSubmit={this.handleSubmit}> 
+          <form onSubmit={this.addCat}> 
           <div className="form-group row"> 
               Select Main Catergory
               <br></br>
               <select className="form-control">
-                {this.state.countries.map(item => (
-                  <option key={item.id} value={item.country}>
-                    {item.country}
+                {this.state.mCat.map(item => (
+                  <option key={item.id} value={item.Catergory}>
+                    {item.Catergory}
                   </option>
                 ))}
-                {console.log(this.state.countries)}
+                {console.log(this.state.mCat)}
               </select>
               </div>
             

@@ -60,3 +60,59 @@ export function loginFailAction(error) {
       },
     };
   }
+
+  export function addManagerAction(user) {
+    return {
+      type: "ADD_MANAGER",
+      payload: {
+        user,
+      },
+    };
+  }
+
+
+  export function addCatergoryAction(data) {
+    return {
+      type: "ADD_CATERGORY",
+      payload: {
+        data,
+      },
+    };
+  }
+
+  export function addCatergoryActionSuccess(data) {
+    return {
+      type: "ADD_CATERGORY_SUCCESS",
+      payload: {
+        data,
+      },
+    };
+  }
+
+  export function addCatergoryActionFail(data) {
+    return {
+      type: "ADD_CATERGORY_FAIL",
+      payload: {
+        data,
+      },
+    };
+  }
+
+  export function addManagerSuccessAction(user){
+    return {
+      type: "ADD_MANAGER_SUCCESS",
+      payload: {
+        user,
+      }
+    };
+  }
+
+  export function addManagerFailAction(user){
+    return {
+
+      type: "ADD_MANAGER_FAIL",
+      payload: {
+        user,
+      }
+    };
+  }

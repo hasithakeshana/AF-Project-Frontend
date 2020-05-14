@@ -16,7 +16,7 @@ export default class navBarAdmin extends React.Component{
             <Router>
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="https://codingthesmartway.com" target="_blank">
+            <a className="navbar-brand" href="https://codingthesmartway.com" target="_blank">
               
             </a>
             <div className="navbar-brand">Admin Panel</div>
