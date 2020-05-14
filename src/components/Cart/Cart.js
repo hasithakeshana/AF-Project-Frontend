@@ -6,7 +6,6 @@ import CartItem from "./CartItem";
 
 function Cart(props) {
 
-    console.log(props)
     return(
 
        <div className="tableContainer" >

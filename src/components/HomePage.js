@@ -11,7 +11,7 @@ function HomePage(props) {
     return (
         <div>
             <Header/>
-        <NavigationBar> </NavigationBar>
+        <NavigationBar/>
 
         </div>
 
