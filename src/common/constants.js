@@ -10,3 +10,6 @@ export const ADD_ITEM = 'app/AddItem/ADD_ITEM';
 export const ADD_ITEM_SUCCESS = 'app/AddItem/ADD_ITEM_SUCCESS';
 export const ADD_ITEM_FAILED = 'app/ADD_ITEM/ADD_ITEM_FAILED';
 
+export const EDIT_USER = 'app/SignUpPage/USER_SIGN_UP';
+export const EDIT_USER_SUCCESS = 'app/SignUpPage/USER_REGISTER_SUCCESS'
+export const EDIT_USER_FAILED = 'app/SignUpPage/USER_REGISTER_FAILED'

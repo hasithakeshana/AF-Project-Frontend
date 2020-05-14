@@ -1,4 +1,4 @@
-import React , { useState , useEffect } from 'react';
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -22,7 +22,6 @@ import * as reduxActions from '../common/actions';
 
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-import axios from "axios";
 
 function Copyright() {
   return (
@@ -68,13 +67,6 @@ const validationSchema = Yup.object({
 
 
 function SignUp({signUpuser}) {
-
-    const firstName = useState("");
-    const lastName = useState("");
-    const email = useState("");
-    const password = useState("");
-    
-
 
     const { handleSubmit, handleChange, values, errors } = useFormik({
       initialValues: {

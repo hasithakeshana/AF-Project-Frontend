@@ -3,7 +3,7 @@ import {takeLatest , all ,  put , call} from 'redux-saga/effects';
 
 import * as CONSTANTS from '../common/constants';
 
-import {fetchData , fetchLogin, fetchItemData} from '../common/apiRoutes';
+import {fetchData , fetchLogin, fetchItemData, fetchUser} from '../common/apiRoutes';
 
 //import {registerSuccessAction , registerFailAction } from '../common/actions';
 
@@ -34,6 +34,33 @@ function* signUpUserWorker({ payload: { user } }){
     }
    
 
+}
+
+function* editUser({ payload: { email } }){
+
+    
+    console.log('saga working');
+ 
+    console.log('saga user',email);
+ 
+  
+ 
+     try{
+         const data  = yield call (fetchUser ,{email}) || {};
+ 
+         console.log('correct data',data);
+ 
+         if (data) yield put(globalActions.editUserSuccess(data.email));
+ 
+        
+         
+     }
+     catch(err){
+         console.log(err);
+         yield put(globalActions.editUserFail(err.message));
+     }
+    
+ 
 }
 
 function* loginUserWorker({ payload: { user } }){
@@ -77,7 +104,7 @@ function* addItem({ payload: { item } }){
  
          console.log('correct data',data);
  
-         if (data) yield put(globalActions.addItemActionSuccess(data.user));
+         if (data) yield put(globalActions.addItemActionSuccess(data.item));
  
         
          
@@ -88,7 +115,7 @@ function* addItem({ payload: { item } }){
      }
     
  
- }
+}
 
 
 export function* rootWatcher(){
@@ -98,6 +125,7 @@ export function* rootWatcher(){
     takeLatest(CONSTANTS.USER_SIGN_UP,signUpUserWorker),
     takeLatest(CONSTANTS.USER_LOGIN,loginUserWorker),
     takeLatest(CONSTANTS.ADD_ITEM,addItem),
+    takeLatest(CONSTANTS.EDIT_USER,editUser),
 
     ]);
 }

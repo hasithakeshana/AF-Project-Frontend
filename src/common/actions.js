@@ -89,3 +89,30 @@ export function addItemActionFail(error) {
     },
   };
 }
+
+export function editUser(email){
+  return{
+      type : ACTIONS.EDIT_USER,
+      payload: {
+             email
+               },
+  };
+}
+
+export function editUserFail(email){
+  return{
+      type : ACTIONS.EDIT_USER_FAILED,
+      payload: {
+             email
+               },
+  };
+}
+
+export function editUserSuccess(email){
+  return{
+      type : ACTIONS.EDIT_USER_SUCCESS,
+      payload: {
+             email
+               },
+  };
+}

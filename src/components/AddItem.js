@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React, { useState, useEffect }  from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import uuid from 'react-uuid';
+import axios from 'axios';
 
 
 import PropTypes from 'prop-types';
@@ -53,24 +54,56 @@ const useStyles = makeStyles((theme) => ({
 const validationSchema = Yup.object({
   title: Yup.string().required("Please fill the field"),
   category: Yup.string().required("Please fill the field"),
+  subCategory: Yup.string().required("Please fill the frield"),
   description: Yup.string().required("Please fill the field"),
-  price: Yup.number().required("Please fill the field"),
-  quantity: Yup.number().required("Please fill the field")
+  price: Yup.number("Please enter a valid price").min(1).required("Please fill the field"),
+  discount: Yup.number("Please enter a valid discount").default(0).max(99),
+  quantity: Yup.number("Please enter a valid quantity").moreThan(0).required("Please fill the field"),
 });
+
+
+  
+
+  
+
 
 
 
 function AddItem({addItem}) {
   
     const id = uuid();
+
+    const [cat, setCat] = useState(0);
+ 
+    /*useEffect(() => 
+    axios.get('http://localhost:4000/api/category')
+      .then(res => {
+        const categories = res.data;
+        console.log(res.data.category)
+      })    
+    )*/
+    
+    function onChangeHandler(event)  {
+      const file = event.target.files
+      console.log(file)
+      values.productImage = file
+      console.log(values.productImage);
+      
+    }
+
+
+    
     
     const { handleSubmit, handleChange, values, errors } = useFormik({
       initialValues: {
         title: "",
         category: "",
+        subCategory: "",
         description: "",
-        price: "",
-        quantity: "",
+        price: 0,
+        discount: 0,
+        quantity: 0,
+        images: null,
       },
       validationSchema,
       onSubmit(values) {
@@ -84,6 +117,8 @@ function AddItem({addItem}) {
 
   const classes = useStyles();
 
+  
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -93,7 +128,9 @@ function AddItem({addItem}) {
           <Typography component="h1" variant="h5">
             Add Item
           </Typography>
+
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            
             <Grid className={ classes.section} item xs={12}>
               <TextField
                 error
@@ -118,6 +155,19 @@ function AddItem({addItem}) {
                 autoComplete="category"
                 onChange={handleChange}
               />{errors.category}
+            </Grid>
+            
+
+            <Grid className={ classes.section} item xs={12}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                id="subCategory"
+                label="Sub-Category of Item"
+                name="subCategory"
+                autoComplete="subCategory"
+                onChange={handleChange}
+              />{errors.subCategory}
             </Grid>
             
             <Grid className={ classes.section} item xs={12}>
@@ -149,6 +199,18 @@ function AddItem({addItem}) {
               <TextField
                 variant="outlined"
                 fullWidth
+                name="discount"
+                label="Discount"
+                id="discount"
+                onChange={handleChange}
+              />
+            </Grid>
+            {errors.discount}
+
+            <Grid className={ classes.section} item xs={12}>
+              <TextField
+                variant="outlined"
+                fullWidth
                 name="quantity"
                 label="Quantity"
                 id="quantity"
@@ -157,7 +219,15 @@ function AddItem({addItem}) {
             </Grid>
             {errors.quantity}
 
-          
+            <Grid className={ classes.section} item xs={12}>
+            <input 
+              type="file" 
+              multiple
+              name="productImage" 
+              accept="image/x-png,image/jpg,image/jpeg" 
+              onChange = {onChangeHandler}
+            />
+            </Grid>  
           
           <Button
             type="submit"
@@ -166,7 +236,7 @@ function AddItem({addItem}) {
             color="primary"
             className={classes.submit}
             disabled={isDisabled}
-            onClick = {  () => addItem(id, values.title,values.description,values.category,values.price, values.quantity)  }
+            onClick = {  () => addItem(id, values.title,values.description,values.category,values.subCategory,values.price, values.discount, values.quantity, values.productImage)  }
           >
             Add Item
           </Button>
@@ -196,7 +266,7 @@ const mapDispachToProps = (dispach) => {
   
   return {
    
-    addItem : (id,title,description,category,price, quantity) => dispach(reduxActions.addItemAction({id,title,description,category,price, quantity})) ,
+    addItem : (id,title,description,category,subCategory, price,discount, quantity, productImage) => dispach(reduxActions.addItemAction({id,title,description,category, subCategory, price, discount, quantity, productImage})) ,
 
 
   }
