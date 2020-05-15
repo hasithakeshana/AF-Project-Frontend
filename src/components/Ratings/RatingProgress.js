@@ -7,7 +7,6 @@ function RatingProgress(props) {
 
   const {progress,avgRating,countRatings} = props;
 
-  console.log('avgRating cdddddddddd',countRatings.noOfRatings,avgRating.avg);
 
     return (
         <div>

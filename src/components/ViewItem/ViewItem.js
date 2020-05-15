@@ -12,14 +12,10 @@ import Rating from '../Ratings/RatingsCom';
 
 function ViewItem({getItemDetails,item,location, history}) {
 
-    console.log('itemm',item);
-
     const [pID, setId] = useState("");
 
     useEffect(() => {
-    console.log('locationnn', location.search);
     const values = queryString.parse(location.search);
-    console.log('queryyyyyyyy', values.productId); // get id of product
     setId(values.productId);
     getItemDetails(values.productId); // SAGA ACTION
     // const params = new URLSearchParams(location.search);

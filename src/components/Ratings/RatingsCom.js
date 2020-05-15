@@ -51,7 +51,6 @@ const handleSubmit = (evt) => {
 
 
 export function RatingsCom({username,addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings,product}) {
-  console.log('idddddddddddddddddddddddddddddddddddfu',product,username);
 // const [itemId, setItemId] = useState("5ebce64f04843613ac1edce8"); // get from the store
 //const [userName, setUserName] = useState("keshana"); // get from the store
 const [userReview, setUserReview] = useState("");
@@ -63,20 +62,13 @@ useEffect(() => {
 
 setItemIdd(product);
 getRatings(product);
-console.log('iddddddddddddddddddddddddddddddddddd',product);
-
 },[product])
 
 useEffect(() => {
 
 change(username,ratingList);
   
-},[ratingList])
-
-
-
-
-console.log('userRole',progressRating);
+},[ratingList]);
 
 const [comment, setComment] = useState("");
 
@@ -91,17 +83,14 @@ const [value, setValue] = React.useState(0);
   const validate = (id,userName,value,comment) =>
   {
     const date = new Date();
-    console.log(date);
     addRating(id,userName,value,comment,date);
   }
  
 
   function  change(userName,returnedArray){
 
-    console.log('detaaaaaaaaaaaaaaaaaaaaa',userName,returnedArray);
 
     const returnedArrays = Array.from(returnedArray);
-console.log('returnedArray',returnedArray);
 
     
      let isRated = false;
@@ -117,7 +106,6 @@ console.log('returnedArray',returnedArray);
 
    const someArray = returnedArrays.filter(x => x.userName !== username);
 
-     console.log('somearry',someArray);
      setModifiedArray(someArray);
    
 }
@@ -127,8 +115,6 @@ console.log('returnedArray',returnedArray);
     
 //   },[userAlreadyRated])
 
-console.log('isRated,user',userAlreadyRated,userReview);
-  
 return (
       
      

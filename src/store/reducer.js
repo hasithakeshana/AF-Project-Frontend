@@ -267,8 +267,7 @@ const reducer = (state = initialState, {type, payload}) => {
      }
      // GET_ALL_PRODUCTS_SUCCESS
      if(type === ACTIONS.GET_ALL_PRODUCTS_SUCCESS){
-     
-        console.log('reducer',payload);
+
         newState.items = payload;
 
         // const count = payload.data.length;

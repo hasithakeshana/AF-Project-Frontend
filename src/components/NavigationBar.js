@@ -20,13 +20,12 @@ function NavigationBar(props) {
     function buildSelectedItemsArray(mainCategory, subCategory) {
         let selectedItemsArray = []
         props.state.items.map(item => {
-            //console.log(item.mainCategory + " " + item.subCategory + "      " + mainCategory + " " + subCategory)
             if ((item.mainCategory === mainCategory && item.subCategory === subCategory) || mainCategory === 'All' ) {
                 selectedItemsArray.push(item)
             }
 
         });
-        //console.log(selectedItemsArray);
+
         props.selectedItemsArray(selectedItemsArray);
     }
 

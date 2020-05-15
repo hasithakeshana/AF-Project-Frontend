@@ -20,10 +20,6 @@ function RatingsList({list,userName,newList}) {
     const classes = useStyles();
 
    const lists = Array.from(newList);
-    console.log('props lists',list);
-  console.log('props userName',newList);
-
- 
  
     return (
         <div>
@@ -51,4 +47,3 @@ lists.map((rating) =>
 
 export default RatingsList;
 
-    

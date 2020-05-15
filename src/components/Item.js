@@ -22,7 +22,7 @@ function Item(props) {
   //const history = useHistory();
 
     const handleClick = (item) => {
-        console.log('click',item._id);
+
         history.push("/wishlist");
     }
 
@@ -47,12 +47,6 @@ function Item(props) {
         }
 
     }
-// `http://localhost:4000/api/addRatingWithComment/${id}`
-// "http://localhost:4000/uploads/2020-05-13T06-53-21.525Z-fashion1.jpg"
-
-// <Link to="https://github.com/Joeyryanbridges">
-//   <Image src="giticon.png" className="githubIcon" />
-// </Link>
     const addWish = (item) =>{
 
         props.addToWishList({userId,item});
