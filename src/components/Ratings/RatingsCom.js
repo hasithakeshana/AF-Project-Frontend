@@ -15,6 +15,7 @@ import RatingProgress from './RatingProgress';
 
 import Moment from 'react-moment';
 import Button from '@material-ui/core/Button';
+const axios = require('axios').default;
 
 const labels = {
   0.5: 'Useless',
@@ -59,6 +60,8 @@ const [modifiedArray, setModifiedArray] = useState("");
 
 const [idd, setItemIdd] = useState("");
 
+const [data, setData] = useState("");
+
 useEffect(() => {
 
 setItemIdd(product);
@@ -66,6 +69,44 @@ getRatings(product);
 console.log('iddddddddddddddddddddddddddddddddddd',product);
 
 },[product])
+
+
+  // checkUserIsRated
+  
+ 
+  useEffect(() => {
+    const fetchData = async () => {
+      const reqBody = {username};
+      const id = String(product);
+      console.log('reqqqqqqqqqqqqqqqqbodyyy',reqBody);
+      const response = await axios.request({
+        method: 'POST',
+        url: `http://localhost:4000/api/checkUserIsRated/${id}`,
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+                  "Access-Control-Allow-Origin": "*"
+        },
+        data: JSON.stringify(reqBody),
+       
+         
+      
+      }).then((res) => {
+    
+        console.log('output of ratings',res.data);
+        setData(res.data.rated);
+        console.log('rateedddddddddddddddddddddddd',data);
+      
+      });
+     
+ 
+      // setData(result.data);
+    };
+ 
+    fetchData();
+   
+  }, [product]);
+
+
 
 console.log('userRole',progressRating);
 
