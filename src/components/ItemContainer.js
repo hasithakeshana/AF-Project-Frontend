@@ -11,7 +11,7 @@ function ItemContainer(props) {
 
     useEffect(() => {
 
-        props.getAllProducts();
+      //  props.getAllProducts();
         
         },[])
 
@@ -32,6 +32,7 @@ function ItemContainer(props) {
                     props.selectedItemsArray.map(item =>
 
                         <Item
+                            key={item._id}
                             item ={item}
                             /*id={item.id}
                             images={item.images}

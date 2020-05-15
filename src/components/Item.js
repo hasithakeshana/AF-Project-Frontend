@@ -8,9 +8,23 @@ import {connect} from "react-redux";
 import {add_to_total, cart_check_true, check_cart, update_cart, update_cart_count} from "../store/actions";
 import  * as ACTIONS from "../common/actions";
 import TestModel from "./TestModel";
-import img1 from "../images/fashion5.jpg"
-
+import img1 from "../images/fashion5.jpg";
+import { useHistory } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Link,
+  Route,
+  Switch,
+} from 'react-router-dom';
 function Item(props) {
+    const history = useHistory();
+
+  //const history = useHistory();
+
+    const handleClick = (item) => {
+        console.log('click',item._id);
+        history.push("/wishlist");
+    }
 
    /* const {id,images,description,price,name,selectedcategory,selectedSubCategory} = props;*/
     const{item} = props
@@ -33,7 +47,12 @@ function Item(props) {
         }
 
     }
+// `http://localhost:4000/api/addRatingWithComment/${id}`
+// "http://localhost:4000/uploads/2020-05-13T06-53-21.525Z-fashion1.jpg"
 
+// <Link to="https://github.com/Joeyryanbridges">
+//   <Image src="giticon.png" className="githubIcon" />
+// </Link>
     const addWish = (item) =>{
 
         props.addToWishList({userId,item});
@@ -42,15 +61,24 @@ function Item(props) {
     return (
 
         <MDBCol lg="4" md="1" className="" >
+         <div onClick={()=> history.push("/wishlist?"+"productId="+item._id)}>
         <MDBView hover className="rounded z-depth-4 mb-3 item" waves>
+          
           <img
+
+            className="img-fluid"
+            src= {"http://localhost:4000/uploads/"+item.images[0].productImage}
+
             className="img-fluid "
             src= {item.images[0]}
+
             alt=""
+            onClick={handleClick}
           />
+         
           <MDBMask overlay="white-slight" />
         </MDBView>
-
+         </div>
           <h6 className=" mb-3 itemIcons" >
               {item.name}
           </h6>
@@ -68,6 +96,8 @@ function Item(props) {
                allIn(item)
 
             }}/>
+
+             
 
 
       </MDBCol>

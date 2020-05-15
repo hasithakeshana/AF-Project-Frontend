@@ -6,6 +6,7 @@ import Rating from "./components/Ratings/RatingsCom";
 import ItemContainer from './components/ItemContainer';
 import Footer from './components/Footer';
 import ImageSlider from "./components/ImagSlider";
+import viewItem from "./components/ViewItem/ViewItem"
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 class App extends Component {
@@ -21,6 +22,8 @@ class App extends Component {
         <Route path = "/" exact component ={ImageSlider}/>
         <Route path = "/products" exact component ={ItemContainer}/>
         <Route path ="/cart" exact component={Cart}/>
+        <Route path ="/wishlist" exact component={viewItem}/>
+        <Route path ="/viewItem" exact component={viewItem}/>
         <Route path ="/wishlist" exact component={Rating}/>
 
         </switch>
