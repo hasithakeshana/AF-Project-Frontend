@@ -51,9 +51,9 @@ const handleSubmit = (evt) => {
 
 
 export function RatingsCom({username,addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings,product}) {
+  
   console.log('idddddddddddddddddddddddddddddddddddfu',product,username);
-// const [itemId, setItemId] = useState("5ebce64f04843613ac1edce8"); // get from the store
-//const [userName, setUserName] = useState("keshana"); // get from the store
+
 const [userReview, setUserReview] = useState("");
 const [modifiedArray, setModifiedArray] = useState("");
 
@@ -66,15 +66,6 @@ getRatings(product);
 console.log('iddddddddddddddddddddddddddddddddddd',product);
 
 },[product])
-
-useEffect(() => {
-
-change(username,ratingList);
-  
-},[ratingList])
-
-
-
 
 console.log('userRole',progressRating);
 
@@ -96,38 +87,7 @@ const [value, setValue] = React.useState(0);
   }
  
 
-  function  change(userName,returnedArray){
 
-    console.log('detaaaaaaaaaaaaaaaaaaaaa',userName,returnedArray);
-
-    const returnedArrays = Array.from(returnedArray);
-console.log('returnedArray',returnedArray);
-
-    
-     let isRated = false;
-     for(const value of returnedArrays) {
-       if(value.userName === userName)
-       {
-         isRated = true;
-         setuserAlreadyRated(true);
-         setUserReview(value);
-         break;
-       }
-     }
-
-   const someArray = returnedArrays.filter(x => x.userName !== username);
-
-     console.log('somearry',someArray);
-     setModifiedArray(someArray);
-   
-}
-// useEffect(() => {
-
-//   change(username,ratingList);
-    
-//   },[userAlreadyRated])
-
-console.log('isRated,user',userAlreadyRated,userReview);
   
 return (
       
@@ -136,31 +96,19 @@ return (
 <div style={{marginLeft: '5%', marginRight: "5%", marginTop: "5%", marginBottom:"5%"}}>
 <div className="row">
 <div className="col" style={{marginLeft: '5%', marginRight: "5%"}}>
+
 <RatingProgress 
     progress={progressRating}
     avgRating={avgRating}
     countRatings={countRatings}
 ></RatingProgress>
+
 </div>
 <div className="col" style={{textAlign:'center'}}>
 
          
 
-    {
-
-userAlreadyRated === true ? 
-
-<div class="alert alert-danger" role="alert">
-<Rating name="size-small" defaultValue={userReview.rate} size="small" readOnly={true} />
-<h5 class="alert-heading">{userReview.userName} </h5>
-       <p><Moment format="YYYY/MM/DD">{userReview.date}</Moment></p>
-<hr></hr>
-       <p class="mb-0">{ userReview.comment} </p>
-
-       
-</div>
-
-:  <form onSubmit={handleSubmit}>
+  <form onSubmit={handleSubmit}>
 
 <Rating
 
@@ -195,7 +143,7 @@ setHover(newHover);
 </form>
 
 
-      }
+      
       </div>
       </div>
       </div>
@@ -206,11 +154,13 @@ setHover(newHover);
       <div style={{}}>
       <br/>
       <br/>
+
 <RatingList 
 list={ratingList}
-newList={modifiedArray}
+newList={ratingList}
  userName={username} 
  ></RatingList>
+ 
  <br/>
  <br/>
 
