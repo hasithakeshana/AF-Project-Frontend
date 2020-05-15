@@ -9,7 +9,7 @@ function Header(props) {
         <div>
 
 
-            <nav class="navbar navbar-light bg-light center" style={{"height":"55px"}}>
+            <nav class="navbar navbar-light bg-light center" style={{"height":"90px"}}>
                 <p>Hotline : 0771792083</p>
                 <img src={logo} alt = ""class = "imageCenter"/>
                 <Link to="/cart" style={{ textDecoration: 'none' }}>

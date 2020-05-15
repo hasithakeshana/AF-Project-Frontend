@@ -9,6 +9,7 @@ import TestModel from "./components/TestModel";
 import ImageSlider from "./components/ImagSlider";
 import viewItem from "./components/ViewItem/ViewItem"
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import Footer from "./components/Footer";
 
 class App extends Component {
   render() {
@@ -25,6 +26,7 @@ class App extends Component {
         <Route path ="/wishlist" exact component={viewItem}/>
         <Route path ="/viewItem" exact component={viewItem}/>
         </switch>
+        <Footer/>
         </div>
         </Router>
 
