@@ -60,49 +60,66 @@ const [modifiedArray, setModifiedArray] = useState("");
 
 const [idd, setItemIdd] = useState("");
 
-const [data, setData] = useState("");
+const [rated, setData] = useState("");
+const [rateUserDeatils, setRateUser] = useState("");
 
 useEffect(() => {
 
 setItemIdd(product);
-getRatings(product);
+if(typeof(product) !== 'undefined'){
+  getRatings(product);
+}
+else{
+ 
+}
+
 console.log('iddddddddddddddddddddddddddddddddddd',product);
 
 },[product])
 
 
   // checkUserIsRated
+  const fetchData = async (product,username) => {
+    const reqBody = {username};
+    const id = String(product);
+    console.log('reqqqqqqqqqqqqqqqqbodyyy',reqBody);
+    const response = await axios.request({
+      method: 'POST',
+      url: `http://localhost:4000/api/checkUserIsRated/${id}`,
+      headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*"
+      },
+      data: JSON.stringify(reqBody),
+     
+       
+    
+    }).then((res) => {
   
+      console.log('output of ratings',res.data);
+      setData(res.data.rated);
+      console.log('rateedddddddddddddddddddddddd');
+      if(res.data.rated)
+      {
+        setRateUser(res.data.rating);
+      }
+     
+    
+    });
+   
+
+    // setData(result.data);
+  };
  
   useEffect(() => {
-    const fetchData = async () => {
-      const reqBody = {username};
-      const id = String(product);
-      console.log('reqqqqqqqqqqqqqqqqbodyyy',reqBody);
-      const response = await axios.request({
-        method: 'POST',
-        url: `http://localhost:4000/api/checkUserIsRated/${id}`,
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-                  "Access-Control-Allow-Origin": "*"
-        },
-        data: JSON.stringify(reqBody),
-       
-         
-      
-      }).then((res) => {
     
-        console.log('output of ratings',res.data);
-        setData(res.data.rated);
-        console.log('rateedddddddddddddddddddddddd',data);
+    if(typeof(product) !== 'undefined' && (username) !== 'undefined' ){
+      fetchData(product,username);
+    }
+    else{
       
-      });
-     
- 
-      // setData(result.data);
-    };
- 
-    fetchData();
+    }
+    
    
   }, [product]);
 
@@ -123,8 +140,9 @@ const [value, setValue] = React.useState(0);
   const validate = (id,userName,value,comment) =>
   {
     const date = new Date();
-    console.log(date);
+   // console.log(date);
     addRating(id,userName,value,comment,date);
+    fetchData(id,userName);
   }
  
 
@@ -147,6 +165,18 @@ return (
 </div>
 <div className="col" style={{textAlign:'center'}}>
 
+{rated ? (
+  <div class="alert alert-success" role="alert">
+<Rating name="size-small" value={rateUserDeatils.rate} size="small" readOnly={true} />
+<h5 class="alert-heading">{rateUserDeatils.rate} </h5>
+  <h5 class="alert-heading">{rateUserDeatils.userName} </h5>
+  
+  <hr></hr>
+             <p class="mb-0">{ rateUserDeatils.comment} </p>
+</div>
+) : (
+  <h1> not rated </h1> 
+)}
          
 
   <form onSubmit={handleSubmit}>
@@ -195,6 +225,8 @@ setHover(newHover);
       <div style={{}}>
       <br/>
       <br/>
+
+
 
 <RatingList 
 list={ratingList}

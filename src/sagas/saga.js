@@ -67,7 +67,7 @@ function* updateUsers() {
 function* rateAddedWorker({ payload: { data } }){
 
     
-    console.log('saga working');
+    //console.log('saga working');
  
     console.log('saga RATE ',data.itemId);
  
@@ -103,7 +103,7 @@ function* rateAddedWorker({ payload: { data } }){
  function* getRateCommentsWorker({ payload: { ProductId } }){
 
     
-    console.log('saga working');
+   // console.log('saga working');
  
     console.log('saga productid ',ProductId);
  
@@ -112,7 +112,7 @@ function* rateAddedWorker({ payload: { data } }){
      try{
          const data  = yield call (getRatingComments ,ProductId) || {};
  
-         console.log('correct data',data);
+        // console.log('correct data',data);
  
        if (data) yield put(globalActions.GetRatingSuccessAction(data.data));
  
@@ -132,7 +132,7 @@ function* rateAddedWorker({ payload: { data } }){
  function* getViewItemDetails({ payload: { ProductId } }){
 
     
-    console.log('saga working');
+   // console.log('saga working');
  
     console.log('saga productid ',ProductId);
  
@@ -141,7 +141,7 @@ function* rateAddedWorker({ payload: { data } }){
      try{
         const data  = yield call (getItemDetails ,ProductId) || {};
  
-        console.log('correct data',data.data.item);
+        //console.log('correct data',data.data.item);
  
       if (data) yield put(globalActions.GetViewItemSuccessAction(data.data.item));
  
