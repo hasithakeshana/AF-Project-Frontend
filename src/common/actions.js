@@ -346,3 +346,17 @@ export function GetAllProducts(){
   };
   }
   
+export function checkUserIsRatedAction(product,username){
+
+    return{
+        type : 'CHECK_USER_RATED',
+        payload: product,username,
+    };
+}
+
+export function checkUserIsRatedSuccessAction(data) {
+    return {
+      type: 'CHECK_USER_RATED_SUCCESS',
+      payload: data
+    };
+}

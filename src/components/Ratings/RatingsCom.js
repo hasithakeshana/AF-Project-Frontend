@@ -51,7 +51,7 @@ const handleSubmit = (evt) => {
 
 
 
-export function RatingsCom({username,addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings,product}) {
+export function RatingsCom({username,checkUserIsRated,addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings,product,stateRateUserDeatils}) {
   
   console.log('idddddddddddddddddddddddddddddddddddfu',product,username);
 
@@ -62,6 +62,7 @@ const [idd, setItemIdd] = useState("");
 
 const [rated, setData] = useState("");
 const [rateUserDeatils, setRateUser] = useState("");
+const [isEdit, setEdit] = useState(false);
 
 useEffect(() => {
 
@@ -114,7 +115,10 @@ console.log('iddddddddddddddddddddddddddddddddddd',product);
   useEffect(() => {
     
     if(typeof(product) !== 'undefined' && (username) !== 'undefined' ){
-      fetchData(product,username);
+      // fetchData(product,username);
+      checkUserIsRated(product,username);
+      //setData(stateRateUserDeatils.rated);
+      //setRateUser(stateRateUserDeatils.rating);
     }
     else{
       
@@ -137,14 +141,24 @@ const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
   const classes = useStyles();
 
-  const validate = (id,userName,value,comment) =>
+  const validate = async (id,userName,value,comment) =>
   {
     const date = new Date();
    // console.log(date);
-    addRating(id,userName,value,comment,date);
-    fetchData(id,userName);
+    await addRating(id,userName,value,comment,date);
+    //await fetchData(id,userName);
+   // await  checkUserIsRated(product,username);
+    //setData(stateRateUserDeatils.rated);
+   // setRateUser(stateRateUserDeatils.rating);
   }
  
+  const editRating = async (c,r) =>
+  {
+    console.log('comment',c);
+    setComment(c);
+    setValue(r);
+    setEdit(true);
+  }
 
 
   
@@ -165,14 +179,17 @@ return (
 </div>
 <div className="col" style={{textAlign:'center'}}>
 
-{rated ? (
+{stateRateUserDeatils.rated ? (
+  
   <div class="alert alert-success" role="alert">
-<Rating name="size-small" value={rateUserDeatils.rate} size="small" readOnly={true} />
-<h5 class="alert-heading">{rateUserDeatils.rate} </h5>
-  <h5 class="alert-heading">{rateUserDeatils.userName} </h5>
+<Rating name="size-small" value={stateRateUserDeatils.rating.rate} size="small" readOnly={true} />
+<h5 class="alert-heading">{stateRateUserDeatils.rating.rate} </h5>
+  <h5 class="alert-heading">{stateRateUserDeatils.rating.userName} </h5>
   
   <hr></hr>
-             <p class="mb-0">{ rateUserDeatils.comment} </p>
+             <p class="mb-0">{ stateRateUserDeatils.rating.comment} </p>
+
+             <button type="button"   class="btn btn-outline-success">Edit Your Rating</button>
 </div>
 ) : (
   <h1> not rated </h1> 
@@ -202,13 +219,17 @@ setHover(newHover);
 
 <br/>
 
-<textarea class="form-control" onChange={e => setComment(e.target.value)} id="exampleFormControlTextarea1" rows="3"></textarea>
+<textarea class="form-control" value={comment} onChange={e => setComment(e.target.value)} id="exampleFormControlTextarea1" rows="3"></textarea>
 
 
 <br></br>
 
-<button type="button"  onClick = {  () => validate(product,username,value,comment)  } class="btn btn-outline-success">Rate Us!</button>
 
+{isEdit ? (
+  <button type="button"  onClick = {  () => validate(product,username,value,comment)  } class="btn btn-outline-success">Edit Rating</button>
+) : (
+  <button type="button"  onClick = {  () => validate(product,username,value,comment)  } class="btn btn-outline-success">Rate Us!</button>
+)}
 <div className={classes.root}>
 </div>
 </form>
@@ -271,7 +292,8 @@ const mapStateToProps = (state)=> {
     progressRating : state.item.itemRatingDetails.ratingCount,
     avgRating : state.item.itemRatingDetails.avgRating, 
     countRatings : state.item.itemRatingDetails.countRatings,
-    username : state.usernames
+    username : state.usernames,
+    stateRateUserDeatils : state.rateUserDeatils,
     
   }
 };
@@ -283,6 +305,7 @@ const mapDispachToProps = (dispach) => {
    
     addRating : (itemId,userName,rate,comment,date) => dispach(reduxActions.AddRatingAction({itemId,userName,rate,comment,date})) ,
     getRatings : (ProductId) => dispach(reduxActions.GetRatingAction(ProductId)),
+    checkUserIsRated : (product,username) => dispach(reduxActions.checkUserIsRatedAction(product,username)),
 
 
   }

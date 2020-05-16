@@ -3,7 +3,8 @@ import * as ACTIONS from '../common/constants';
 
 export const initialState = {
 
-   usernames: "hasitha keshana",
+   usernames: "user15",
+   rateUserDeatils : "",
     user: {
         cart: [],
         cartTotal:0
@@ -271,23 +272,18 @@ const reducer = (state = initialState, {type, payload}) => {
         console.log('reducer',payload);
         newState.items = payload;
 
-        // const count = payload.data.length;
-
-        // console.log('count',count); // wishListCount
-        
-        // newState.auth.wishListCount = count;
     }
-     // action = login success -> currentUser = payload.user/ isauthenticated = true
+    if(type === "CHECK_USER_RATED_SUCCESS"){
      
-     // action logout -> isauthenticated / false
-     
-     // register success -> isregistered = success
-     
-     // toekn checked -> tokenchecked = true
+        console.log('reducer',payload);
+        newState.rateUserDeatils = payload;
+
+    }
+   
      
     return newState;
 
-}
+}// CHECK_USER_RATED_SUCCESS
 
 
 export default reducer;

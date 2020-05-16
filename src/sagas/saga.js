@@ -1,6 +1,6 @@
 import {takeLatest, all, put, call} from 'redux-saga/effects';
 import * as CONSTANTS from '../common/constants';
-import {fetchData ,fetchUsers, fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails , getUserWishList , removeItemFromWishList , addToCartFromWishList,addToWishList,getAllProducts} from '../common/apiRoutes';
+import {fetchData ,fetchUsers, fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails , getUserWishList , removeItemFromWishList , addToCartFromWishList,addToWishList,getAllProducts,checkUserRated} from '../common/apiRoutes';
 import * as globalActions from '../common/actions';
 
 
@@ -75,17 +75,22 @@ function* rateAddedWorker({ payload: { data } }){
 
     console.log('payload rate add worker',data);
 
+    const product = data.itemId;
+    const username = data.userName ;
+
   
  
      try{
         const datas  = yield call (fetchRatingsAdd ,{data}) || {};
+
+        const check  = yield call (checkUserRated,{product,username}) || {};
 
      const result = yield call (getRatingComments ,ProductId) || {};
 
     console.log('result get',result);
  
         //console.log('correct data',datas);
- 
+        if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
        if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
  
         
@@ -332,6 +337,37 @@ function* addToCartFromWishListWorker({ payload: data }){
  
  }
 
+// checkUserIsRatedWorker
+function* checkUserIsRatedWorker({ payload:  product,username  }){
+
+    
+    console.log('saga working', product,username);
+ 
+   // checkUserRated
+ 
+  
+ 
+     try{
+        const data  = yield call (checkUserRated,{product,username}) || {};
+ 
+        console.log('saga data',data);
+
+    //     const products = data.data.item;
+ 
+    if (data) yield put(globalActions.checkUserIsRatedSuccessAction(data));
+ 
+        
+         
+     }
+     catch(err){
+
+       // yield put(globalActions.GetRatingFailAction(err));
+         console.log(err);
+        
+     }
+    
+ 
+ }
 
 
 export function* rootWatcher() {
@@ -350,7 +386,8 @@ export function* rootWatcher() {
         takeLatest(CONSTANTS.USER_LOGIN, loginUserWorker),
         takeLatest("SIGNUP", updateUsers),
         takeLatest(CONSTANTS.GET_ALL_PRODUCTS, getAllProductsWorker),
+        takeLatest("CHECK_USER_RATED", checkUserIsRatedWorker),
 
     ]);
 
-}
+}// CHECK_USER_RATED
