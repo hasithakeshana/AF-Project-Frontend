@@ -2,9 +2,10 @@ import React,{ useState , useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
-
+import {  MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter,  MDBTooltip, MDBCarousel, MDBCarouselInner, MDBCarouselItem } from "mdbreact";
 import PropTypes from 'prop-types';
-
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import {connect} from 'react-redux';
 
 import * as reduxActions from '../../common/actions';
@@ -16,6 +17,7 @@ import RatingProgress from './RatingProgress';
 import Moment from 'react-moment';
 import Button from '@material-ui/core/Button';
 const axios = require('axios').default;
+
 
 const labels = {
   0.5: 'Useless',
@@ -51,7 +53,7 @@ const handleSubmit = (evt) => {
 
 
 
-export function RatingsCom({username,checkUserIsRated,addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings,product,stateRateUserDeatils,updateRating}) {
+export function RatingsCom({username,checkUserIsRated,addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings,product,stateRateUserDeatils,updateRating,deleteRatings}) {
   
   console.log('idddddddddddddddddddddddddddddddddddfu',product,username);
 
@@ -86,8 +88,7 @@ console.log('iddddddddddddddddddddddddddddddddddd',product);
     if(typeof(product) !== 'undefined' && (username) !== 'undefined' ){
       // fetchData(product,username);
       checkUserIsRated(product,username);
-      //setData(stateRateUserDeatils.rated);
-      //setRateUser(stateRateUserDeatils.rating);
+      
     }
     else{
       
@@ -110,24 +111,24 @@ const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
   const classes = useStyles();
 
-  const validate = async (id,userName,value,comment) =>
+  const addRate =  (id,userName,value,comment) =>
   {
     const date = new Date();
    // console.log(date);
-    await addRating(id,userName,value,comment,date);
-    //await fetchData(id,userName);
-   // await  checkUserIsRated(product,username);
-    //setData(stateRateUserDeatils.rated);
-   // setRateUser(stateRateUserDeatils.rating);
+    addRating(id,userName,value,comment,date);
+
+    setComment("");
+    setValue(0);
+    
   }
  
   const setEditRating = async (comment,rate) =>
   {
-    console.log('comment',c);
+    console.log('comment');
     setComment(comment);
     setValue(rate);
     setEdit(true);
-    //updateRating(product,username,rateID,comment,rate); // productId,username,rateId,comment,rate
+   
   }
 
   const editRating = async (product,username) =>
@@ -136,11 +137,22 @@ const [value, setValue] = React.useState(0);
     updateRating(product,
       username,
       stateRateUserDeatils.rating._id,
-      stateRateUserDeatils.rating.comment,
-      stateRateUserDeatils.rating.rate
+      comment,
+      value
       ); // productId,username,rateId,comment,rate
+
+      //getRatings(product);
+      setEdit(false);
+      setComment("");
+      setValue(0);
   }
 
+  const deleteRating = () =>
+  {
+    console.log('delete rating');// productId,username,rateId
+    
+    deleteRatings(product,stateRateUserDeatils.rating.userName,stateRateUserDeatils.rating._id);
+  }
 
   
 return (
@@ -150,6 +162,8 @@ return (
 <div style={{marginLeft: '5%', marginRight: "5%", marginTop: "5%", marginBottom:"5%"}}>
 <div className="row">
 <div className="col" style={{marginLeft: '5%', marginRight: "5%"}}>
+
+
 
 <RatingProgress 
     progress={progressRating}
@@ -164,6 +178,11 @@ return (
   
   <div class="alert alert-success" role="alert">
 <Rating name="size-small" value={stateRateUserDeatils.rating.rate} size="small" readOnly={true} />
+
+<IconButton aria-label="delete">
+<DeleteIcon  onClick = {  () => deleteRating()  } />
+</IconButton>
+
 <h5 class="alert-heading">{stateRateUserDeatils.rating.rate} </h5>
   <h5 class="alert-heading">{stateRateUserDeatils.rating.userName} </h5>
   
@@ -209,9 +228,10 @@ setHover(newHover);
 {isEdit ? (
   <button type="button"   onClick = {  () => editRating(product,username)  }  class="btn btn-outline-success">Edit Rating</button>
 ) : (
-  <button type="button"  onClick = {  () => validate(product,username,value,comment)  } class="btn btn-outline-success">Rate Us!</button>
+  <button type="button"  onClick = {  () => addRate(product,username,value,comment)  } class="btn btn-outline-success">Rate Us!</button>
 )}
 <div className={classes.root}>
+
 </div>
 </form>
                     
@@ -288,6 +308,7 @@ const mapDispachToProps = (dispach) => {
     getRatings : (ProductId) => dispach(reduxActions.GetRatingAction(ProductId)),
     checkUserIsRated : (product,username) => dispach(reduxActions.checkUserIsRatedAction(product,username)),
     updateRating : (productId,username,rateId,comment,rate) => dispach(reduxActions.updateRatingAction(productId,username,rateId,comment,rate)),
+    deleteRatings : (productId,username,rateId) => dispach(reduxActions.deleteRatingAction(productId,username,rateId)),
 
 
   }

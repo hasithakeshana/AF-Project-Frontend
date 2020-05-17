@@ -1,6 +1,6 @@
 import {takeLatest, all, put, call} from 'redux-saga/effects';
 import * as CONSTANTS from '../common/constants';
-import {fetchData ,fetchUsers, fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails , getUserWishList , removeItemFromWishList , addToCartFromWishList,addToWishList,getAllProducts,checkUserRated,updateRating} from '../common/apiRoutes';
+import {fetchData ,fetchUsers, fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails , getUserWishList , removeItemFromWishList , addToCartFromWishList,addToWishList,getAllProducts,checkUserRated,updateRating,deleteRating} from '../common/apiRoutes';
 import * as globalActions from '../common/actions';
 
 
@@ -85,7 +85,7 @@ function* rateAddedWorker({ payload: { data } }){
 
         const check  = yield call (checkUserRated,{product,username}) || {};
 
-     const result = yield call (getRatingComments ,ProductId) || {};
+       const result = yield call (getRatingComments ,ProductId) || {};
 
     console.log('result get',result);
  
@@ -374,11 +374,23 @@ function* checkUserIsRatedWorker({ payload:  product,username  }){
     console.log('saga working', productId,username,rateId,comment,rate);
  
    // checkUserRated
+   const product = productId;
  
   try{
         const data  = yield call (updateRating,{ productId,username,rateId,comment,rate}) || {};
+
+        const check  = yield call (checkUserRated,{product,username}) || {};
+
+        const result = yield call (getRatingComments ,product) || {};
  
-       console.log('saga data',data);
+     console.log('result get',result);
+     console.log('saga data',data);
+  
+         //console.log('correct data',datas);
+        if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
+        if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
+ 
+      
 
     // //     const products = data.data.item;
  
@@ -402,17 +414,26 @@ function* checkUserIsRatedWorker({ payload:  product,username  }){
 
     
     console.log('saga working', productId,username,rateId);
+   // console.log('saga working', productId,username,rateId,comment,rate);
+ 
+    // checkUserRated
+    const product = productId;
  
    
  
   try{
-    //     const data  = yield call (checkUserRated,{product,username}) || {};
+     const data  = yield call (deleteRating,{ productId,username,rateId}) || {};
  
-    //     console.log('saga data',data);
+    const check  = yield call (checkUserRated,{product,username}) || {};
 
-    // //     const products = data.data.item;
- 
-    // if (data) yield put(globalActions.checkUserIsRatedSuccessAction(data));
+    const result = yield call (getRatingComments ,product) || {};
+
+ console.log('result get',result);
+ console.log('saga data',data);
+
+     //console.log('correct data',datas);
+    if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
+    if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
  
         
          
