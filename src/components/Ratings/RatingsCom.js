@@ -51,7 +51,7 @@ const handleSubmit = (evt) => {
 
 
 
-export function RatingsCom({username,checkUserIsRated,addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings,product,stateRateUserDeatils}) {
+export function RatingsCom({username,checkUserIsRated,addRating,getRatings,ratingList,userRole,progressRating,avgRating,countRatings,product,stateRateUserDeatils,updateRating}) {
   
   console.log('idddddddddddddddddddddddddddddddddddfu',product,username);
 
@@ -79,38 +79,7 @@ console.log('iddddddddddddddddddddddddddddddddddd',product);
 },[product])
 
 
-  // checkUserIsRated
-  const fetchData = async (product,username) => {
-    const reqBody = {username};
-    const id = String(product);
-    console.log('reqqqqqqqqqqqqqqqqbodyyy',reqBody);
-    const response = await axios.request({
-      method: 'POST',
-      url: `http://localhost:4000/api/checkUserIsRated/${id}`,
-      headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-                "Access-Control-Allow-Origin": "*"
-      },
-      data: JSON.stringify(reqBody),
-     
-       
-    
-    }).then((res) => {
-  
-      console.log('output of ratings',res.data);
-      setData(res.data.rated);
-      console.log('rateedddddddddddddddddddddddd');
-      if(res.data.rated)
-      {
-        setRateUser(res.data.rating);
-      }
-     
-    
-    });
-   
-
-    // setData(result.data);
-  };
+ 
  
   useEffect(() => {
     
@@ -152,12 +121,24 @@ const [value, setValue] = React.useState(0);
    // setRateUser(stateRateUserDeatils.rating);
   }
  
-  const editRating = async (c,r) =>
+  const setEditRating = async (comment,rate) =>
   {
     console.log('comment',c);
-    setComment(c);
-    setValue(r);
+    setComment(comment);
+    setValue(rate);
     setEdit(true);
+    //updateRating(product,username,rateID,comment,rate); // productId,username,rateId,comment,rate
+  }
+
+  const editRating = async (product,username) =>
+  {
+   
+    updateRating(product,
+      username,
+      stateRateUserDeatils.rating._id,
+      stateRateUserDeatils.rating.comment,
+      stateRateUserDeatils.rating.rate
+      ); // productId,username,rateId,comment,rate
   }
 
 
@@ -189,7 +170,7 @@ return (
   <hr></hr>
              <p class="mb-0">{ stateRateUserDeatils.rating.comment} </p>
 
-             <button type="button"   class="btn btn-outline-success">Edit Your Rating</button>
+             <button type="button"  onClick = {  () => setEditRating(stateRateUserDeatils.rating.comment,stateRateUserDeatils.rating.rate)  }   class="btn btn-outline-success">Edit Your Rating</button>
 </div>
 ) : (
   <h1> not rated </h1> 
@@ -226,14 +207,14 @@ setHover(newHover);
 
 
 {isEdit ? (
-  <button type="button"  onClick = {  () => validate(product,username,value,comment)  } class="btn btn-outline-success">Edit Rating</button>
+  <button type="button"   onClick = {  () => editRating(product,username)  }  class="btn btn-outline-success">Edit Rating</button>
 ) : (
   <button type="button"  onClick = {  () => validate(product,username,value,comment)  } class="btn btn-outline-success">Rate Us!</button>
 )}
 <div className={classes.root}>
 </div>
 </form>
-
+                    
 
       
       </div>
@@ -306,6 +287,7 @@ const mapDispachToProps = (dispach) => {
     addRating : (itemId,userName,rate,comment,date) => dispach(reduxActions.AddRatingAction({itemId,userName,rate,comment,date})) ,
     getRatings : (ProductId) => dispach(reduxActions.GetRatingAction(ProductId)),
     checkUserIsRated : (product,username) => dispach(reduxActions.checkUserIsRatedAction(product,username)),
+    updateRating : (productId,username,rateId,comment,rate) => dispach(reduxActions.updateRatingAction(productId,username,rateId,comment,rate)),
 
 
   }

@@ -3,7 +3,7 @@ import * as ACTIONS from '../common/constants';
 
 export const initialState = {
 
-   usernames: "user15",
+   usernames: "user20",
    rateUserDeatils : "",
     user: {
         cart: [],
