@@ -1,8 +1,10 @@
+
+
 .imageCenter {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 45%;
+    width: 25%;
 }
 
 .imageSlider {
@@ -17,7 +19,7 @@
     color: #383332 ;
 }
 .itemIcons{
-    margin-left: 160px;
+    margin-left: 50px;
     align-content: center;
     color: #383332 ;
 }
@@ -41,9 +43,7 @@
 }
 
 .tableContainer{
-    width: 900px;
-    margin-left: 220px;
-    margin-top: 50px;
+  width: 80%;
 }
 .tableheaderCenter{
     alignment: center;
@@ -185,6 +185,24 @@ ul.social-network li {
     background-color: #F9F9F9;
 }
 
+.viewItemCarousel{
 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:70%;
 
+}
+.viewItemCard{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 85px;
+    width: 100%;
+    height: auto;
 
+}
+.navColor{
+    background-color: #243c44;
+
+}

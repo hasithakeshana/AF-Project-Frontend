@@ -31,7 +31,7 @@ function NavigationBar(props) {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-dark navColor" >
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -151,9 +151,6 @@ function NavigationBar(props) {
                         </li>
                     </ul>
                     <form className="form-inline my-2 my-lg-0">
-                        <input className="form-control mr-sm-2" type="search" placeholder="Search"
-                               aria-label="Search"/>
-                        <button className="btn btn-outline-pink btn-sm" type="submit">Search</button>
                     </form>
                 </div>
 

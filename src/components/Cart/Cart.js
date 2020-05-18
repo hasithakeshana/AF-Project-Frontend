@@ -14,9 +14,10 @@ function Cart(props) {
                <thead className="table">
                <tr>
                    <th scope="col">Product</th>
-                   <th scope="col" >Price</th>
-                   <th scope="col">Quantity</th>
+                   <th scope="col" >Prduct ID </th>
+                   <th scope="col">Size </th>
                    <th scope="col"  >Total</th>
+                   <th scope="col"  >Price</th>
                </tr>
                </thead>
            </table>
@@ -28,7 +29,6 @@ function Cart(props) {
                    > </CartItem>
                )
            }
-
 
                <div  ><p className="total mt-3">Total : {props.cartTotal} LKR</p>
                    <button className="btn btn-sm btn-block btn-outline-dark mb-2">Proceed to Payment</button>
