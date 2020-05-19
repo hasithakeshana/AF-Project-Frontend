@@ -64,16 +64,55 @@ function* updateUsers() {
  
 //  }
 
+// function* rateAddedWorker({ payload: { data } }){
+
+//     const ProductId = data.itemId;
+
+ 
+//      try{
+//         const datas  = yield call (fetchRatingsAdd ,{data}) || {};
+
+//      const result = yield call (getRatingComments ,ProductId) || {};
+
+//        if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
+ 
+        
+         
+//      }
+//      catch(err){
+//          console.log(err);
+        
+//      }
+    
+ 
+//  }
 function* rateAddedWorker({ payload: { data } }){
 
+    
+    //console.log('saga working');
+ 
+    console.log('saga RATE ',data.itemId);
+ 
     const ProductId = data.itemId;
 
+    console.log('payload rate add worker',data);
+
+    const product = data.itemId;
+    const username = data.userName ;
+
+  
  
      try{
         const datas  = yield call (fetchRatingsAdd ,{data}) || {};
 
-     const result = yield call (getRatingComments ,ProductId) || {};
+        const check  = yield call (checkUserRated,{product,username}) || {};
 
+       const result = yield call (getRatingComments ,ProductId) || {};
+
+    console.log('result get',result);
+ 
+        //console.log('correct data',datas);
+        if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
        if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
  
         
@@ -86,7 +125,6 @@ function* rateAddedWorker({ payload: { data } }){
     
  
  }
-
 
  function* getRateCommentsWorker({ payload: { ProductId } }){
 

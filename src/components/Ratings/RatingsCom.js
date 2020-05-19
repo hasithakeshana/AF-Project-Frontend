@@ -195,52 +195,38 @@ return (
              <button type="button"  onClick = {  () => setEditRating(stateRateUserDeatils.rating.comment,stateRateUserDeatils.rating.rate)  }   class="btn btn-outline-success">Edit Your Rating</button>
 </div>
 ) : (
-  <h1> not rated </h1> 
+  console.log("not rated") 
 )}
    
-{
-  stateRateUserDeatils.rated  && userIs === "guest" ? (
 
 <form onSubmit={handleSubmit}>
 {
-  isEdit ? (
-    <Rating
+  stateRateUserDeatils.rated !== true || isEdit === true ?(
 
- name="hover-feedback"
-value={value}
-precision={0.5}
-onChange={(event, newValue) => {
-  setValue(newValue);
-            }}
-onChangeActive={(event, newHover) => {
-setHover(newHover);
-    }}
-    size="large"
-
-  />
-
-  ):(
-    <Rating
-disabled
- name="hover-feedback"
-value={value}
-precision={0.5}
-onChange={(event, newValue) => {
-  setValue(newValue);
-            }}
-onChangeActive={(event, newHover) => {
-setHover(newHover);
-    }}
-    size="large"
-
-  />
     
-  )
-
-}
-<Rating
-disabled
- name="hover-feedback"
+    
+    <Rating
+    
+    
+    name="hover-feedback"
+   value={value}
+   precision={0.5}
+   onChange={(event, newValue) => {
+     setValue(newValue);
+               }}
+   onChangeActive={(event, newHover) => {
+   setHover(newHover);
+       }}
+       size="large"
+   
+     />
+   
+     
+  )  :
+  (
+    <Rating
+    disabled
+name="hover-feedback"
 value={value}
 precision={0.5}
 onChange={(event, newValue) => {
@@ -255,8 +241,13 @@ setHover(newHover);
 
   
 
-{value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
 
+
+  )
+}
+
+
+{value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
 <br/>
 
 <textarea class="form-control" value={comment} onChange={e => setComment(e.target.value)} id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -276,51 +267,9 @@ setHover(newHover);
 </form>
 
 
-  ):(
-
-    <form onSubmit={handleSubmit}>
-
-<Rating
-
- name="hover-feedback"
-value={value}
-precision={0.5}
-onChange={(event, newValue) => {
-  setValue(newValue);
-            }}
-onChangeActive={(event, newHover) => {
-setHover(newHover);
-    }}
-    size="large"
-
-  />
-
   
 
-{value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
 
-<br/>
-
-<textarea class="form-control" value={comment} onChange={e => setComment(e.target.value)} id="exampleFormControlTextarea1" rows="3"></textarea>
-
-
-<br></br>
-
-
-{isEdit ? (
-  <button type="button"   onClick = {  () => editRating(product,username)  }  class="btn btn-outline-success">Edit Rating</button>
-) : (
-  <button type="button"  onClick = {  () => addRate(product,username,value,comment)  } class="btn btn-outline-success">Rate Us!</button>
-)}
-<div className={classes.root}>
-
-</div>
-</form>
-
-
-  )
-
-}
 
 
                     

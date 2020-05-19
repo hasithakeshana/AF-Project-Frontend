@@ -11,7 +11,7 @@ function ItemContainer(props) {
 
     useEffect(() => {
 
-      //  props.getAllProducts();
+      //props.getAllProducts();
         
         },[])
 

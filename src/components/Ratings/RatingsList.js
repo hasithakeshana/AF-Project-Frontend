@@ -30,7 +30,7 @@ lists.map((rating) =>
 
 
 <div class="alert alert-success" role="alert">
-<Rating name="size-small" defaultValue={rating.rate} size="small" readOnly={true} />
+<Rating name="size-small" value={rating.rate} size="small" readOnly={true} />
   <h5 class="alert-heading">{rating.userName} </h5>
   <p><Moment format="YYYY/MM/DD">{rating.date}</Moment></p> 
   <hr></hr>
