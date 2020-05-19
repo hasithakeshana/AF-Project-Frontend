@@ -302,3 +302,134 @@ export const getAllProducts = async () => {
     return response;
 
 }
+
+export const checkUserRated = async (user) =>{
+   
+    try{
+  
+        const {username,product} = user;
+        const reqBody = {username};
+        const id = String(product);
+        console.log('reqqqqqqqqqqqqqqqqbodyyy',reqBody);
+        const response = await axios.request({
+          method: 'POST',
+          url: `http://localhost:4000/api/checkUserIsRated/${id}`,
+          headers: {
+              'Content-Type': 'application/json;charset=UTF-8',
+                    "Access-Control-Allow-Origin": "*"
+          },
+          data: JSON.stringify(reqBody),
+         
+           
+        
+        }).then((res) => {
+      
+            const result =  res.data;
+               
+            return result;
+        });
+   
+       const resData = await response;
+       
+       console.log('responsee api',resData);
+        
+       return resData;
+         
+  
+  
+    }
+    catch(e){
+        console.log(e);
+    }
+  
+    
+  }
+
+
+  export const updateRating = async (data) =>{
+   
+    try{
+  
+        const {productId,username,rateId,comment,rate} = data;
+        const reqBody = {productId,rate,comment};
+        const id = String(rateId);
+        console.log('reqqqqqqqqqqqqqqqqbodyyy',reqBody);
+
+
+        const response = await axios.request({
+          method: 'PUT',
+          url: `http://localhost:4000/api/updateRating/${id}`,
+          headers: {
+              'Content-Type': 'application/json;charset=UTF-8',
+                    "Access-Control-Allow-Origin": "*"
+          },
+          data: JSON.stringify(reqBody),
+         
+           
+        
+        }).then((res) => {
+      
+            const result =  res.data;
+               
+            return result;
+        });
+   
+       const resData = await response;
+       
+       console.log('responsee api',resData);
+        
+       return resData;
+         
+  
+  
+    }
+    catch(e){
+        console.log(e);
+    }
+  
+    
+  }
+
+export const deleteRating = async (data) =>{
+   
+    try{
+  
+        const {productId,username,rateId} = data;
+        const reqBody = {productId};
+        const id = String(rateId);
+        console.log('reqqqqqqqqqqqqqqqqbodyyy',reqBody);
+
+
+        const response = await axios.request({
+          method: 'DELETE',
+          url: `http://localhost:4000/api/deleteRating/${id}`,
+          headers: {
+              'Content-Type': 'application/json;charset=UTF-8',
+                    "Access-Control-Allow-Origin": "*"
+          },
+          data: JSON.stringify(reqBody),
+         
+           
+        
+        }).then((res) => {
+      
+            const result =  res.data;
+               
+            return result;
+        });
+   
+       const resData = await response;
+       
+       console.log('responsee api',resData);
+        
+       return resData;
+         
+  
+  
+    }
+    catch(e){
+        console.log(e);
+    }
+  
+    
+  }

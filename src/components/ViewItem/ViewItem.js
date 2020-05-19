@@ -9,7 +9,8 @@ import ImageGallery from 'react-image-gallery';
 import {MDBBtn, MDBCol} from "mdbreact";
 import {add_to_total, cart_check_true, check_cart, update_cart, update_cart_count} from "../../store/actions";
 import TestModel from "../TestModel";
-import CartModal from './CartModal'
+import CartModal from './CartModal';
+import Ratings from "../Ratings/RatingsCom";
 import {initialState} from "../../store/reducer";
 
 function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updateTotalInCart,checkCart,updateCartCheckTrue}) {
@@ -332,6 +333,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                         </td>
                     </tr>
                 </table>
+                <Ratings product={item._id} ></Ratings>
             </div>
         )
 

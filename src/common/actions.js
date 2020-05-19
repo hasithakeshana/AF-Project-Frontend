@@ -346,3 +346,47 @@ export function GetAllProducts(){
   };
   }
   
+  export function checkUserIsRatedAction(product,username){
+
+    return{
+        type : 'CHECK_USER_RATED',
+        payload: product,username,
+    };
+}
+
+export function checkUserIsRatedSuccessAction(data) {
+    return {
+      type: 'CHECK_USER_RATED_SUCCESS',
+      payload: data
+    };
+}
+
+export function updateRatingAction(productId,username,rateId,comment,rate){
+
+  return{
+      type : 'UPDATE_RATING',
+      payload: productId,username,rateId,comment,rate,
+  };
+}
+
+export function updateRatingSuccessAction(data) {
+  return {
+    type: 'UPDATE_RATING_SUCCESS',
+    payload: data
+  };
+}
+
+export function deleteRatingAction(productId,username,rateId){
+
+  return{
+      type : 'DELETE_RATING',
+      payload: productId,username,rateId,
+  };
+}
+
+export function deleteRatingSuccessAction(data) {
+  return {
+    type: 'DELETE_RATING_SUCCESS',
+    payload: data
+  };
+}
