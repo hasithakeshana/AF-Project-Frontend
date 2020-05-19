@@ -1,37 +1,48 @@
-import {takeLatest, all, put, call} from 'redux-saga/effects';
-import * as CONSTANTS from '../common/constants';
-import {fetchData ,fetchUsers, fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails , getUserWishList , removeItemFromWishList , addToCartFromWishList,addToWishList,getAllProducts,checkUserRated,updateRating,deleteRating} from '../common/apiRoutes';
-import * as globalActions from '../common/actions';
+import { takeLatest, all, put, call } from "redux-saga/effects";
+import * as CONSTANTS from "../common/constants";
+import {
+	fetchData,
+	fetchUsers,
+	fetchLogin,
+	fetchRatingsAdd,
+	getRatingComments,
+	getItemDetails,
+	getUserWishList,
+	removeItemFromWishList,
+	addToCartFromWishList,
+	addToWishList,
+	getAllProducts,
+	checkUserRated,
+	updateRating,
+	deleteRating,
+} from "../common/apiRoutes";
+import * as globalActions from "../common/actions";
 
-
-
-function* signUpUserWorker({payload: {user}}) {
-    try {
-        const data = yield call(fetchData, {user}) || {};
-        if (data) yield put(globalActions.registerSuccessAction(data.user));
-    } catch (err) {
-        console.log(err);
-        yield put(globalActions.registerFailAction(err.message));
-    }
+function* signUpUserWorker({ payload: { user } }) {
+	try {
+		const data = yield call(fetchData, { user }) || {};
+		if (data) yield put(globalActions.registerSuccessAction(data.user));
+	} catch (err) {
+		console.log(err);
+		yield put(globalActions.registerFailAction(err.message));
+	}
 }
 
-function* loginUserWorker({payload: {user}}) {
-    try {
-        const data = yield call(fetchLogin, {user}) || {}
-        if (data) yield put(globalActions.loginSuccessAction(data.user));
-    } catch (err) {
-        yield put(globalActions.loginFailAction(err.message));
-    }
+function* loginUserWorker({ payload: { user } }) {
+	try {
+		const data = yield call(fetchLogin, { user }) || {};
+		if (data) yield put(globalActions.loginSuccessAction(data.user));
+	} catch (err) {
+		yield put(globalActions.loginFailAction(err.message));
+	}
 }
 
 function* updateUsers() {
-    const data = yield  call(fetchUsers)
-    yield put(globalActions.update_users_success(data))
+	const data = yield call(fetchUsers);
+	yield put(globalActions.update_users_success(data));
 }
 
-
 // function* rateAddedWorker({ payload: { data } }){
-
 
 //
 
@@ -41,388 +52,290 @@ function* updateUsers() {
 
 //     console.log('item sagaaaaaaa',data);
 
- 
 //      try{
 //          const data  = yield call (fetchRatingsAdd ,data) || {};
 
 //          const result = yield call (getRatingComments ,ProductId) || {};
 
 //          console.log('result get',result);
- 
+
 //         // console.log('correct data',data);
- 
+
 //        if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
- 
-        
-         
+
 //      }
 //      catch(err){
 //          console.log(err);
-        
+
 //      }
-    
- 
+
 //  }
 
 // function* rateAddedWorker({ payload: { data } }){
 
 //     const ProductId = data.itemId;
 
- 
 //      try{
 //         const datas  = yield call (fetchRatingsAdd ,{data}) || {};
 
 //      const result = yield call (getRatingComments ,ProductId) || {};
 
 //        if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
- 
-        
-         
+
 //      }
 //      catch(err){
 //          console.log(err);
-        
+
 //      }
-    
- 
+
 //  }
-function* rateAddedWorker({ payload: { data } }){
+function* rateAddedWorker({ payload: { data } }) {
+	//console.log('saga working');
 
-    
-    //console.log('saga working');
- 
-    console.log('saga RATE ',data.itemId);
- 
-    const ProductId = data.itemId;
+	console.log("saga RATE ", data.itemId);
 
-    console.log('payload rate add worker',data);
+	const ProductId = data.itemId;
 
-    const product = data.itemId;
-    const username = data.userName ;
+	console.log("payload rate add worker", data);
 
-  
- 
-     try{
-        const datas  = yield call (fetchRatingsAdd ,{data}) || {};
+	const product = data.itemId;
+	const username = data.userName;
 
-        const check  = yield call (checkUserRated,{product,username}) || {};
+	try {
+		const datas = yield call(fetchRatingsAdd, { data }) || {};
 
-       const result = yield call (getRatingComments ,ProductId) || {};
+		const check = yield call(checkUserRated, { product, username }) || {};
 
-    console.log('result get',result);
- 
-        //console.log('correct data',datas);
-        if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
-       if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
- 
-        
-         
-     }
-     catch(err){
-         console.log(err);
-        
-     }
-    
- 
- }
+		const result = yield call(getRatingComments, ProductId) || {};
 
- function* getRateCommentsWorker({ payload: { ProductId } }){
+		console.log("result get", result);
 
-     try{
-         const data  = yield call (getRatingComments ,ProductId) || {};
+		//console.log('correct data',datas);
+		if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
+		if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
+	} catch (err) {
+		console.log(err);
+	}
+}
 
-       if (data) yield put(globalActions.GetRatingSuccessAction(data.data));
- 
-        
-         
-     }
-     catch(err){
+function* getRateCommentsWorker({ payload: { ProductId } }) {
+	try {
+		const data = yield call(getRatingComments, ProductId) || {};
 
-        yield put(globalActions.GetRatingFailAction(err));
-        
-     }
-    
- 
- }
+		if (data) yield put(globalActions.GetRatingSuccessAction(data.data));
+	} catch (err) {
+		yield put(globalActions.GetRatingFailAction(err));
+	}
+}
 
- function* getViewItemDetails({ payload: { ProductId } }){
+function* getViewItemDetails({ payload: { ProductId } }) {
+	try {
+		const data = yield call(getItemDetails, ProductId) || {};
 
-     try{
-        const data  = yield call (getItemDetails ,ProductId) || {};
+		if (data) yield put(globalActions.GetViewItemSuccessAction(data.data.item));
+	} catch (err) {
+		// yield put(globalActions.GetRatingFailAction(err));
+		console.log(err);
+	}
+}
 
-      if (data) yield put(globalActions.GetViewItemSuccessAction(data.data.item));
+function* getWishListWorker({ payload: { userId } }) {
+	try {
+		const data = yield call(getUserWishList, userId) || {};
 
-     }
-     catch(err){
+		if (data)
+			yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
+	} catch (err) {
+		// yield put(globalActions.GetRatingFailAction(err));
+		console.log(err);
+	}
+}
 
-       // yield put(globalActions.GetRatingFailAction(err));
-         console.log(err);
-        
-     }
- }
+function* removeWishListItemWorker({ payload: { userId, wishListOredrId } }) {
+	try {
+		const data = yield call(removeItemFromWishList, {
+			userId,
+			wishListOredrId,
+		}) || {};
 
+		const datas = yield call(getUserWishList, userId) || {};
 
- function* getWishListWorker({ payload: { userId } }){
+		// if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
 
-     try{
-        const data  = yield call (getUserWishList ,userId) || {};
+		if (datas)
+			yield put(
+				globalActions.GetUserWishListSuccessAction(datas.data.wishlist)
+			);
+	} catch (err) {
+		// yield put(globalActions.GetRatingFailAction(err));
+		console.log(err);
+	}
+}
 
- 
-     if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
- 
-        
-         
-     }
-     catch(err){
+function* addToCartFromWishListWorker({ payload: data }) {
+	const { userId } = data;
+	try {
+		const data = yield call(addToCartFromWishList, data) || {};
 
-       // yield put(globalActions.GetRatingFailAction(err));
-         console.log(err);
-        
-     }
-    
- 
- }
+		//     const datas  = yield call (getUserWishList ,userId) || {};
 
+		//     console.log('correct data',datas.data.wishlist);
 
-function* removeWishListItemWorker({ payload: { userId ,wishListOredrId } }){
+		//  if (datas) yield put(globalActions.GetUserWishListSuccessAction(datas.data.wishlist));
 
- 
-     try{
-        const data  = yield call (removeItemFromWishList ,{userId,wishListOredrId}) || {};
+		//     console.log('correct data',data.data.wishlist);
 
-        const datas  = yield call (getUserWishList ,userId) || {};
+		//  if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
+	} catch (err) {
+		// yield put(globalActions.GetRatingFailAction(err));
+		console.log(err);
+	}
+}
 
- 
-    // if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
- 
-     if (datas) yield put(globalActions.GetUserWishListSuccessAction(datas.data.wishlist));
-         
-     }
-     catch(err){
+function* addToWishListWorker({ payload: data }) {
+	// addToWishList
+	const item = { data };
 
-       // yield put(globalActions.GetRatingFailAction(err));
-         console.log(err);
+	const { userId } = data;
 
-     }
-    
- 
- }
+	try {
+		const data = yield call(addToWishList, item) || {};
 
+		const datas = yield call(getUserWishList, userId) || {};
 
-function* addToCartFromWishListWorker({ payload: data }){
+		if (datas)
+			yield put(
+				globalActions.GetUserWishListSuccessAction(datas.data.wishlist)
+			);
 
-    const {userId} = data;
-     try{
-        const data  = yield call (addToCartFromWishList ,data) || {};
+		//  if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
+	} catch (err) {
+		// yield put(globalActions.GetRatingFailAction(err));
+		console.log(err);
+	}
+}
 
+function* getAllProductsWorker({ payload: {} }) {
+	try {
+		const data = yield call(getAllProducts) || {};
 
-    //     const datas  = yield call (getUserWishList ,userId) || {};
- 
-    //     console.log('correct data',datas.data.wishlist);
- 
-    //  if (datas) yield put(globalActions.GetUserWishListSuccessAction(datas.data.wishlist));
- 
-    //     console.log('correct data',data.data.wishlist);
- 
-    //  if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
-   }
-     catch(err){
+		const products = data.data.item;
 
-       // yield put(globalActions.GetRatingFailAction(err));
-         console.log(err);
-        
-     }
-    
- 
- }
-
-
- function* addToWishListWorker({ payload: data }){
-
-    // addToWishList
-    const item ={data};
-
-    const {userId} = data;
-
-    try{
-        const data  = yield call (addToWishList,item) || {};
-
-        const datas  = yield call (getUserWishList ,userId) || {};
- 
-     if (datas) yield put(globalActions.GetUserWishListSuccessAction(datas.data.wishlist));
- 
-    //  if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
-   }
-     catch(err){
-
-       // yield put(globalActions.GetRatingFailAction(err));
-         console.log(err);
-        
-     }
-    
- 
- }
-
- function* getAllProductsWorker({ payload: {  } }){
-
-    
-
- 
-   
- 
-  
- 
-     try{
-        const data  = yield call (getAllProducts) || {};
-
-        const products = data.data.item;
- 
-    if (data) yield put(globalActions.GetAllProductsSuccessAction(products));
-         
-     }
-     catch(err){
-       // yield put(globalActions.GetRatingFailAction(err));
-         console.log(err);
-     }
- }
-
+		if (data) yield put(globalActions.GetAllProductsSuccessAction(products));
+	} catch (err) {
+		// yield put(globalActions.GetRatingFailAction(err));
+		console.log(err);
+	}
+}
 
 // checkUserIsRatedWorker
-function* checkUserIsRatedWorker({ payload:  product,username  }){
+function* checkUserIsRatedWorker({ payload: product, username }) {
+	console.log("saga working", product, username);
 
-    
-    console.log('saga working', product,username);
- 
-   // checkUserRated
- 
-  try{
-        const data  = yield call (checkUserRated,{product,username}) || {};
- 
-        console.log('saga data',data);
+	// checkUserRated
 
-    //     const products = data.data.item;
- 
-    if (data) yield put(globalActions.checkUserIsRatedSuccessAction(data));
- 
-        
-         
-     }
-     catch(err){
+	try {
+		const data = yield call(checkUserRated, { product, username }) || {};
 
-       // yield put(globalActions.GetRatingFailAction(err));
-         console.log(err);
-        
-     }
-    
- 
- }
+		console.log("saga data", data);
 
+		//     const products = data.data.item;
 
- function* updateRatingWorker({ payload:  productId,username,rateId,comment,rate  }){
+		if (data) yield put(globalActions.checkUserIsRatedSuccessAction(data));
+	} catch (err) {
+		// yield put(globalActions.GetRatingFailAction(err));
+		console.log(err);
+	}
+}
 
-    
-    console.log('saga working', productId,username,rateId,comment,rate);
- 
-   // checkUserRated
-   const product = productId;
- 
-  try{
-        const data  = yield call (updateRating,{ productId,username,rateId,comment,rate}) || {};
+function* updateRatingWorker({
+	payload: productId,
+	username,
+	rateId,
+	comment,
+	rate,
+}) {
+	console.log("saga working", productId, username, rateId, comment, rate);
 
-        const check  = yield call (checkUserRated,{product,username}) || {};
+	// checkUserRated
+	const product = productId;
 
-        const result = yield call (getRatingComments ,product) || {};
- 
-     console.log('result get',result);
-     console.log('saga data',data);
-  
-         //console.log('correct data',datas);
-        if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
-        if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
- 
-      
+	try {
+		const data = yield call(updateRating, {
+			productId,
+			username,
+			rateId,
+			comment,
+			rate,
+		}) || {};
 
-    // //     const products = data.data.item;
- 
-    // if (data) yield put(globalActions.checkUserIsRatedSuccessAction(data));
- 
-        
-         
-     }
-     catch(err){
+		const check = yield call(checkUserRated, { product, username }) || {};
 
-       // yield put(globalActions.GetRatingFailAction(err));
-         console.log(err);
-        
-     }
-    
- 
- }
+		const result = yield call(getRatingComments, product) || {};
 
+		console.log("result get", result);
+		console.log("saga data", data);
 
- function* deleteRatingWorker({ payload: productId,username,rateId  }){
+		//console.log('correct data',datas);
+		if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
+		if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
 
-    
-    console.log('saga working', productId,username,rateId);
-   // console.log('saga working', productId,username,rateId,comment,rate);
- 
-    // checkUserRated
-    const product = productId;
- 
-   
- 
-  try{
-     const data  = yield call (deleteRating,{ productId,username,rateId}) || {};
- 
-    const check  = yield call (checkUserRated,{product,username}) || {};
+		// //     const products = data.data.item;
 
-    const result = yield call (getRatingComments ,product) || {};
+		// if (data) yield put(globalActions.checkUserIsRatedSuccessAction(data));
+	} catch (err) {
+		// yield put(globalActions.GetRatingFailAction(err));
+		console.log(err);
+	}
+}
 
- console.log('result get',result);
- console.log('saga data',data);
+function* deleteRatingWorker({ payload: productId, username, rateId }) {
+	console.log("saga working", productId, username, rateId);
+	// console.log('saga working', productId,username,rateId,comment,rate);
 
-     //console.log('correct data',datas);
-    if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
-    if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
- 
-        
-         
-     }
-     catch(err){
+	// checkUserRated
+	const product = productId;
 
-       // yield put(globalActions.GetRatingFailAction(err));
-         console.log(err);
-        
-     }
-    
- 
- }
+	try {
+		const data = yield call(deleteRating, { productId, username, rateId }) ||
+			{};
 
+		const check = yield call(checkUserRated, { product, username }) || {};
 
+		const result = yield call(getRatingComments, product) || {};
 
+		console.log("result get", result);
+		console.log("saga data", data);
 
-
+		//console.log('correct data',datas);
+		if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
+		if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
+	} catch (err) {
+		// yield put(globalActions.GetRatingFailAction(err));
+		console.log(err);
+	}
+}
 
 export function* rootWatcher() {
-
-    yield  all([
-        takeLatest(CONSTANTS.ADD_TO_WISHLIST,addToWishListWorker),
-        takeLatest(CONSTANTS.USER_SIGN_UP,signUpUserWorker),
-        takeLatest(CONSTANTS.USER_LOGIN,loginUserWorker),
-        takeLatest(CONSTANTS.ADD_RATE_COMMENT,rateAddedWorker),
-        takeLatest(CONSTANTS.GET_RATE_COMMENTS,getRateCommentsWorker),
-        takeLatest(CONSTANTS.GET_VIEW_ITEM,getViewItemDetails),
-        takeLatest(CONSTANTS.GET_USER_WISHLIST,getWishListWorker),
-        takeLatest(CONSTANTS.REMOVE_WISHLIST_ITEM,removeWishListItemWorker),
-        takeLatest(CONSTANTS.ADD_TO_CART_FROM_WISHLIST,addToCartFromWishListWorker),
-        takeLatest(CONSTANTS.USER_SIGN_UP, signUpUserWorker),
-        takeLatest(CONSTANTS.USER_LOGIN, loginUserWorker),
-        takeLatest("SIGNUP", updateUsers),
-        takeLatest(CONSTANTS.GET_ALL_PRODUCTS, getAllProductsWorker),
-        takeLatest("CHECK_USER_RATED", checkUserIsRatedWorker),
-        takeLatest("UPDATE_RATING", updateRatingWorker),
-         takeLatest("DELETE_RATING", deleteRatingWorker),
-
-    ]);
-
+	yield all([
+		takeLatest(CONSTANTS.ADD_TO_WISHLIST, addToWishListWorker),
+		takeLatest(CONSTANTS.USER_SIGN_UP, signUpUserWorker),
+		takeLatest(CONSTANTS.USER_LOGIN, loginUserWorker),
+		takeLatest(CONSTANTS.ADD_RATE_COMMENT, rateAddedWorker),
+		takeLatest(CONSTANTS.GET_RATE_COMMENTS, getRateCommentsWorker),
+		takeLatest(CONSTANTS.GET_VIEW_ITEM, getViewItemDetails),
+		takeLatest(CONSTANTS.GET_USER_WISHLIST, getWishListWorker),
+		takeLatest(CONSTANTS.REMOVE_WISHLIST_ITEM, removeWishListItemWorker),
+		takeLatest(
+			CONSTANTS.ADD_TO_CART_FROM_WISHLIST,
+			addToCartFromWishListWorker
+		),
+		takeLatest(CONSTANTS.USER_SIGN_UP, signUpUserWorker),
+		takeLatest(CONSTANTS.USER_LOGIN, loginUserWorker),
+		takeLatest("SIGNUP", updateUsers),
+		takeLatest(CONSTANTS.GET_ALL_PRODUCTS, getAllProductsWorker),
+		takeLatest("CHECK_USER_RATED", checkUserIsRatedWorker),
+		takeLatest("UPDATE_RATING", updateRatingWorker),
+		takeLatest("DELETE_RATING", deleteRatingWorker),
+	]);
 }

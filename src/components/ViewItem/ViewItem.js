@@ -258,6 +258,8 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
         return (
 
             <div  >
+            <div className="row">
+            <div className="col">
                 <table className="mt-5">
                     <tr>
                         <td align="center">
@@ -333,7 +335,11 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                         </td>
                     </tr>
                 </table>
+                </div>
+                <div className="col">
                 <Ratings product={item._id} ></Ratings>
+                </div>
+                </div>
             </div>
         )
 
