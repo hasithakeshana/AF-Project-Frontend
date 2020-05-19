@@ -1,6 +1,20 @@
 import {takeLatest, all, put, call} from 'redux-saga/effects';
+import {get_all_categories, getAllCategoriesSuccess} from "../store/actions";
 import * as CONSTANTS from '../common/constants';
-import {fetchData ,fetchUsers, fetchLogin , fetchRatingsAdd , getRatingComments , getItemDetails , getUserWishList , removeItemFromWishList , addToCartFromWishList,addToWishList,getAllProducts} from '../common/apiRoutes';
+import {
+    fetchData,
+    fetchUsers,
+    fetchLogin,
+    fetchRatingsAdd,
+    getRatingComments,
+    getItemDetails,
+    getUserWishList,
+    removeItemFromWishList,
+    addToCartFromWishList,
+    addToWishList,
+    getAllProducts,
+    getAllCategories
+} from '../common/apiRoutes';
 import * as globalActions from '../common/actions';
 
 
@@ -192,12 +206,8 @@ function* addToCartFromWishListWorker({ payload: data }){
 
        // yield put(globalActions.GetRatingFailAction(err));
          console.log(err);
-        
      }
-    
- 
  }
-
 
  function* addToWishListWorker({ payload: data }){
 
@@ -219,20 +229,10 @@ function* addToCartFromWishListWorker({ payload: data }){
 
        // yield put(globalActions.GetRatingFailAction(err));
          console.log(err);
-        
      }
-    
- 
  }
 
  function* getAllProductsWorker({ payload: {  } }){
-
-    
-
- 
-   
- 
-  
  
      try{
         const data  = yield call (getAllProducts) || {};
@@ -247,6 +247,18 @@ function* addToCartFromWishListWorker({ payload: data }){
          console.log(err);
      }
  }
+
+ function* getAllCategoriesWorker() {
+
+    try {
+        const data = yield call(getAllCategories) ;
+        if(data) yield put (getAllCategoriesSuccess(data));
+    }catch (e) {
+        console.log(e);
+    }
+
+ }
+
 export function* rootWatcher() {
 
     yield  all([
@@ -263,6 +275,7 @@ export function* rootWatcher() {
         takeLatest(CONSTANTS.USER_LOGIN, loginUserWorker),
         takeLatest("SIGNUP", updateUsers),
         takeLatest(CONSTANTS.GET_ALL_PRODUCTS, getAllProductsWorker),
+        takeLatest("GET_CATEGORIES",getAllCategoriesWorker)
 
     ]);
 

@@ -3,45 +3,46 @@ import * as ACTIONS from '../common/constants';
 
 export const initialState = {
 
-   usernames: "hashini",
+    usernames: "hashini",
     user: {
         cart: [],
-        cartTotal:0
+        cartTotal: 0
     },
-    products : [],
-    item:{
-        currentSelectedItem : {} ,
-        itemRatingDetails:{
-            countRatings : {} ,
-            avgRating : 0,
-            ratingCount : {},
-            ratingList : {},
-            
+    products: [],
+    item: {
+        currentSelectedItem: {},
+        itemRatingDetails: {
+            countRatings: {},
+            avgRating: 0,
+            ratingCount: {},
+            ratingList: {},
+
         }
 
     },
     auth: {
         currentUser: {
 
-            role : 'guest'
+            role: 'guest'
         },
         isAuthenticated: false,
         isTokenChecked: false,
         isRegistered: false,
-        wishList : {},
-        wishListCount : 0},
-        items: [],
+        wishList: {},
+        wishListCount: 0
+    },
+    items: [],
 
-    menCategories: ['Jeans', 'Shirts', 'T-Shirts', 'Footwear'],
-    womenCategories: ['Jeans', 'Blouses', 'Life Style', 'Footwear'],
-    kidsCategories: ['Jeans', 'Shirts', 'T-Shirts', 'Footwear'],
-    sportsCategories: ['Jeans', 'Shirts', 'T-Shirts', 'Footwear'],
-    discountCategories: ['Jeans', 'Shirts', 'Footwear'],
+    menCategories: [],
+    womenCategories: [],
+    kidsCategories: [],
+    sportsCategories: [],
+    discountCategories: [],
     selectedMainCategory: "All",
     selectedSubCategory: "All",
     selectedItemsArray: [],
     itemInCartCount: 0,
-    cartTotal:0.0,
+    cartTotal: 0.0,
     cartCheck: false,
     cart: [/*{
         itemID: 1,
@@ -66,94 +67,102 @@ const reducer = (state = initialState, {type, payload}) => {
 
     if (type === 'SIGNUP') {
         newState.auth.currentUser = payload.user;
-    }  if (type === 'UPDATE_MAIN_CATEGORY') {
+    }
+    if (type === 'UPDATE_MAIN_CATEGORY') {
         newState.selectedMainCategory = payload;
-    }  if (type === 'UPDATE_SUB_CATEGORY') {
+    }
+    if (type === 'UPDATE_SUB_CATEGORY') {
         newState.selectedSubCategory = payload;
-    }  if (type === 'UPDATE_SELECTED_ITEMS_ARRAY') {
+    }
+    if (type === 'UPDATE_SELECTED_ITEMS_ARRAY') {
         newState.selectedItemsArray = payload;
-    }  if (type === 'UPDATE_CART') {
+    }
+    if (type === 'UPDATE_CART') {
         newState.cart.push(payload)
-    }  if (type === 'UPDATE_CART_COUNT') {
+    }
+    if (type === 'UPDATE_CART_COUNT') {
         newState.itemInCartCount++;
-    }  if (type === 'UP_COUNT_IN_CART') {
+    }
+    if (type === 'UP_COUNT_IN_CART') {
 
 
-        let index = state.cart.findIndex(x=> x.itemID===payload);
-        newState.cart[index].quantityInCart =   newState.cart[index].quantityInCart+1;
+        let index = state.cart.findIndex(x => x.itemID === payload);
+        newState.cart[index].quantityInCart = newState.cart[index].quantityInCart + 1;
         newState.cartTotal = newState.cartTotal + newState.cart[index].price;
 
-    }if (type === 'DOWN_COUNT_IN_CART') {
+    }
+    if (type === 'DOWN_COUNT_IN_CART') {
 
-        let index = state.cart.findIndex(x=> x.itemID===payload);
-        newState.cart[index].quantityInCart =   newState.cart[index].quantityInCart-1;
+        let index = state.cart.findIndex(x => x.itemID === payload);
+        newState.cart[index].quantityInCart = newState.cart[index].quantityInCart - 1;
         newState.cartTotal = newState.cartTotal - newState.cart[index].price;
 
-    } if(type === 'ADD_TO_TOTAL'){
-        newState.cartTotal = newState.cartTotal+payload.price;
-    }if(type === 'CART_CHECK_TRUE'){
-            //console.log('CART_CHECK_TRUE')
-            newState.cartCheck = !newState.cartCheck;
-    } if(type === 'CART_CHECK_FALSE'){
-        console.log('CART_CHECK_F')
+    }
+    if (type === 'ADD_TO_TOTAL') {
+        newState.cartTotal = newState.cartTotal + payload.price;
+    }
+    if (type === 'CART_CHECK_TRUE') {
+        newState.cartCheck = !newState.cartCheck;
+    }
+    if (type === 'CART_CHECK_FALSE') {
         newState.cartCheck = false;
-    }if(type === 'CHECK_CART'){
-        let index = newState.items.findIndex(x=> x.itemID===payload.itemID);
-        newState.items[index].cartIn=true;
+    }
+    if (type === 'CHECK_CART') {
+        let index = newState.items.findIndex(x => x.itemID === payload.itemID);
+        newState.items[index].cartIn = true;
 
     }
-    if(type === ACTIONS.GET_RATE_COMMENTS_SUCCESS){
+    if (type === ACTIONS.GET_RATE_COMMENTS_SUCCESS) {
 
         // console.log(payload.data);
-     
-         newState.item.itemRatingDetails.countRatings = payload.data.countRatings;
-         
-         newState.item.itemRatingDetails.avgRating = payload.data.avg;
-     
-         newState.item.itemRatingDetails.ratingCount = payload.data.noOfRatings;
-     
-         newState.item.itemRatingDetails.ratingList = payload.data.ratings
-     
-     }
-     
-     if(type === ACTIONS.GET_VIEW_ITEM_SUCCESS){
-     
-         newState.item.currentSelectedItem = payload.data;
-     
-     
-     
-     }
-     
-     if(type === ACTIONS.GET_USER_WISHLIST_SUCCESS){
-     
-         console.log('reducer',payload.data);
-         newState.auth.wishList = payload.data;
 
-         const count = payload.data.length;
+        newState.item.itemRatingDetails.countRatings = payload.data.countRatings;
 
-         console.log('count',count); // wishListCount
-         
-         newState.auth.wishListCount = count;
-     }
-     // GET_ALL_PRODUCTS_SUCCESS
-     if(type === ACTIONS.GET_ALL_PRODUCTS_SUCCESS){
+        newState.item.itemRatingDetails.avgRating = payload.data.avg;
+
+        newState.item.itemRatingDetails.ratingCount = payload.data.noOfRatings;
+
+        newState.item.itemRatingDetails.ratingList = payload.data.ratings
+
+    }
+
+    if (type === ACTIONS.GET_VIEW_ITEM_SUCCESS) {
+
+        newState.item.currentSelectedItem = payload.data;
+
+    }
+
+    if (type === ACTIONS.GET_USER_WISHLIST_SUCCESS) {
+
+        newState.auth.wishList = payload.data;
+        const count = payload.data.length;
+        newState.auth.wishListCount = count;
+    }
+    // GET_ALL_PRODUCTS_SUCCESS
+    if (type === ACTIONS.GET_ALL_PRODUCTS_SUCCESS) {
 
         newState.items = payload;
-
         // const count = payload.data.length;
-
         // console.log('count',count); // wishListCount
-        
         // newState.auth.wishListCount = count;
+        // action = login success -> currentUser = payload.user/ isauthenticated = true
+        // action logout -> isauthenticated / false
+        // register success -> isregistered = success
+        // toekn checked -> tokenchecked = true
+
+    }if(type==='GET_CATEGORIES_SUCCESS'){
+
+        newState.menCategories = payload.data[0].menCategories;
+        newState.womenCategories = payload.data[0].womenCategories;
+        newState.kidsCategories = payload.data[0].kidsCategories;
+        newState.sportsCategories = payload.data[0].sportsCategories;
+        newState.discountCategories = payload.data[0].discountCategories;
+
+
+
+        console.log(payload.data[0])
     }
-     // action = login success -> currentUser = payload.user/ isauthenticated = true
-     
-     // action logout -> isauthenticated / false
-     
-     // register success -> isregistered = success
-     
-     // toekn checked -> tokenchecked = true
-     
+
     return newState;
 
 }

@@ -186,6 +186,12 @@ export const getItemDetails = async (productId) => {
     return response;
 
 }
+export const getAllCategories = async () =>{
+
+    const response = await axios.get('http://localhost:4000/api/getCategoriesToNav');
+    return response;
+
+}
 
 
 // getUserWishList

@@ -10,8 +10,6 @@ import {MDBBtn, MDBCol} from "mdbreact";
 import {add_to_total, cart_check_true, check_cart, update_cart, update_cart_count} from "../../store/actions";
 import TestModel from "../TestModel";
 import CartModal from './CartModal'
-import {initialState} from "../../store/reducer";
-
 function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updateTotalInCart,checkCart,updateCartCheckTrue}) {
 
     let images = [];
@@ -21,7 +19,6 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
     const [modalShow, setModalShow] = useState(false);
     const[isColorSelected,setColorSelceted] = useState(false);
     const [displayAvailability,setDisplayAvailability] = useState("Click here Check Availability");
-    const[discountedPrice,setDiscountedPrice] = useState(0.0);
     const[disAvailable,setDisAvailable] = useState(true);
 
      useEffect(() => {

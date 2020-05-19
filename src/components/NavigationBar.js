@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
+    get_all_categories,
     update_buildSelectedItemsArray,
     update_selected_main_category,
     update_selected_sub_category
@@ -11,9 +12,12 @@ import {Link} from 'react-router-dom'
 
 function NavigationBar(props) {
 
+
     useEffect(() => {
 
-        props.selectedItemsArray(props.state.items)
+        props.getAllCategories();
+        props.selectedItemsArray(props.state.items);
+
 
     }, []);
 
@@ -171,7 +175,8 @@ const mapDispatchToProps = dispatch => {
     return {
         selectMain: (mainCategory) => dispatch(update_selected_main_category(mainCategory)),
         selectSub: (subCategory) => dispatch(update_selected_sub_category(subCategory)),
-        selectedItemsArray: (selectedItemsArray) => dispatch(update_buildSelectedItemsArray(selectedItemsArray))
+        selectedItemsArray: (selectedItemsArray) => dispatch(update_buildSelectedItemsArray(selectedItemsArray)),
+        getAllCategories : () => dispatch(get_all_categories())
 
     }
 };

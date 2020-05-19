@@ -78,3 +78,15 @@ export function check_cart(item) {
     }
 }
 
+export function get_all_categories(data) {
+    return{
+        type:'GET_CATEGORIES',
+        payload:data
+    }
+}
+export function getAllCategoriesSuccess(data) {
+    return {
+        type: 'GET_CATEGORIES_SUCCESS',
+        payload: data
+    }
+}
