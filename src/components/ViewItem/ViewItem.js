@@ -9,7 +9,8 @@ import ImageGallery from 'react-image-gallery';
 import {MDBBtn, MDBCol} from "mdbreact";
 import {add_to_total, cart_check_true, check_cart, update_cart, update_cart_count} from "../../store/actions";
 import TestModel from "../TestModel";
-import CartModal from './CartModal'
+import CartModal from './CartModal';
+import Ratings from "../Ratings/RatingsCom";
 function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updateTotalInCart,checkCart,updateCartCheckTrue}) {
 
     let images = [];
@@ -254,6 +255,8 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
         return (
 
             <div  >
+            <div className="row">
+            <div className="col">
                 <table className="mt-5">
                     <tr>
                         <td align="center">
@@ -330,6 +333,11 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                     </tr>
                 </table>
             </div>
+            <div className="col">
+            <Ratings product={item._id} ></Ratings>
+            </div>
+            </div>
+        </div>
         )
 
     } else {
