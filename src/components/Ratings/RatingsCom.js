@@ -4,8 +4,8 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import {  MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter,  MDBTooltip, MDBCarousel, MDBCarouselInner, MDBCarouselItem } from "mdbreact";
 import PropTypes from 'prop-types';
-//import IconButton from '@material-ui/core/IconButton';
-//import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import {connect} from 'react-redux';
 
 import * as reduxActions from '../../common/actions';
@@ -119,11 +119,17 @@ const [value, setValue] = React.useState(0);
   const addRate =  (id,userName,value,comment) =>
   {
     const date = new Date();
-   // console.log(date);
-    addRating(id,userName,value,comment,date);
+    console.log('value,comment',value,comment);
+   if(value === 0 || comment === ''){
 
+   }else{
+    addRating(id,userName,value,comment,date);
     setComment("");
     setValue(0);
+   }
+    
+
+    
     
   }
  
@@ -184,9 +190,12 @@ return (
   <div class="alert alert-success" role="alert">
 <Rating name="size-small" value={stateRateUserDeatils.rating.rate} size="small" readOnly={true} />
 
+<IconButton aria-label="delete" className={classes.margin}>
+<DeleteIcon fontSize="small" onClick = {  () => deleteRating()  }  />
+</IconButton>
 
 
-<h5 class="alert-heading">{stateRateUserDeatils.rating.rate} </h5>
+
   <h5 class="alert-heading">{stateRateUserDeatils.rating.userName} </h5>
   
   <hr></hr>
@@ -246,11 +255,16 @@ setHover(newHover);
   )
 }
 
-
 {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
 <br/>
+{
+  stateRateUserDeatils.rated !== true || isEdit === true ?(
+    <textarea class="form-control" value={comment} onChange={e => setComment(e.target.value)} id="exampleFormControlTextarea1" rows="3"></textarea>
+  ):(
+    <textarea disabled class="form-control" value={comment} onChange={e => setComment(e.target.value)} id="exampleFormControlTextarea1" rows="3"></textarea>
+  )
+}
 
-<textarea class="form-control" value={comment} onChange={e => setComment(e.target.value)} id="exampleFormControlTextarea1" rows="3"></textarea>
 
 
 <br></br>
@@ -264,6 +278,10 @@ setHover(newHover);
 <div className={classes.root}>
 
 </div>
+
+
+
+
 </form>
 
 
