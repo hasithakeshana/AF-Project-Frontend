@@ -3,7 +3,9 @@ import * as ACTIONS from '../common/constants';
 
 export const initialState = {
 
-    usernames: "hashini",
+    usernames: "user20",
+    userIs:"guest",
+    rateUserDeatils : "",
     user: {
         cart: [],
         cartTotal: 0
@@ -161,6 +163,13 @@ const reducer = (state = initialState, {type, payload}) => {
 
 
         console.log(payload.data[0])
+    }
+
+    if(type === "CHECK_USER_RATED_SUCCESS"){
+     
+        console.log('reducer',payload);
+        newState.rateUserDeatils = payload;
+
     }
 
     return newState;
