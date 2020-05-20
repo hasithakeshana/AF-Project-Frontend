@@ -4,16 +4,14 @@ import "./index.css";
 //import logo from "./logo.png";
 
 import SignInSide from './components/SignInSide';
-import SignUp from './components/DisplayItems';
+import SignUp from './components/SignUp';
 import AddItem from './components/AddItem';
-import EditUser from './components/EditUser';
-import DisplayItem from "./components/DisplayItems";
 
 class App extends Component {
   render() {
     return (
       <MDBContainer>
-      <AddItem/>
+      <SignUp/>
       </MDBContainer>
     );
   }

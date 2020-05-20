@@ -2,11 +2,15 @@ import React, { useState, useEffect }  from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import uuid from 'react-uuid';
+import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 
 
@@ -54,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 const validationSchema = Yup.object({
   title: Yup.string().required("Please fill the field"),
   category: Yup.string().required("Please fill the field"),
-  subCategory: Yup.string().required("Please fill the frield"),
+  subCategory: Yup.string().required("Please fill the field"),
   description: Yup.string().required("Please fill the field"),
   price: Yup.number("Please enter a valid price").min(1).required("Please fill the field"),
   discount: Yup.number("Please enter a valid discount").default(0).max(99),
@@ -73,22 +77,34 @@ function AddItem({addItem}) {
   
     const id = uuid();
 
-    const [cat, setCat] = useState(0);
+    const [productImage, setData] = useState({ images: [] });
  
-    /*useEffect(() => 
-    axios.get('http://localhost:4000/api/category')
-      .then(res => {
-        const categories = res.data;
-        console.log(res.data.category)
-      })    
-    )*/
-    
-    function onChangeHandler(event)  {
-      const file = event.target.files
-      console.log(file)
-      values.productImage = file
-      console.log(values.productImage);
+    const [data, setCat] = useState( []  );
+
+    const [subCategory, setSubCat] = useState( []  );
+
+    useEffect(async () => {
+      const result = await axios('http://localhost:4000/api/category');
       
+      setCat(result.data)
+      console.log(result.data)
+      }, []);    
+
+    function onChangeSubCat(cat)  {
+      var subTypeValue = data.filter(x=>x.category===cat.target.value)
+      setSubCat(subTypeValue[0].subCategory)
+      console.log(subCategory)
+
+      console.log(subTypeValue[0].subCategory)
+    }
+  
+
+    //onChange function for images  
+    function onChangeHandler(data)  {
+      setData({
+        images : productImage.images.concat(data),
+      })
+     console.log(productImage)
     }
 
 
@@ -98,17 +114,14 @@ function AddItem({addItem}) {
       initialValues: {
         title: "",
         category: "",
-        subCategory: "",
         description: "",
         price: 0,
         discount: 0,
         quantity: 0,
-        images: null,
       },
       validationSchema,
       onSubmit(values) {
-          console.log(values);
-        
+          console.log(values);   
       }
     });
     
@@ -129,7 +142,7 @@ function AddItem({addItem}) {
             Add Item
           </Typography>
 
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form} id="itemForm" noValidate onSubmit={handleSubmit}>
             
             <Grid className={ classes.section} item xs={12}>
               <TextField
@@ -146,28 +159,46 @@ function AddItem({addItem}) {
             </Grid>
             
             <Grid className={ classes.section} item xs={12}>
-              <TextField
-                variant="outlined"
-                fullWidth
+              <InputLabel id="category">Category of Item</InputLabel> 
+              <Select 
                 id="category"
-                label="Category of Item"
+                labelId="category"
                 name="category"
-                autoComplete="category"
+                fullWidth
+                autoFocus
+                variant="outlined"
                 onChange={handleChange}
-              />{errors.category}
+                onClick={onChangeSubCat}>
+                {data.map(item => (
+                  <MenuItem key={item._id}
+                  value={item.category}>
+                  {item.category}
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors.category}
             </Grid>
+            
             
 
             <Grid className={ classes.section} item xs={12}>
-              <TextField
-                variant="outlined"
-                fullWidth
+            <InputLabel id="subCategory">SubCategory of Item</InputLabel> 
+              <Select 
                 id="subCategory"
-                label="Sub-Category of Item"
+                labelId="subCategory"
                 name="subCategory"
-                autoComplete="subCategory"
-                onChange={handleChange}
-              />{errors.subCategory}
+                fullWidth
+                autoFocus
+                variant="outlined"
+                onChange={handleChange}>            
+                {subCategory.map(item => (
+                  <MenuItem key={subCategory.category}
+                  value={item}>
+                  {item}
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors.subcategory}
             </Grid>
             
             <Grid className={ classes.section} item xs={12}>
@@ -220,23 +251,25 @@ function AddItem({addItem}) {
             {errors.quantity}
 
             <Grid className={ classes.section} item xs={12}>
-            <input 
-              type="file" 
-              multiple
-              name="productImage" 
-              accept="image/x-png,image/jpg,image/jpeg" 
+            <ImageUploader
+              name="productImage"
+              withIcon={true} 
+              withPreview={true}
+              label="Maximum 3 images of .jpg .png .jpeg formats are accepted"
+              imgExtension={[".jpg", ".png", ".jpeg"]}
+              maxFileSize={1048576}
               onChange = {onChangeHandler}
             />
             </Grid>  
           
           <Button
-            type="submit"
+            type="reset"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
             disabled={isDisabled}
-            onClick = {  () => addItem(id, values.title,values.description,values.category,values.subCategory,values.price, values.discount, values.quantity, values.productImage)  }
+            onClick = {  () => addItem(id, values.title,values.description,values.category,values.subCategory,values.price, values.discount, values.quantity, productImage)  }
           >
             Add Item
           </Button>

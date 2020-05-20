@@ -6,10 +6,8 @@ export const fetchData = async (user) =>{
     try{
 
     const data = user ;
-     console.log('api data = ',data);
 
        const correctData = user["user"];
-        console.log('correctData',correctData);
 
 
     const response = await axios.request({
@@ -23,12 +21,8 @@ export const fetchData = async (user) =>{
           
           }).then((res) => {
 
-            console.log('output',res);
-
-            console.log('out',res.data);
-
             const result =  res.data;
-           
+            console.log(result);
             return result;
           });
 
@@ -53,10 +47,8 @@ export const fetchUser = async (email) =>{
   try{
 
   const data = email ;
-   console.log('api data = ',email);
 
      const correctData = email["email"];
-      console.log('correctData',correctData);
       
 
   const response = await axios.request({
@@ -69,10 +61,6 @@ export const fetchUser = async (email) =>{
           data: JSON.stringify(correctData),
         
         }).then((res) => {
-
-          console.log('output',res);
-
-          console.log('out',res.data);
 
           const result =  res.data;
          
@@ -165,8 +153,8 @@ export const fetchItemData = async (item) =>{
       formData.append('price',correctData.price);
       formData.append('discount',correctData.discount);
       formData.append('quantity',correctData.quantity);
-      for(const key of Object.keys(correctData.productImage)) {
-        formData.append('productImage', correctData.productImage[key]);
+      for(const key of Object.keys(correctData.productImage.images)) {
+        formData.append('productImage', correctData.productImage.images[key]);
       }
       
     
@@ -208,8 +196,6 @@ export const fetchItemData = async (item) =>{
 }
 
 export const getItems =  async () => {
-   {
     let res = await axios.get(`http://localhost:4000/api/items`);
     return res.data || [];
-  }
 }
