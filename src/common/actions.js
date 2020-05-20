@@ -256,9 +256,7 @@ return{
 export function GetUserWishListSuccessAction(data) {
 return {
   type: ACTIONS.GET_USER_WISHLIST_SUCCESS,
-  payload: {
-    data,
-  },
+  payload: data,
 };
 }
 
@@ -319,6 +317,15 @@ export function itemAddToWishlist(data){
             
   };
 }
+
+export function checkItemIsInTheWishList(data){
+
+	return{
+		type : 'CHECK_ITEM_IN_WISHLIST',
+		payload: data
+			  
+	};
+  }
 
 
 export function GetAllProducts(){

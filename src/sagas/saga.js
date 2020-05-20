@@ -42,53 +42,7 @@ function* updateUsers() {
 	yield put(globalActions.update_users_success(data));
 }
 
-// function* rateAddedWorker({ payload: { data } }){
 
-//
-
-//     console.log('saga RATE ',data.itemId);
-
-//     const ProductId = data.itemId;
-
-//     console.log('item sagaaaaaaa',data);
-
-//      try{
-//          const data  = yield call (fetchRatingsAdd ,data) || {};
-
-//          const result = yield call (getRatingComments ,ProductId) || {};
-
-//          console.log('result get',result);
-
-//         // console.log('correct data',data);
-
-//        if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
-
-//      }
-//      catch(err){
-//          console.log(err);
-
-//      }
-
-//  }
-
-// function* rateAddedWorker({ payload: { data } }){
-
-//     const ProductId = data.itemId;
-
-//      try{
-//         const datas  = yield call (fetchRatingsAdd ,{data}) || {};
-
-//      const result = yield call (getRatingComments ,ProductId) || {};
-
-//        if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
-
-//      }
-//      catch(err){
-//          console.log(err);
-
-//      }
-
-//  }
 function* rateAddedWorker({ payload: { data } }) {
 	//console.log('saga working');
 
@@ -140,11 +94,14 @@ function* getViewItemDetails({ payload: { ProductId } }) {
 }
 
 function* getWishListWorker({ payload: { userId } }) {
+	console.log('saga product id get wishlist',userId);
 	try {
-		const data = yield call(getUserWishList, userId) || {};
+		const datas = yield call(getUserWishList, userId) || {};
 
-		if (data)
-			yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
+		console.log('getUserWishList',datas);
+
+		if (datas)
+			yield put(globalActions.GetUserWishListSuccessAction(datas.data));
 	} catch (err) {
 		// yield put(globalActions.GetRatingFailAction(err));
 		console.log(err);
@@ -160,11 +117,13 @@ function* removeWishListItemWorker({ payload: { userId, wishListOredrId } }) {
 
 		const datas = yield call(getUserWishList, userId) || {};
 
+		console.log('get from removed wishlist',datas.data);
+
 		// if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
 
 		if (datas)
 			yield put(
-				globalActions.GetUserWishListSuccessAction(datas.data.wishlist)
+				globalActions.GetUserWishListSuccessAction(datas.data)
 			);
 	} catch (err) {
 		// yield put(globalActions.GetRatingFailAction(err));
@@ -177,17 +136,8 @@ function* addToCartFromWishListWorker({ payload: data }) {
 	try {
 		const data = yield call(addToCartFromWishList, data) || {};
 
-		//     const datas  = yield call (getUserWishList ,userId) || {};
-
-		//     console.log('correct data',datas.data.wishlist);
-
-		//  if (datas) yield put(globalActions.GetUserWishListSuccessAction(datas.data.wishlist));
-
-		//     console.log('correct data',data.data.wishlist);
-
-		//  if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
 	} catch (err) {
-		// yield put(globalActions.GetRatingFailAction(err));
+		
 		console.log(err);
 	}
 }
@@ -196,16 +146,22 @@ function* addToWishListWorker({ payload: data }) {
 	// addToWishList
 	const item = { data };
 
+	console.log('add to wishlist',item);
+
 	const { userId } = data;
 
 	try {
-		const data = yield call(addToWishList, item) || {};
+		const res = yield call(addToWishList, item) || {};
+
+		console.log('response add to wishlist',res);
 
 		const datas = yield call(getUserWishList, userId) || {};
 
+		yield put(globalActions.checkItemIsInTheWishList(res.exists));
+
 		if (datas)
 			yield put(
-				globalActions.GetUserWishListSuccessAction(datas.data.wishlist)
+				globalActions.GetUserWishListSuccessAction(datas.data)
 			);
 
 		//  if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));

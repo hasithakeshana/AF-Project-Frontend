@@ -14,9 +14,11 @@ class WishList extends Component {
 
     componentDidMount(){
 
-        const { getWishList , wishList} = this.props;
+        const { getWishList , wishList, user} = this.props;
+
+        console.log('component did mount user',user);
         
-        getWishList(this.state.id);
+        getWishList(user);
       
         console.log('wishList',wishList);
       }
@@ -32,15 +34,16 @@ class WishList extends Component {
 
         return(
 
-            <div className="tableContainer" >
-                <table className="table">
+            <div className="tableContainer" style={{marginLeft:"8%"}}>
+                <table className="table" style={{width: "100%"}}>
                     <thead className="table">
                     <tr>
-                        <th scope="col">Product</th>
-                        <th scope="col" >Price</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Remove</th>
-                        <th scope="col">AddtoCart</th>
+                        <th scope="col" style={{width:"200px"}}>Product</th>
+                        <th scope="col" className="tableDataQ">Name</th>
+                        <th scope="col" className="tableDataQ">Category</th>
+                        <th scope="col" className="tableDataQ">Unit Price</th>
+                        <th scope="col" className="tableDataQ">Add To Cart</th>
+                        <th scope="col" className="tableDataQ">Remove</th>
                     </tr>
                     </thead>
                 </table>
@@ -54,8 +57,8 @@ class WishList extends Component {
                 }
      
      
-                    <div  ><p className="total mt-3">Total : {this.props.cartTotal} LKR</p>
-                        <button className="btn btn-sm btn-block btn-outline-dark mb-2">Proceed to Payment</button>
+                    <div  ><p className="total mt-3">Total : {this.props.total} LKR</p>
+                      
                     </div>
      
      
@@ -75,7 +78,9 @@ const mapStateToProps = state => {
         cart: state.cart,
         selectedItemsArray : state.selectedItemsArray,
         cartTotal : state.cartTotal,
-        wishList : state.auth.wishList
+        wishList : state.auth.wishList,
+        user : state.auth.userId,
+        total : state.auth.wishListTotal
     }
 }
 

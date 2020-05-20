@@ -11,6 +11,13 @@ function ImageSlider(props) {
     useEffect(() => {
 
         props.getAllProducts();
+        if(props.role === 'guest')
+        {
+
+        }
+        else{
+            props.getWishList(props.userId);
+        }
         
         },[])
 
@@ -58,13 +65,17 @@ const mapStateToProps = state => {
     return {
         items: state.items,
         selectedItemsArray : state.selectedItemsArray,
-        cartCheck : state.cartCheck
+        cartCheck : state.cartCheck,
+        role : state.auth.role,
+        userId : state.auth.userId,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         getAllProducts : () => dispatch(reduxActions.GetAllProducts()),
+        getWishList : (userId) => dispatch(reduxActions.GetUserWishListAction(userId)),
+
     }
 }
 

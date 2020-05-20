@@ -192,7 +192,11 @@ export const getItemDetails = async (productId) => {
 
 export const getUserWishList = async (userId) => {
 
-    const response = await axios.get(`http://localhost:4000/api/getWishList/${userId}`);
+    const id = userId;
+
+    console.log('get user wishlist id',id);
+
+    const response = await axios.get(`http://localhost:4000/api/getWishList/${id}`);
     return response;
 
 }
@@ -264,11 +268,14 @@ export const addToWishList = async (data) => {
 
     const {userId, item} = data.data;
 
+    console.log('item id of add to wishlist',item._id);
+
+
     try {
 
 
         const reqBody = {userId};
-        const id = "5eb68ab6a37f442020387c0a"; // sample value
+        const id = item._id; // sample value
 
         const response = await axios.request({
             method: 'POST',

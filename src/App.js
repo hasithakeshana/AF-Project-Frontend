@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import HomePage from "./components/HomePage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cart from "./components/Cart/Cart";
-import WishList from "./components/WishList/WishList";
-import Rating from "./components/Ratings/RatingsCom";
+import wishList from "./components/WishList/WishList";
 import ItemContainer from './components/ItemContainer';
 import TestModel from "./components/TestModel";
 import ImageSlider from "./components/ImagSlider";
@@ -23,7 +22,7 @@ class App extends Component {
         <Route path = "/" exact component ={ImageSlider}/>
         <Route path = "/products" exact component ={ItemContainer}/>
         <Route path ="/cart" exact component={Cart}/>
-        <Route path ="/wishlist" exact component={viewItem}/>
+        <Route path ="/wishlist" exact component={wishList}/>
         <Route path ="/viewItem" exact component={viewItem}/>
         </switch>
         <Footer/>

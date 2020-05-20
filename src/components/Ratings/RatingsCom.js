@@ -95,7 +95,7 @@ export function RatingsCom({
 		} else {
 		}
 
-		console.log("iddddddddddddddddddddddddddddddddddd", product);
+		console.log("iddddddddddddddddddddddddddddddddd", product);
 	}, [product]);
 
 	useEffect(() => {
@@ -340,7 +340,7 @@ const mapStateToProps = (state) => {
 		progressRating: state.item.itemRatingDetails.ratingCount,
 		avgRating: state.item.itemRatingDetails.avgRating,
 		countRatings: state.item.itemRatingDetails.countRatings,
-		username: state.usernames,
+		username: state.auth.email,
 		stateRateUserDeatils: state.rateUserDeatils,
 	};
 };

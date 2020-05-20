@@ -4,8 +4,10 @@ import * as ACTIONS from '../common/constants';
 export const initialState = {
 
     usernames: "user20",
+    userId : "5ec4e28e793c6c236c26ee48",
     userIs:"guest",
     rateUserDeatils : "",
+    
     user: {
         cart: [],
         cartTotal:0
@@ -19,19 +21,23 @@ export const initialState = {
             ratingCount : {},
             ratingList : {},
             
-        }
+        },
+        checkItemIsInWishList : ''
 
     },
     auth: {
-        currentUser: {
-
-            role : 'guest'
-        },
+        currentUser: {},
         isAuthenticated: false,
         isTokenChecked: false,
-        isRegistered: false,
         wishList : {},
-        wishListCount : 0},
+        wishListCount : 0,
+        wishListTotal : 0,
+        role : "",
+        user : {},
+        userId : "5ec4e28e793c6c236c26ee48",
+        email : "user20",
+        
+    },
         items: [],
 
     menCategories: ['Jeans', 'Shirts', 'T-Shirts', 'Footwear'],
@@ -128,14 +134,20 @@ const reducer = (state = initialState, {type, payload}) => {
      
      if(type === ACTIONS.GET_USER_WISHLIST_SUCCESS){
      
-         console.log('reducer',payload.data);
-         newState.auth.wishList = payload.data;
+         console.log('reducer user wishlist',payload);
+        newState.auth.wishList = payload.wishlist;
 
-         const count = payload.data.length;
+         const count = payload.wishlist.length;
 
-         console.log('count',count); // wishListCount
+        console.log('count',count); // wishListCount
          
-         newState.auth.wishListCount = count;
+        newState.auth.wishListCount = count;
+
+        //wishListTotal
+        newState.auth.wishListTotal = payload.total;
+
+
+
      }
      // GET_ALL_PRODUCTS_SUCCESS
      if(type === ACTIONS.GET_ALL_PRODUCTS_SUCCESS){
@@ -155,13 +167,10 @@ const reducer = (state = initialState, {type, payload}) => {
     newState.rateUserDeatils = payload;
 
 }
-     // action = login success -> currentUser = payload.user/ isauthenticated = true
-     
-     // action logout -> isauthenticated / false
-     
-     // register success -> isregistered = success
-     
-     // toekn checked -> tokenchecked = true
+if(type === "CHECK_ITEM_IN_WISHLIST"){
+    newState.item.checkItemIsInWishList = payload;
+}
+    
      
     return newState;
 
