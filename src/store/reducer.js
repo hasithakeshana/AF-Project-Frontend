@@ -34,7 +34,7 @@ export const initialState = {
         wishListTotal : 0,
         role : "",
         user : {},
-        userId : "5ec4e28e793c6c236c26ee48",
+        userId : "5ee28e793c6c236c26eec448",
         email : "user20",
         
     },
@@ -170,11 +170,18 @@ const reducer = (state = initialState, {type, payload}) => {
 if(type === "CHECK_ITEM_IN_WISHLIST"){
     newState.item.checkItemIsInWishList = payload;
 }
+if(type === ACTIONS.USER_LOGIN_SUCCESS){
+    console.log('user payload',payload._id,payload.email);
+
+    newState.auth.userId = payload._id;
+    newState.auth.email = payload.email;
+    newState.auth.isAuthenticated = true;
+}
     
      
     return newState;
 
 }
+// USER_LOGIN_SUCCESS
 
-
-export default reducer;
+export default reducer; 

@@ -51,12 +51,23 @@ function Item(props) {
     
     const addWish = (item) =>{
 
-        props.addToWishList({userId,item});
-
-        if(props.itemExistsInWishList === true)
+        if(props.isAuthenticated)
         {
-            setModalShow(true);
+            props.addToWishList({userId,item});
+
+            if(props.itemExistsInWishList === true)
+            {
+                setModalShow(true);
+            }
+
         }
+        else{
+
+            history.push("/login");
+            
+        }
+
+      
 
 
        
@@ -115,8 +126,9 @@ const mapStateToProps = state => {
         items: state.items,
         cart :state.cart,
         selectedItemsArray : state.selectedItemsArray,
-        userId : state.userId,
-        itemExistsInWishList : state.item.checkItemIsInWishList
+        userId : state.auth.userId,
+        itemExistsInWishList : state.item.checkItemIsInWishList,
+        isAuthenticated : state.auth.isAuthenticated
     }
 }
 

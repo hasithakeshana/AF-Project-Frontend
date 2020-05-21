@@ -9,6 +9,7 @@ import ImageSlider from "./components/ImagSlider";
 import viewItem from "./components/ViewItem/ViewItem"
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import Footer from "./components/Footer";
+import login from "./components/SignInSide";
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
         <Route path ="/cart" exact component={Cart}/>
         <Route path ="/wishlist" exact component={wishList}/>
         <Route path ="/viewItem" exact component={viewItem}/>
+        <Route path ="/login" exact component={login}/>
         </switch>
         <Footer/>
         </div>

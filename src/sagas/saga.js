@@ -28,10 +28,16 @@ function* signUpUserWorker({ payload: { user } }) {
 	}
 }
 
-function* loginUserWorker({ payload: { user } }) {
+function* loginUserWorker({ payload: {  email,password } }) {
 	try {
-		const data = yield call(fetchLogin, { user }) || {};
-		if (data) yield put(globalActions.loginSuccessAction(data.user));
+		console.log('login user saga', email,password);
+		const data = yield call(fetchLogin, {  email,password }) || {};
+
+		console.log('output',data);
+
+		if (data.code) yield put(globalActions.loginSuccessAction(data.user));
+
+
 	} catch (err) {
 		yield put(globalActions.loginFailAction(err.message));
 	}
@@ -286,8 +292,7 @@ export function* rootWatcher() {
 			CONSTANTS.ADD_TO_CART_FROM_WISHLIST,
 			addToCartFromWishListWorker
 		),
-		takeLatest(CONSTANTS.USER_SIGN_UP, signUpUserWorker),
-		takeLatest(CONSTANTS.USER_LOGIN, loginUserWorker),
+		
 		takeLatest("SIGNUP", updateUsers),
 		takeLatest(CONSTANTS.GET_ALL_PRODUCTS, getAllProductsWorker),
 		takeLatest("CHECK_USER_RATED", checkUserIsRatedWorker),

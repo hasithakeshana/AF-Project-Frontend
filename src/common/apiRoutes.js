@@ -33,8 +33,9 @@ export const fetchLogin = async (user) => {
 
     try {
 
-        const data = user;
-        const correctData = user["user"];
+      const {email,password} = user;
+      const correctData = {email,password}
+      console.log('api',correctData);
         const response = await axios.request({
             method: 'POST',
             url: `http://localhost:4000/api/login`,

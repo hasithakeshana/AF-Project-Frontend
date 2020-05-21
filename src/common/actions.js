@@ -37,16 +37,14 @@ export function registerFailAction(error) {
         type : ACTIONS.USER_LOGIN,
         payload: 
           email,password
-                 ,
+                 
     };
 }
 
 export function loginSuccessAction(user) {
     return {
       type: ACTIONS.USER_LOGIN_SUCCESS,
-      payload: {
-        user,
-      },
+      payload: user
     };
   }
 
