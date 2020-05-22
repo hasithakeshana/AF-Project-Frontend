@@ -73,17 +73,7 @@ const validationSchema = Yup.object({
 
 function SignInSide({loginUser}) {
 
-  const email= useState("");
-  const password = useState("");
-
-  
-
-  useEffect(() => { });
-
- 
   const classes = useStyles();
-
-
 
   const { handleSubmit, handleChange, values, errors } = useFormik({
     initialValues: {

@@ -3,11 +3,12 @@ import {takeLatest , all ,  put , call} from 'redux-saga/effects';
 
 import * as CONSTANTS from '../common/constants';
 
-import {fetchData , fetchLogin, fetchItemData, fetchUser} from '../common/apiRoutes';
+import {fetchData , fetchLogin, fetchItemData, fetchUser, fetchManager} from '../common/apiRoutes';
 
 //import {registerSuccessAction , registerFailAction } from '../common/actions';
 
 import * as globalActions from '../common/actions';
+import managerSignup from '../components/managerSignup';
 
 function* signUpUserWorker({ payload: { user } }){
 
@@ -21,7 +22,6 @@ function* signUpUserWorker({ payload: { user } }){
     try{
         const data  = yield call (fetchData ,{user}) || {};
 
-        console.log('correct data',data);
 
         if (data) yield put(globalActions.registerSuccessAction(data.user));
 
@@ -36,7 +36,7 @@ function* signUpUserWorker({ payload: { user } }){
 
 }
 
-function* editUser({ payload: { email } }){
+/*function* editUser({ payload: { email } }){
 
     
     console.log('saga working');
@@ -61,7 +61,7 @@ function* editUser({ payload: { email } }){
      }
     
  
-}
+}*/
 
 function* loginUserWorker({ payload: { user } }){
 
@@ -90,12 +90,38 @@ function* loginUserWorker({ payload: { user } }){
  
 }
 
+function* signUpManager({ payload: { manager } }){
+
+    
+    console.log('saga working');
+ 
+    console.log('saga manager',manager);
+ 
+  
+ 
+     try{
+         const data  = yield call (fetchManager ,{manager}) || {};
+ 
+ 
+         if (data) yield put(globalActions.registerManagerSuccessAction(data.manager));
+ 
+        
+         
+     }
+     catch(err){
+         console.log(err);
+         yield put(globalActions.registerManagerFailAction(err.message));
+     }
+    
+ 
+ }
+
 function* addItem({ payload: { item } }){
 
     
     console.log('saga working');
  
-    console.log('saga user',item);
+    console.log('saga item',item);
  
   
  
@@ -124,8 +150,8 @@ export function* rootWatcher(){
 
     takeLatest(CONSTANTS.USER_SIGN_UP,signUpUserWorker),
     takeLatest(CONSTANTS.USER_LOGIN,loginUserWorker),
+    takeLatest(CONSTANTS.MANAGER_SIGN_UP, signUpManager),
     takeLatest(CONSTANTS.ADD_ITEM,addItem),
-    takeLatest(CONSTANTS.EDIT_USER,editUser),
 
     ]);
 }

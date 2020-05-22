@@ -6,12 +6,13 @@ import "./index.css";
 import SignInSide from './components/SignInSide';
 import SignUp from './components/SignUp';
 import AddItem from './components/AddItem';
+import ManagerSignUp from './components/managerSignup';
 
 class App extends Component {
   render() {
     return (
       <MDBContainer>
-      <SignUp/>
+      <ManagerSignUp/>
       </MDBContainer>
     );
   }
