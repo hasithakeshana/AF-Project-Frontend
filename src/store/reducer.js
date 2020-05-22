@@ -1,11 +1,12 @@
 import * as ACTIONS from '../common/constants';
+import {forEach} from "react-bootstrap/cjs/ElementChildren";
 
 
 export const initialState = {
 
     usernames: "user20",
-    userIs:"guest",
-    rateUserDeatils : "",
+    userIs: "guest",
+    rateUserDeatils: "",
     user: {
         cart: [],
         cartTotal: 0
@@ -44,21 +45,28 @@ export const initialState = {
     selectedSubCategory: "All",
     selectedItemsArray: [],
     itemInCartCount: 0,
-    cartTotal: 0.0,
+    cartTotal: 0,
+    searchedProduct :{},
+    discountStatus : 0,
     cartCheck: false,
-    cart: [/*{
-        itemID: 1,
-        itemRatingDetails: {},
-        images: ['http://localhost:4000/1.jpeg'],
-        name: "Crocodile Shirt",
-        price: 500.00,
-        size: "XL",
-        description: "50% OFF TODAY",
+    cart: [{
+        cartIn: true,
+        description: "Beautiful frock for any occasion.Blow your friends' minds",
+        discount: 7,
+        images: [{
+            0: {
+                productImage: "2020-05-14T06-45-28.593Z-girl.jpg",
+                _id: "5ec020267df10525e4a63c75"
+            }
+        }],
+        itemID: 3010,
         mainCategory: "Men",
-        subCategory: "Jeans",
+        name: "Luxury Shirt",
+        price: 4500,
         quantityInCart: 0,
-
-    }*/]
+        cartTotal:0,
+  }
+    ]
 
 };
 
@@ -83,25 +91,29 @@ const reducer = (state = initialState, {type, payload}) => {
         newState.cart.push(payload)
     }
     if (type === 'UPDATE_CART_COUNT') {
+        console.log("UPDATE_CART_COUNT")
         newState.itemInCartCount++;
     }
     if (type === 'UP_COUNT_IN_CART') {
 
 
         let index = state.cart.findIndex(x => x.itemID === payload);
-        newState.cart[index].quantityInCart = newState.cart[index].quantityInCart + 1;
-        newState.cartTotal = newState.cartTotal + newState.cart[index].price;
+       /* newState.cart[index].quantityInCart = newState.cart[index].quantityInCart + 1;
+        newState.cartTotal = newState.cartTotal + newState.cart[index].price;*/
 
     }
     if (type === 'DOWN_COUNT_IN_CART') {
 
         let index = state.cart.findIndex(x => x.itemID === payload);
-        newState.cart[index].quantityInCart = newState.cart[index].quantityInCart - 1;
-        newState.cartTotal = newState.cartTotal - newState.cart[index].price;
+      /*  newState.cart[index].quantityInCart = newState.cart[index].quantityInCart - 1;
+        newState.cartTotal = newState.cartTotal - newState.cart[index].price;*/
 
     }
     if (type === 'ADD_TO_TOTAL') {
-        newState.cartTotal = newState.cartTotal + payload.price;
+
+        newState.cartTotal = newState.cartTotal + payload;
+
+
     }
     if (type === 'CART_CHECK_TRUE') {
         newState.cartCheck = !newState.cartCheck;
@@ -152,24 +164,43 @@ const reducer = (state = initialState, {type, payload}) => {
         // register success -> isregistered = success
         // toekn checked -> tokenchecked = true
 
-    }if(type==='GET_CATEGORIES_SUCCESS'){
+    }
+    if (type === 'GET_CATEGORIES_SUCCESS') {
 
         newState.menCategories = payload.data[0].menCategories;
         newState.womenCategories = payload.data[0].womenCategories;
         newState.kidsCategories = payload.data[0].kidsCategories;
         newState.sportsCategories = payload.data[0].sportsCategories;
         newState.discountCategories = payload.data[0].discountCategories;
-
-
-
-        console.log(payload.data[0])
     }
 
-    if(type === "CHECK_USER_RATED_SUCCESS"){
-     
-        console.log('reducer',payload);
+    if (type === "CHECK_USER_RATED_SUCCESS") {
+
         newState.rateUserDeatils = payload;
 
+    }if(type==="ZERO_TOTAL"){
+
+        newState.cartTotal=0;
+    }if(type==="REMOVE_FROM_CART"){
+
+        let arr = newState.cart;
+        newState.cart = [];
+        arr.map(item=>{
+            if(item._id !== payload._id){
+                newState.cart.push(item)
+            }
+        })
+        newState.cartTotal=0;
+        newState.cart.map(item=>{
+            newState.cartTotal = newState.cartTotal+(item.price * ((100 - item.discount) / 100));
+        });
+        newState.itemInCartCount--;
+
+    }if(type === 'SEARCH_PRODUCT_SUCCESS'){
+
+        newState.searchedProduct = payload;
+    }if(type==='UPDATE_PRODUCT_DISCOUNT_SUCCESS'){
+        newState.discountStatus = payload;
     }
 
     return newState;

@@ -359,3 +359,16 @@ export const deleteRating = async (data) => {
 		console.log(e);
 	}
 };
+
+export const getSearchProduct = async (data) =>{
+
+	const response = await axios.get('http://localhost:4000/api/getProductToAddDiscount/'+data.payload);
+	return response.data;
+
+}
+
+export const updateDiscount = async (data) =>{
+
+	const response = await axios.patch('http://localhost:4000/api/updateProductDiscount/'+data.payload._id,{ discount:parseInt(data.payload.discount)});
+	return  response.status;
+}

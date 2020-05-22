@@ -236,7 +236,6 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
 
         if (item.cartIn === false) {
           //  updateCart(item);
-            updateCartCount();
             updateTotalInCart(item);
 
         } else {
@@ -257,7 +256,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
             <div  >
             <div className="row">
             <div className="col">
-                <table className="mt-5">
+                <table className="mt-5" align="center">
                     <tr>
                         <td align="center">
                             <div className="viewItemCarousel">
@@ -265,7 +264,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                             </div>
                         </td>
                         <td>
-                            <div className="card viewItemCard" style={{width: "18rem"}}>
+                            <div className="card viewItemCard" style={{width: "auto"}}>
                                 <div className="card-body">
                                     <h5 className="card-title">{item.name}</h5>
                                     {disAvailable ?
@@ -312,7 +311,10 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                                         isColorSelected?
                                         stockAvailable?
                                             <MDBBtn className="fal fa-shopping-bag fa-2x mb-1 mt-3 btn btn-pink"  onClick={()=>{
+                                                Object.assign(item,{selectedColor:selectedColor});
+                                                Object.assign(item,{selectedSize:selectedSize});
                                             updateCart(item);
+                                            updateCartCount();
                                             setModalShow(true);
                                         }}> </MDBBtn>
 
@@ -331,11 +333,14 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
 
                         </td>
                     </tr>
+                    <tr>
+                    </tr>
                 </table>
+                <div className="col">
+                 {/*   <Ratings product={item._id} ></Ratings>*/}
+                </div>
             </div>
-            <div className="col">
-            <Ratings product={item._id} ></Ratings>
-            </div>
+
             </div>
         </div>
         )

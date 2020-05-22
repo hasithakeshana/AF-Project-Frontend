@@ -43,7 +43,9 @@
 }
 
 .tableContainer{
-  width: 80%;
+    width: 80%;
+    margin: 0 auto;
+
 }
 .tableheaderCenter{
     alignment: center;
@@ -64,11 +66,22 @@
 }
 
 .total{
-    background-color: #2E2726;
+    background-color: lightcoral;
     text-align:center;
-    color: whitesmoke;
-}
+    color: darkslategrey;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    align-self: flex-end;
 
+}
+.paymentButton{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
 
 /*FOOTER*/
 
@@ -79,7 +92,20 @@ footer {
     color: white;
     margin-top:100px;
 }
+.navStick{
 
+    position: fixed;
+    top: 0;
+}
+.paymentCard{
+    max-width: 18rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: -webkit-sticky;
+    position: sticky;
+
+}
 footer a {
     color: #fff;
     font-size: 14px;
@@ -190,7 +216,7 @@ ul.social-network li {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width:70%;
+    width:75%;
 
 }
 .viewItemCard{
@@ -205,4 +231,41 @@ ul.social-network li {
 .navColor{
     background-color: #243c44;
 
+}
+.trDesign{
+    background-color: #f1f1f1;
+}
+.cartDes{
+
+    width: 250px;
+    font-weight: bold;
+    vertical-align: middle;
+    color: darkslategrey;
+}
+.cartPrice{
+   font-weight: lighter;
+    width: 200px;
+    vertical-align: middle;
+    font-size: medium;
+    color: darkolivegreen;
+}
+.cartImage{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80px;
+
+}
+.cartItems{
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+}
+
+.discountForm{
+    margin: auto;;
+    width:50%;
+    margin-top: 50px;
 }

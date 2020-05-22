@@ -34,9 +34,6 @@ function Item(props) {
      const allIn =(item) => {
         if(item.cartIn===false) {
             props.updateCart(item);
-            props.updateCartCount();
-            props.updateTotalInCart(item);
-            props.checkCart(item);
 
         }else{
             props.updateCartCheckTrue();

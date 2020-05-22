@@ -1,5 +1,10 @@
 import { takeLatest, all, put, call } from "redux-saga/effects";
-import { get_all_categories, getAllCategoriesSuccess } from "../store/actions";
+import {
+	get_all_categories,
+	getAllCategoriesSuccess,
+	search_product_success,
+	update_discount_success
+} from "../store/actions";
 import * as CONSTANTS from "../common/constants";
 import {
 	fetchData,
@@ -17,6 +22,7 @@ import {
 	updateRating,
 	deleteRating,
 	getAllCategories,
+	getSearchProduct, updateDiscount
 } from "../common/apiRoutes";
 import * as globalActions from "../common/actions";
 
@@ -266,10 +272,6 @@ function* updateRatingWorker({
 		const check = yield call(checkUserRated, { product, username }) || {};
 
 		const result = yield call(getRatingComments, product) || {};
-
-		console.log("result get", result);
-		console.log("saga data", data);
-
 		//console.log('correct data',datas);
 		if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
 		if (result) yield put(globalActions.GetRatingSuccessAction(result.data));
@@ -306,6 +308,30 @@ function* deleteRatingWorker({ payload: productId, username, rateId }) {
 	}
 }
 
+function* searchProduct({payload:productId}) {
+
+try {
+	const data = yield call(getSearchProduct,{payload:productId}) ||{};
+	if(data !== null){
+		yield put(search_product_success(data))
+	}
+}catch (e) {
+	console.log(e);
+}
+
+}
+function* updateProductWorker({payload : updateObject }) {
+
+	try{
+		const status = yield  call(updateDiscount,{payload:updateObject});
+		if (status){
+			yield put(update_discount_success(status));
+		}
+	}catch (e) {
+		console.log(e);
+	}
+}
+
 export function* rootWatcher() {
 	yield all([
 		takeLatest(CONSTANTS.ADD_TO_WISHLIST, addToWishListWorker),
@@ -328,5 +354,7 @@ export function* rootWatcher() {
 		takeLatest("CHECK_USER_RATED", checkUserIsRatedWorker),
 		takeLatest("UPDATE_RATING", updateRatingWorker),
 		takeLatest("DELETE_RATING", deleteRatingWorker),
+		takeLatest('SEARCH_PRODUCT',searchProduct),
+		takeLatest('UPDATE_PRODUCT_DISCOUNT',updateProductWorker)
 	]);
 }

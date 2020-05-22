@@ -37,7 +37,7 @@ export function update_cart_count() {
 }
 export  function  up_count_in_cart(itemId){
     return {
-        type: 'UP_COUNT_IN_CART',
+        type: '',
         payload: itemId
     }
 
@@ -90,3 +90,46 @@ export function getAllCategoriesSuccess(data) {
         payload: data
     }
 }
+export function updateTotal(data) {
+    return {
+        type: 'ADD_TO_TOTAL',
+        payload: data
+    }
+}
+export function zeroTotal(data) {
+    return {
+        type: 'ZERO_TOTAL',
+        payload: data
+    }
+}
+export function remove_item(item) {
+    return {
+        type: 'REMOVE_FROM_CART',
+        payload: item
+    }
+}
+export function search_product(productId) {
+    return {
+        type: 'SEARCH_PRODUCT',
+        payload: productId
+    }
+}
+export function search_product_success(data) {
+    return {
+        type: 'SEARCH_PRODUCT_SUCCESS',
+        payload: data
+    }
+}
+export function update_product(updateObject) {
+    return {
+        type: 'UPDATE_PRODUCT_DISCOUNT',
+        payload: updateObject
+    }
+}
+export function update_discount_success(status) {
+    return {
+        type: 'UPDATE_PRODUCT_DISCOUNT_SUCCESS',
+        payload: status
+    }
+}
+

@@ -1,41 +1,60 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import '../../index.css'
 import {connect} from "react-redux";
 import CartItem from "./CartItem";
+import {updateTotal, zeroTotal} from "../../store/actions";
+import { StickyContainer, Sticky } from 'react-sticky';
 
 
 function Cart(props) {
 
-    console.log(props)
-    return(
 
-       <div className="tableContainer" >
-           <table className="table">
-               <thead className="table">
-               <tr>
-                   <th scope="col">Product</th>
-                   <th scope="col" >Prduct ID </th>
-                   <th scope="col">Size </th>
-                   <th scope="col"  >Total</th>
-                   <th scope="col"  >Price</th>
-               </tr>
-               </thead>
-           </table>
+    useEffect(()=>{
+        props.resetTotal(0);
+    },[])
 
-           {
-               props.cart.map(item=>
-                   <CartItem
-                       item={item}
-                   > </CartItem>
-               )
-           }
+    useEffect(() => {
 
-               <div  ><p className="total mt-3">Total : {props.cartTotal} LKR</p>
-                   <button className="btn btn-sm btn-block btn-outline-dark mb-2">Proceed to Payment</button>
-               </div>
+        props.cart.map(item => {
+            props.changeTotal(item.price * ((100 - item.discount) / 100));
+        })
+    }, []);
+    return (
+        <div>
+
+            <table className="tableContainer">
+                <tr>
+                    <td>
+                        <div>
+                            {
+                                props.cart.map(item =>
+                                    <CartItem
+                                        item={item}
+                                    > </CartItem>
+                                )
+                            }
+                        </div>
+
+                    </td>
+
+                    <td className="cardStick position-relative">
+                        <div className="card text-dark bg-light mb-3 mt-5   paymentCard">
+                            <div className="card-header">Payment</div>
+                            <div className="card-body">
+                                <h5 className="card-title">Total : {props.cartTotal} LKR</h5>
+                                <p className="card-text">We make deliveries around Island.Please make sure you give right details to get a faster delivery  </p>
+                                <button className=" btn btn-sm btn-outline-pink ">Proceed to Payment</button>
+                            </div>
+                        </div>
+
+                    </td>
 
 
-           </div>
+                </tr>
+            </table>
+
+
+        </div>
 
     )
 
@@ -43,15 +62,19 @@ function Cart(props) {
 
 
 const mapStateToProps = state => {
+
     return {
         cart: state.cart,
-        selectedItemsArray : state.selectedItemsArray,
-        cartTotal : state.cartTotal
+        selectedItemsArray: state.selectedItemsArray,
+        cartTotal: state.cartTotal
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {}
+    return {
+        changeTotal : (price) => dispatch(updateTotal(price)),
+        resetTotal : (price) => dispatch(zeroTotal(price))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

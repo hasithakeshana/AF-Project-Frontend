@@ -35,7 +35,7 @@ function NavigationBar(props) {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-dark navColor" >
+            <nav className="navbar  navbar-expand-lg navbar-dark navColor" >
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
