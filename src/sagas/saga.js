@@ -33,9 +33,10 @@ function* signUpUserWorker({ payload: { user } }) {
 function* loginUserWorker({ payload: {  email,password } }) {
 	try {
 		console.log('login user saga', email,password);
+
 		const data = yield call(fetchLogin, {  email,password }) || {};
 
-		if (data.isValidLogin) {
+		if (data.isValidLogin) { // valid user has a isValidLogin : true in response
 
 			
 			localStorage.setItem('jwtToken',data.token);
@@ -45,21 +46,14 @@ function* loginUserWorker({ payload: {  email,password } }) {
 
 			yield put(globalActions.loginSuccessAction(decodedUser));
 
-			if (Date.now() >= decodedUser.exp * 1000) {
-				console.log('expired');
-			  }
-			  else{
-				console.log('not expired');
-			  }
 			
+
 		}
 		else{
 			yield put(globalActions.loginFailAction());
 			
 		}
 
-		// localStorage.getItem('jwtToken');
-		// localStorage.removeItem("jwtToken");
 	
 
 

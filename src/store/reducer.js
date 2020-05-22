@@ -26,18 +26,16 @@ export const initialState = {
 
     },
     auth: {
-        currentUser: {},
         isAuthenticated: false,
         isTokenChecked: false,
         wishList : {},
         wishListCount : 0,
         wishListTotal : 0,
-        role : "",
+        role : "guest",
         user : {},
         userId : "",
         email : "",
-        
-    },
+        },
         items: [],
 
     menCategories: ['Jeans', 'Shirts', 'T-Shirts', 'Footwear'],
@@ -175,6 +173,7 @@ if(type === ACTIONS.USER_LOGIN_SUCCESS){
 
     newState.auth.userId = payload.id;
     newState.auth.email = payload.name;
+    newState.auth.role = payload.role;
     newState.auth.isAuthenticated = true;
 }
 if(type === ACTIONS.USER_LOGIN_FAILED){
@@ -191,11 +190,12 @@ if(type === "LOG_OUT"){
 
     newState.auth.userId = '';
     newState.auth.email = '';
+    newState.auth.role = "guest";
     newState.auth.isAuthenticated = false;
 }
 if(type === "IS_TOKEN_CHECKED"){
    
-    newState.auth.isTokenChecked = false;
+    newState.auth.isTokenChecked = true;
 }
 
     
