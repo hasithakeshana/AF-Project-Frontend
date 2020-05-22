@@ -11,12 +11,16 @@ function ImageSlider(props) {
     useEffect(() => {
 
         props.getAllProducts();
-        if(props.role === 'guest')
+
+        const token = localStorage.getItem('jwtToken');
+        if(token === null || token === undefined)
         {
 
         }
         else{
-            props.getWishList(props.userId);
+            const decodedUser = jwt_decode(token);
+			console.log(decodedUser);
+            //props.getWishList(props.userId);
         }
         
         },[])

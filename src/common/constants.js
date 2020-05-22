@@ -37,3 +37,5 @@ export const ADD_TO_WISHLIST_FAILED = 'app/WishListPage/ADD_TO_WISHLIST_FAILED';
 export const GET_ALL_PRODUCTS = 'app/Products/GET_ALL_PRODUCTS';
 export const  GET_ALL_PRODUCTS_SUCCESS = 'app/Products/GET_ALL_PRODUCTS_SUCCESS';
 export const GET_ALL_PRODUCTS_FAILED = 'app/Products/GET_ALL_PRODUCTS_FAILED';
+
+export const LOG_OUT = 'app/User/LOG_OUT';

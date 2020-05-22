@@ -49,14 +49,14 @@ export function loginSuccessAction(user) {
   }
 
 
-export function loginFailAction(error) {
+export function loginFailAction() {
     return {
       type: ACTIONS.USER_LOGIN_FAILED,
-      payload: {
-        error,
-      },
+      payload: {},
     };
-  }
+}
+
+
 
 export function update_name(name) {
 
@@ -393,5 +393,19 @@ export function deleteRatingSuccessAction(data) {
   return {
     type: 'DELETE_RATING_SUCCESS',
     payload: data
+  };
+}
+
+export function logoutAction() {
+  return {
+    type: 'LOG_OUT',
+    payload: {},
+  };
+}
+
+export function tokenChecked(status) {
+  return {
+    type: 'IS_TOKEN_CHECKED',
+    payload: status,
   };
 }

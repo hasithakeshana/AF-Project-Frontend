@@ -34,8 +34,8 @@ export const initialState = {
         wishListTotal : 0,
         role : "",
         user : {},
-        userId : "5ee28e793c6c236c26eec448",
-        email : "user20",
+        userId : "",
+        email : "",
         
     },
         items: [],
@@ -171,17 +171,38 @@ if(type === "CHECK_ITEM_IN_WISHLIST"){
     newState.item.checkItemIsInWishList = payload;
 }
 if(type === ACTIONS.USER_LOGIN_SUCCESS){
-    console.log('user payload',payload._id,payload.email);
+   
 
-    newState.auth.userId = payload._id;
-    newState.auth.email = payload.email;
+    newState.auth.userId = payload.id;
+    newState.auth.email = payload.name;
     newState.auth.isAuthenticated = true;
 }
+if(type === ACTIONS.USER_LOGIN_FAILED){
+   
+
+    newState.auth.userId = '';
+    newState.auth.email = '';
+    newState.auth.isAuthenticated = false;
+}
+if(type === "LOG_OUT"){
+   
+        
+    localStorage.removeItem("jwtToken");
+
+    newState.auth.userId = '';
+    newState.auth.email = '';
+    newState.auth.isAuthenticated = false;
+}
+if(type === "IS_TOKEN_CHECKED"){
+   
+    newState.auth.isTokenChecked = false;
+}
+
     
      
     return newState;
 
 }
-// USER_LOGIN_SUCCESS
+
 
 export default reducer; 

@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignInSide({loginUser}) {
+function SignInSide({loginUser,AUTH}) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -82,6 +82,12 @@ function SignInSide({loginUser}) {
     console.log('password',password);
 }
 
+const login = () =>{
+
+  loginUser(email,password);
+     console.log('is',AUTH); 
+  }
+
   return (
 
  
@@ -95,7 +101,6 @@ function SignInSide({loginUser}) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-          
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
@@ -136,7 +141,7 @@ function SignInSide({loginUser}) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick = {  () => loginUser(email,password)  }
+              onClick = {  () => login(email,password)  }
             >
               Sign Up
             </Button>
@@ -178,7 +183,7 @@ const mapStateToProps = (state)=> {
 
   console.log('state',state);
   return{
-    state : state
+    AUTH : state.auth.isAuthenticated
   }
 };
 

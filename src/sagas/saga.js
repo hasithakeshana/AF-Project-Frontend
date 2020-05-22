@@ -1,5 +1,7 @@
 import { takeLatest, all, put, call } from "redux-saga/effects";
 import * as CONSTANTS from "../common/constants";
+import jwt_decode from 'jwt-decode';
+
 import {
 	fetchData,
 	fetchUsers,
@@ -33,13 +35,36 @@ function* loginUserWorker({ payload: {  email,password } }) {
 		console.log('login user saga', email,password);
 		const data = yield call(fetchLogin, {  email,password }) || {};
 
-		console.log('output',data);
+		if (data.isValidLogin) {
 
-		if (data.code) yield put(globalActions.loginSuccessAction(data.user));
+			
+			localStorage.setItem('jwtToken',data.token);
+
+			const decodedUser = jwt_decode(data.token);
+			console.log(decodedUser);
+
+			yield put(globalActions.loginSuccessAction(decodedUser));
+
+			if (Date.now() >= decodedUser.exp * 1000) {
+				console.log('expired');
+			  }
+			  else{
+				console.log('not expired');
+			  }
+			
+		}
+		else{
+			yield put(globalActions.loginFailAction());
+			
+		}
+
+		// localStorage.getItem('jwtToken');
+		// localStorage.removeItem("jwtToken");
+	
 
 
 	} catch (err) {
-		yield put(globalActions.loginFailAction(err.message));
+		yield put(globalActions.loginFailAction());
 	}
 }
 
