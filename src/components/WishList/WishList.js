@@ -16,21 +16,21 @@ class WishList extends Component {
 
         const { getWishList , wishList, user} = this.props;
 
-        console.log('component did mount user',user);
+        //console.log('component did mount user',user);
         
         getWishList(user);
       
-        console.log('wishList',wishList);
+        //console.log('wishList',wishList);
       }
 
     //console.log(props)
 
     render(){
     const { wishList} = this.props;
-  console.log('wwwwwwwwwwwwww',wishList);
+  //console.log('wwwwwwwwwwwwww',wishList);
 
   const lists = Array.from(wishList);
-  console.log('lists',lists);
+  //console.log('lists',lists);
 
         return(
 

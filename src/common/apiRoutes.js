@@ -291,7 +291,7 @@ export const checkUserRated = async (user) => {
 		const { username, product } = user;
 		const reqBody = { username };
 		const id = String(product);
-		console.log("reqqqqqqqqqqqqqqqqbodyyy", reqBody);
+		//console.log("reqqqqqqqqqqqqqqqqbodyyy", reqBody);
 		const response = await axios
 			.request({
 				method: "POST",
@@ -310,7 +310,7 @@ export const checkUserRated = async (user) => {
 
 		const resData = await response;
 
-		console.log("responsee api", resData);
+		//console.log("responsee api", resData);
 
 		return resData;
 	} catch (e) {
@@ -323,7 +323,7 @@ export const updateRating = async (data) => {
 		const { productId, username, rateId, comment, rate } = data;
 		const reqBody = { productId, rate, comment };
 		const id = String(rateId);
-		console.log("reqqqqqqqqqqqqqqqqbodyyy", reqBody);
+		//console.log("reqqqqqqqqqqqqqqqqbodyyy", reqBody);
 
 		const response = await axios
 			.request({
@@ -343,7 +343,7 @@ export const updateRating = async (data) => {
 
 		const resData = await response;
 
-		console.log("responsee api", resData);
+		//console.log("responsee api", resData);
 
 		return resData;
 	} catch (e) {
@@ -356,7 +356,7 @@ export const deleteRating = async (data) => {
 		const { productId, username, rateId } = data;
 		const reqBody = { productId };
 		const id = String(rateId);
-		console.log("reqqqqqqqqqqqqqqqqbodyyy", reqBody);
+		//console.log("reqqqqqqqqqqqqqqqqbodyyy", reqBody);
 
 		const response = await axios
 			.request({
@@ -376,7 +376,7 @@ export const deleteRating = async (data) => {
 
 		const resData = await response;
 
-		console.log("responsee api", resData);
+		//console.log("responsee api", resData);
 
 		return resData;
 	} catch (e) {

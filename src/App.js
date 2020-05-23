@@ -38,7 +38,7 @@ function App (props) {
         }
         else{
             const decodedUser = jwt_decode(token);
-            console.log(decodedUser);
+            //console.log(decodedUser);
             props.setUserDetails(decodedUser); // set user using localstorage
             props.getWishList(decodedUser.id); // set userWishList using localstorage
         }

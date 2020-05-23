@@ -73,7 +73,7 @@ export function RatingsCom({
 	updateRating,
 	deleteRatings,
 }) {
-	console.log("idddddddddddddddddddddddddddddddddddfu", product, username);
+	// console.log("idddddddddddddddddddddddddddddddddddfu", product, username);
 
 	const [userReview, setUserReview] = useState("");
 	const [modifiedArray, setModifiedArray] = useState("");
@@ -95,7 +95,7 @@ export function RatingsCom({
 		} else {
 		}
 
-		console.log("iddddddddddddddddddddddddddddddddddd", product);
+		//console.log("iddddddddddddddddddddddddddddddddddd", product);
 	}, [product]);
 
 	useEffect(() => {

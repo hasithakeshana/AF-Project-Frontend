@@ -20,7 +20,7 @@ function WishListItem(props){
 
       const addToCart = (productID,wishListItemId) => {
         
-       console.log('add to cart wishlist',productID);
+      // console.log('add to cart wishlist',productID);
        removeItemFromWishList(user,wishListItemId);
        history.push("/viewItem?"+"productId="+productID);
       }
@@ -28,7 +28,7 @@ function WishListItem(props){
 
        const handleDelete = (id) => { 
 
-        console.log('id',id);
+       // console.log('id',id);
         
         
        
