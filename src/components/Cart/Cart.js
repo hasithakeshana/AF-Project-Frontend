@@ -2,9 +2,7 @@ import React, {useEffect, useState} from 'react'
 import '../../index.css'
 import {connect} from "react-redux";
 import CartItem from "./CartItem";
-import {updateTotal, zeroTotal} from "../../store/actions";
-import { StickyContainer, Sticky } from 'react-sticky';
-
+import {deductQuantity, updateTotal, zeroTotal} from "../../store/actions";
 
 function Cart(props) {
 
@@ -43,7 +41,9 @@ function Cart(props) {
                             <div className="card-body">
                                 <h5 className="card-title">Total : {props.cartTotal} LKR</h5>
                                 <p className="card-text">We make deliveries around Island.Please make sure you give right details to get a faster delivery  </p>
-                                <button className=" btn btn-sm btn-outline-pink ">Proceed to Payment</button>
+                                <button className=" btn btn-sm btn-outline-pink " onClick={()=>{
+                                    props.deductQ(props.cart)
+                                }}>Proceed to Payment</button>
                             </div>
                         </div>
 
@@ -73,7 +73,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         changeTotal : (price) => dispatch(updateTotal(price)),
-        resetTotal : (price) => dispatch(zeroTotal(price))
+        resetTotal : (price) => dispatch(zeroTotal(price)),
+        deductQ : (cart) => dispatch(deductQuantity(cart))
     }
 }
 

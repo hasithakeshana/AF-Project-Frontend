@@ -8,7 +8,24 @@ export const initialState = {
     userIs: "guest",
     rateUserDeatils: "",
     user: {
-        cart: [],
+        cart: [{
+            cartIn: true,
+            description: "Beautiful frock for any occasion.Blow your friends' minds",
+            discount: 7,
+            images: [{
+                0: {
+                    productImage: "2020-05-14T06-45-28.593Z-girl.jpg",
+                    _id: "5ec020267df10525e4a63c75"
+                }
+            }],
+            itemID: 3010,
+            mainCategory: "Men",
+            name: "Luxury Shirt",
+            price: 4500,
+            quantityInCart: 0,
+            cartTotal:0,
+        }
+        ],
         cartTotal: 0
     },
     products: [],
@@ -44,29 +61,12 @@ export const initialState = {
     selectedMainCategory: "All",
     selectedSubCategory: "All",
     selectedItemsArray: [],
-    itemInCartCount: 0,
+    itemInCartCount:0,
     cartTotal: 0,
     searchedProduct :{},
     discountStatus : 0,
     cartCheck: false,
-    cart: [{
-        cartIn: true,
-        description: "Beautiful frock for any occasion.Blow your friends' minds",
-        discount: 7,
-        images: [{
-            0: {
-                productImage: "2020-05-14T06-45-28.593Z-girl.jpg",
-                _id: "5ec020267df10525e4a63c75"
-            }
-        }],
-        itemID: 3010,
-        mainCategory: "Men",
-        name: "Luxury Shirt",
-        price: 4500,
-        quantityInCart: 0,
-        cartTotal:0,
-  }
-    ]
+    cart: []
 
 };
 
@@ -91,8 +91,7 @@ const reducer = (state = initialState, {type, payload}) => {
         newState.cart.push(payload)
     }
     if (type === 'UPDATE_CART_COUNT') {
-        console.log("UPDATE_CART_COUNT")
-        newState.itemInCartCount++;
+        newState.itemInCartCount = newState.cart.length;
     }
     if (type === 'UP_COUNT_IN_CART') {
 
@@ -201,6 +200,9 @@ const reducer = (state = initialState, {type, payload}) => {
         newState.searchedProduct = payload;
     }if(type==='UPDATE_PRODUCT_DISCOUNT_SUCCESS'){
         newState.discountStatus = payload;
+    }if(type==='SET_CART'){
+
+        newState.cart = newState.user.cart;
     }
 
     return newState;

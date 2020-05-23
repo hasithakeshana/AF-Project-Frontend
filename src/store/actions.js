@@ -1,4 +1,3 @@
-import {func} from "prop-types";
 
 export function update_selected_main_category(selectedMainCategory){
     return{
@@ -133,3 +132,15 @@ export function update_discount_success(status) {
     }
 }
 
+export function deductQuantity(cart){
+    return{
+        type:'DEDUCT_QUANTITY',
+        payload: cart
+    }
+}
+export function setCart(){
+    return{
+        type:'SET_CART',
+        payload: 0
+    }
+}

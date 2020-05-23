@@ -22,7 +22,7 @@ import {
 	updateRating,
 	deleteRating,
 	getAllCategories,
-	getSearchProduct, updateDiscount
+	getSearchProduct, updateDiscount, deductQuantity
 } from "../common/apiRoutes";
 import * as globalActions from "../common/actions";
 
@@ -320,8 +320,7 @@ try {
 }
 
 }
-function* updateProductWorker({payload : updateObject }) {
-
+function* updateProductWorker({payload : updateObject }){
 	try{
 		const status = yield  call(updateDiscount,{payload:updateObject});
 		if (status){
@@ -330,8 +329,21 @@ function* updateProductWorker({payload : updateObject }) {
 	}catch (e) {
 		console.log(e);
 	}
-}
 
+}
+function* deductQuantityWorker({payload:cart}) {
+	try {
+		for(let i = 0 ; i < cart.length  ; i++){
+
+			const data = yield call(deductQuantity,{id:cart[i]._id,color: cart[i].selectedColor,size:cart[i].selectedSize,quantity:cart[i].quantity})
+
+		}
+
+	}catch (e) {
+		console.log(e)
+	}
+
+}
 export function* rootWatcher() {
 	yield all([
 		takeLatest(CONSTANTS.ADD_TO_WISHLIST, addToWishListWorker),
@@ -355,6 +367,7 @@ export function* rootWatcher() {
 		takeLatest("UPDATE_RATING", updateRatingWorker),
 		takeLatest("DELETE_RATING", deleteRatingWorker),
 		takeLatest('SEARCH_PRODUCT',searchProduct),
-		takeLatest('UPDATE_PRODUCT_DISCOUNT',updateProductWorker)
+		takeLatest('UPDATE_PRODUCT_DISCOUNT',updateProductWorker),
+		takeLatest('DEDUCT_QUANTITY',deductQuantityWorker)
 	]);
 }

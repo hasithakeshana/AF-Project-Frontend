@@ -1,16 +1,18 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import logo from '../images/LOGO.png'
 import  '../index.css'
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom'
+import {update_cart_count} from "../store/actions";
 function Header(props) {
-    let x;
-    useEffect(()=>{
-        props.cart.map(item=>{
-            x++;
-        })
 
-    },[props.cart])
+    console.log(props.cartCount)
+    useEffect(()=>{
+            props.cart.map(item=>{
+                props.count()
+            })
+
+    },[])
 
     return(
         <div>
@@ -20,10 +22,10 @@ function Header(props) {
                 <p>Hotline : 0771792083</p>
                 <img src={logo} alt = ""class = "imageCenter"/>
                 <Link to="/cart" style={{ textDecoration: 'none' }}>
-                <i className=" nav-link active fas fa-shopping-bag fa-lg  " style={{color: " #FF007F", fontSize:"8"}}> <sup>{props.count}</sup></i>
+                <i className=" nav-link active fas fa-shopping-bag fa-lg  " style={{color: " #FF007F", fontSize:"8"}}> <sup>{props.cartCount}</sup></i>
                 </Link>
                 <Link to="/wishlist" style={{ textDecoration: 'none' }}>
-                <i className=" nav-link active fas fa-heart fa-lg  "style={{color: " #FF007F", fontSize:"8"}}> <sup>{x}</sup></i>
+                <i className=" nav-link active fas fa-heart fa-lg  "style={{color: " #FF007F", fontSize:"8"}}> <sup>{}</sup></i>
                 </Link>
                 <i className=" nav-link active fas fa-user fa-lg " style={{color: " #FF007F"}}> </i>
             </nav>
@@ -38,15 +40,17 @@ function Header(props) {
 
 const mapStateToProps = state => {
     return {
-       count : state.itemInCartCount,
+       cartCount : state.itemInCartCount,
        wishlistCount : state.auth.wishListCount,
-        cart:state.cart
+        cart:state.cart,
+
 
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
+        count: ()=> dispatch(update_cart_count())
     }
 }
 

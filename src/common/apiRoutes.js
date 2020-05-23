@@ -372,3 +372,10 @@ export const updateDiscount = async (data) =>{
 	const response = await axios.patch('http://localhost:4000/api/updateProductDiscount/'+data.payload._id,{ discount:parseInt(data.payload.discount)});
 	return  response.status;
 }
+
+export const deductQuantity = async (data)=>{
+
+	const response = await axios.patch('http://localhost:4000/api/deductStock/'+data.id,{ color:data.color , size:data.size , quantity:data.quantity});
+	return  response.status;
+
+}

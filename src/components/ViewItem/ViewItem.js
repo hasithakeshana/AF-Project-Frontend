@@ -14,8 +14,8 @@ import Ratings from "../Ratings/RatingsCom";
 function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updateTotalInCart,checkCart,updateCartCheckTrue}) {
 
     let images = [];
-    const[selectedColor,setselectedColor] = useState(" Pick a Size");
-    const[selectedSize,setselectedSize] = useState(" Pick a Color");
+    const[selectedColor,setselectedColor] = useState(" Pick a Color");
+    const[selectedSize,setselectedSize] = useState(" Pick a Size");
     const[stockAvailable,setstockAvailable] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const[isColorSelected,setColorSelceted] = useState(false);
@@ -34,7 +34,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                     setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="White"){
@@ -42,7 +42,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="Green"){
@@ -50,7 +50,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="Pink"){
@@ -58,7 +58,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="Blue"){
@@ -66,7 +66,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else{
@@ -74,7 +74,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }
@@ -85,7 +85,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="White"){
@@ -93,7 +93,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="Green"){
@@ -101,7 +101,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="Pink"){
@@ -109,7 +109,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="Blue"){
@@ -117,7 +117,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else{
@@ -125,7 +125,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }
@@ -136,7 +136,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="White"){
@@ -144,7 +144,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="Green"){
@@ -152,7 +152,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="Pink"){
@@ -160,7 +160,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="Blue"){
@@ -168,7 +168,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else{
@@ -176,7 +176,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }
@@ -186,7 +186,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="White"){
@@ -194,7 +194,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="Green"){
@@ -202,7 +202,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="Pink"){
@@ -210,7 +210,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else if(selectedColor==="Blue"){
@@ -218,7 +218,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }else{
@@ -226,7 +226,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                      setstockAvailable(true);
                  }else{
                      setstockAvailable(false);
-                     setDisplayAvailability("No Stock  ");
+                     setDisplayAvailability("Sorry! Out of Stock  ");
                  }
 
              }
