@@ -6,6 +6,8 @@ import {
 	update_discount_success
 } from "../store/actions";
 import * as CONSTANTS from "../common/constants";
+import jwt_decode from 'jwt-decode';
+
 import {
 	fetchData,
 	fetchUsers,
@@ -54,7 +56,7 @@ function* loginUserWorker({ payload: {  email,password } }) {
 
 			yield put(globalActions.loginSuccessAction(decodedUser));
 
-			// localStorage.removeItem("jwtToken");
+			//  localStorage.removeItem("jwtToken");
 
 		}
 		else{

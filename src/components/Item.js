@@ -20,7 +20,7 @@ function Item(props) {
 
         history.push("/wishlist");
     }
-
+    const [modalShow, setModalShow] = useState(false);
    /* const {id,images,description,price,name,selectedcategory,selectedSubCategory} = props;*/
     const{item,userId} = props;
     const [inCart , setIncart] = useState(false);
@@ -71,7 +71,7 @@ function Item(props) {
         show={modalShow}
         onHide={() => setModalShow(false)}
     />
-         <div onClick={()=> history.push("/wishlist?"+"productId="+item._id)}>
+         <div onClick={()=> history.push("/viewItem?"+"productId="+item._id)}>
         <MDBView hover className="rounded z-depth-4 mb-3 item" waves>
 
           <img

@@ -175,9 +175,8 @@ export function GetUserWishListAction(userId) {
 export function GetUserWishListSuccessAction(data) {
 	return {
 		type: ACTIONS.GET_USER_WISHLIST_SUCCESS,
-		payload: {
-			data,
-		},
+		payload: data,
+
 	};
 }
 

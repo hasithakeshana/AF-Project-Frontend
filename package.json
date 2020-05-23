@@ -17,6 +17,7 @@
     "bootstrap-input-spinner": "^1.13.4",
     "devtools": "^6.0.13",
     "jquery": "^3.5.1",
+    "jwt-decode": "^2.2.0",
     "material-ui-icons": "^1.0.0-beta.36",
     "mdbootstrap": "^4.15.0",
     "mdbreact": "4.25.5",

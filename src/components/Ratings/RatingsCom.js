@@ -336,7 +336,6 @@ const mapStateToProps = (state) => {
 	//console.log('ratings',ratingList);
 	return {
 		ratingList: state.item.itemRatingDetails.ratingList,
-		userRole: state.auth.currentUser.role,
 		progressRating: state.item.itemRatingDetails.ratingCount,
 		avgRating: state.item.itemRatingDetails.avgRating,
 		countRatings: state.item.itemRatingDetails.countRatings,

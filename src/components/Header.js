@@ -25,7 +25,7 @@ function Header(props) {
                 <i className=" nav-link active fas fa-shopping-bag fa-lg  " style={{color: " #FF007F", fontSize:"8"}}> <sup>{props.cartCount}</sup></i>
                 </Link>
                 <Link to="/wishlist" style={{ textDecoration: 'none' }}>
-                <i className=" nav-link active fas fa-heart fa-lg  "style={{color: " #FF007F", fontSize:"8"}}> <sup>{}</sup></i>
+                <i className=" nav-link active fas fa-heart fa-lg  "style={{color: " #FF007F", fontSize:"8"}}> <sup>{props.wishlistCount}</sup></i>
                 </Link>
                 <i className=" nav-link active fas fa-user fa-lg " style={{color: " #FF007F"}}> </i>
             </nav>
