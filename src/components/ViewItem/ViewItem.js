@@ -337,7 +337,7 @@ function ViewItem({getItemDetails, item,history,updateCart,updateCartCount,updat
                     </tr>
                 </table>
                 <div className="col">
-                 {/*   <Ratings product={item._id} ></Ratings>*/}
+                  <Ratings product={item._id} ></Ratings>
                 </div>
             </div>
 
