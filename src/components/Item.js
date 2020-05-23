@@ -9,7 +9,7 @@ import {add_to_total, cart_check_true, check_cart, update_cart, update_cart_coun
 import  * as ACTIONS from "../common/actions";
 import TestModel from "./TestModel";
 import { useHistory } from 'react-router-dom'
-
+import WishListModal from '../components/WishList/WishListModal';
 
 
 function Item(props) {
@@ -22,9 +22,9 @@ function Item(props) {
     }
 
    /* const {id,images,description,price,name,selectedcategory,selectedSubCategory} = props;*/
-    const{item} = props;
+    const{item,userId} = props;
     const [inCart , setIncart] = useState(false);
-    const [userId , setUserId] = useState("5eb68be4a37f442020387c0e");
+    //const [userId , setUserId] = useState("5eb68be4a37f442020387c0e");
     const[discountAvailable,setDiscountAvailable] = useState(false);
     const[discountedPrice,setDiscountedPrice] = useState(0.0);
     if(item.discount>0 && discountAvailable === false){
@@ -43,13 +43,34 @@ function Item(props) {
         }
 
     }
+    // const addWish = (item) =>{
+
+    //     props.addToWishList({userId,item});
+    // }
     const addWish = (item) =>{
 
-        props.addToWishList({userId,item});
+        if(props.isAuthenticated && props.role === "user")
+        {
+            props.addToWishList({userId,item});
+
+        }
+        else{
+            
+            setModalShow(true);
+        }
+
     }
+
+
+
     return (
 
         <MDBCol lg="3" md="1" className="" >
+        
+        <WishListModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+    />
          <div onClick={()=> history.push("/wishlist?"+"productId="+item._id)}>
         <MDBView hover className="rounded z-depth-4 mb-3 item" waves>
 
@@ -95,7 +116,10 @@ const mapStateToProps = state => {
     return {
         items: state.items,
         cart :state.cart,
-        selectedItemsArray : state.selectedItemsArray
+        selectedItemsArray : state.selectedItemsArray,
+        userId : state.auth.userId,
+        isAuthenticated : state.auth.isAuthenticated,
+        role : state.auth.role,
     }
 }
 

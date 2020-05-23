@@ -40,17 +40,28 @@ export const initialState = {
         }
 
     },
-    auth: {
-        currentUser: {
+    // auth: {
+    //     currentUser: {
 
-            role: 'guest'
-        },
+    //         role: 'guest'
+    //     },
+    //     isAuthenticated: false,
+    //     isTokenChecked: false,
+    //     isRegistered: false,
+    //     wishList: {},
+    //     wishListCount: 0
+    // },
+    auth: {
         isAuthenticated: false,
         isTokenChecked: false,
-        isRegistered: false,
-        wishList: {},
-        wishListCount: 0
-    },
+        wishList : {},
+        wishListCount : 0,
+        wishListTotal : 0,
+        role : "guest",
+        user : {},
+        userId : "",
+        email : "",
+        },
     items: [],
 
     menCategories: [],
@@ -145,11 +156,22 @@ const reducer = (state = initialState, {type, payload}) => {
 
     }
 
-    if (type === ACTIONS.GET_USER_WISHLIST_SUCCESS) {
+    if(type === ACTIONS.GET_USER_WISHLIST_SUCCESS){
+     
+        console.log('reducer user wishlist',payload);
+       newState.auth.wishList = payload.wishlist;
 
-        newState.auth.wishList = payload.data;
-        const count = payload.data.length;
-        newState.auth.wishListCount = count;
+        const count = payload.wishlist.length;
+
+       console.log('count',count); // wishListCount
+        
+       newState.auth.wishListCount = count;
+
+       //wishListTotal
+       newState.auth.wishListTotal = payload.total;
+
+
+
     }
     // GET_ALL_PRODUCTS_SUCCESS
     if (type === ACTIONS.GET_ALL_PRODUCTS_SUCCESS) {
@@ -204,6 +226,39 @@ const reducer = (state = initialState, {type, payload}) => {
 
         newState.cart = newState.user.cart;
     }
+    if(type === "CHECK_ITEM_IN_WISHLIST"){
+        newState.item.checkItemIsInWishList = payload;
+    }
+    if(type === ACTIONS.USER_LOGIN_SUCCESS){
+       
+    
+        newState.auth.userId = payload.id;
+        newState.auth.email = payload.name;
+        newState.auth.role = payload.role;
+        newState.auth.isAuthenticated = true;
+    }
+    if(type === ACTIONS.USER_LOGIN_FAILED){
+       
+    
+        newState.auth.userId = '';
+        newState.auth.email = '';
+        newState.auth.isAuthenticated = false;
+    }
+    if(type === "LOG_OUT"){
+       
+            
+        localStorage.removeItem("jwtToken");
+    
+        newState.auth.userId = '';
+        newState.auth.email = '';
+        newState.auth.role = "guest";
+        newState.auth.isAuthenticated = false;
+    }
+    if(type === "IS_TOKEN_CHECKED"){
+       
+        newState.auth.isTokenChecked = true;
+    }
+    
 
     return newState;
 

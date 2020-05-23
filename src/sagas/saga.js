@@ -36,12 +36,33 @@ function* signUpUserWorker({ payload: { user } }) {
 	}
 }
 
-function* loginUserWorker({ payload: { user } }) {
+function* loginUserWorker({ payload: {  email,password } }) {
 	try {
-		const data = yield call(fetchLogin, { user }) || {};
-		if (data) yield put(globalActions.loginSuccessAction(data.user));
-	} catch (err) {
-		yield put(globalActions.loginFailAction(err.message));
+		console.log('login user saga', email,password);
+
+		const data = yield call(fetchLogin, {  email,password }) || {};
+
+		if (data.isValidLogin) { // valid user has a isValidLogin : true in 
+
+//response
+
+			
+			localStorage.setItem('jwtToken',data.token);
+
+			const decodedUser = jwt_decode(data.token);
+			console.log(decodedUser);
+
+			yield put(globalActions.loginSuccessAction(decodedUser));
+
+			// localStorage.removeItem("jwtToken");
+
+		}
+		else{
+			yield put(globalActions.loginFailAction());
+			
+		}
+} catch (err) {
+		yield put(globalActions.loginFailAction());
 	}
 }
 
@@ -131,11 +152,14 @@ function* getViewItemDetails({ payload: { ProductId } }) {
 }
 
 function* getWishListWorker({ payload: { userId } }) {
+	console.log('saga product id get wishlist',userId);
 	try {
-		const data = yield call(getUserWishList, userId) || {};
+		const datas = yield call(getUserWishList, userId) || {};
 
-		if (data)
-			yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
+		console.log('getUserWishList',datas);
+
+		if (datas)
+			yield put(globalActions.GetUserWishListSuccessAction(datas.data));
 	} catch (err) {
 		// yield put(globalActions.GetRatingFailAction(err));
 		console.log(err);
@@ -151,11 +175,13 @@ function* removeWishListItemWorker({ payload: { userId, wishListOredrId } }) {
 
 		const datas = yield call(getUserWishList, userId) || {};
 
+		console.log('get from removed wishlist',datas.data);
+
 		// if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
 
 		if (datas)
 			yield put(
-				globalActions.GetUserWishListSuccessAction(datas.data.wishlist)
+				globalActions.GetUserWishListSuccessAction(datas.data)
 			);
 	} catch (err) {
 		// yield put(globalActions.GetRatingFailAction(err));
@@ -183,20 +209,27 @@ function* addToCartFromWishListWorker({ payload: data }) {
 	}
 }
 
+
 function* addToWishListWorker({ payload: data }) {
 	// addToWishList
 	const item = { data };
 
+	console.log('add to wishlist',item);
+
 	const { userId } = data;
 
 	try {
-		const data = yield call(addToWishList, item) || {};
+		const res = yield call(addToWishList, item) || {};
+
+		console.log('response add to wishlist',res);
 
 		const datas = yield call(getUserWishList, userId) || {};
 
+		yield put(globalActions.checkItemIsInTheWishList(res.exists));
+
 		if (datas)
 			yield put(
-				globalActions.GetUserWishListSuccessAction(datas.data.wishlist)
+				globalActions.GetUserWishListSuccessAction(datas.data)
 			);
 
 		//  if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
@@ -205,6 +238,7 @@ function* addToWishListWorker({ payload: data }) {
 		console.log(err);
 	}
 }
+
 
 function* getAllProductsWorker({ payload: {} }) {
 	try {

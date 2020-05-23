@@ -4,16 +4,38 @@ import  image2 from  '../images/ImageSlider/imageSlider2.jpg'
 import {connect} from "react-redux";
 import ReactLoading from 'react-loading';
 import '../index.css'
+import jwt_decode from 'jwt-decode';
+
 
 import * as reduxActions from '../common/actions';
 
 function ImageSlider(props) {
 
-    useEffect(() => {
+   
+  useEffect(() => {
 
-        props.getAllProducts();
-        
-        },[])
+    props.getAllProducts();
+
+    // if (Date.now() >= decodedUser.exp * 1000) { // check token expired or not
+    //     console.log('expired');
+    //   }
+    //   else{
+    //     console.log('not expired');
+    //   }
+
+    const token = localStorage.getItem('jwtToken');
+    if(token === null || token === undefined)
+    {
+        console.log('guest user');
+    }
+    else{
+        const decodedUser = jwt_decode(token);
+        console.log(decodedUser);
+        props.setUserDetails(decodedUser); // set user using localstorage
+        props.getWishList(decodedUser.id); // set userWishList using localstorage
+    }
+    
+    },[])
 
     if(props.items.length !==0 ){
 
@@ -121,12 +143,17 @@ const mapStateToProps = state => {
         items: state.items,
         selectedItemsArray : state.selectedItemsArray,
         cartCheck : state.cartCheck,
+        role : state.auth.role,
+        userId : state.auth.userId,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         getAllProducts : () => dispatch(reduxActions.GetAllProducts()),
+        getWishList : (userId) => dispatch(reduxActions.GetUserWishListAction(userId)),
+        setUserDetails : (user) => dispatch(reduxActions.loginSuccessAction(user))
+
     }
 }
 

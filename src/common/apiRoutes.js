@@ -176,32 +176,41 @@ export const getAllCategories = async () => {
 // getUserWishList
 
 export const getUserWishList = async (userId) => {
-	const response = await axios.get(
-		`http://localhost:4000/api/getWishList/${userId}`
-	);
-	return response;
-};
+
+    const id = userId;
+
+    console.log('get user wishlist id',id);
+
+    const response = await axios.get(`http://localhost:4000/api/getWishList/${id}`);
+    return response;
+
+}
 
 // removeItemFromWishList
 
 export const removeItemFromWishList = async (user) => {
-	try {
-		const data = user;
-		const response = await axios
-			.request({
-				method: "POST",
-				url: `http://localhost:4000/api/deleteWishListProduct`,
-				headers: {
-					"Content-Type": "application/json;charset=UTF-8",
-					"Access-Control-Allow-Origin": "*",
-				},
-				data: JSON.stringify(data),
-			})
-			.then((res) => {});
-	} catch (e) {
-		console.log(e);
-	}
-};
+
+    try {
+
+        const data = user;
+        const response = await axios.request({
+            method: 'POST',
+            url: `http://localhost:4000/api/deleteWishListProduct`,
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*"
+            },
+            data: JSON.stringify(data),
+
+        }).then((res) => {
+        });
+
+    } catch (e) {
+        console.log(e);
+    }
+
+
+}
 
 export const addToCartFromWishList = async (data) => {
 	try {
@@ -234,35 +243,43 @@ export const addToCartFromWishList = async (data) => {
 };
 
 export const addToWishList = async (data) => {
-	const { userId, item } = data.data;
 
-	try {
-		const reqBody = { userId };
-		const id = "5eb68ab6a37f442020387c0a"; // sample value
+    const {userId, item} = data.data;
 
-		const response = await axios
-			.request({
-				method: "POST",
-				url: `http://localhost:4000/api/addItemToWishList/${id}`,
-				headers: {
-					"Content-Type": "application/json;charset=UTF-8",
-					"Access-Control-Allow-Origin": "*",
-				},
-				data: JSON.stringify(reqBody),
-			})
-			.then((res) => {
-				const result = res.data;
+    console.log('item id of add to wishlist',item._id);
 
-				return result;
-			});
 
-		const resData = await response;
+    try {
 
-		return resData;
-	} catch (e) {
-		console.log(e);
-	}
-};
+
+        const reqBody = {userId};
+        const id = item._id; // sample value
+
+        const response = await axios.request({
+            method: 'POST',
+            url: `http://localhost:4000/api/addItemToWishList/${id}`,
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*"
+            },
+            data: JSON.stringify(reqBody),
+        }).then((res) => {
+
+            const result = res.data;
+
+            return result;
+        });
+
+        const resData = await response;
+
+        return resData;
+
+
+    } catch (e) {
+        console.log(e);
+    }
+
+}
 
 export const getAllProducts = async () => {
 	const response = await axios.get(`http://localhost:4000/api/allitems`);
@@ -386,3 +403,4 @@ export const deductQuantity = async (data)=>{
 	return  response.status;
 
 }
+

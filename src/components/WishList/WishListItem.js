@@ -6,52 +6,65 @@ import * as reduxActions from '../../common/actions';
 import { MDBRow, MDBCard, MDBCardBody, MDBTooltip, MDBTable, MDBTableBody, 
 
     MDBTableHead, MDBInput, MDBBtn } from "mdbreact";
+import { useHistory } from 'react-router-dom';
 
 
-class WishListItem extends Component{
+function WishListItem(props){
 
-    constructor(props){
-        super(props);
-    }
+    const { removeItemFromWishList , user} = props;
 
-    state = {
-        id : '5eb68be4a37f442020387c0e'
-    }
+    const history = useHistory();
+   
 
-    handleDelete = (id) => {
+   
+
+      const addToCart = (productID,wishListItemId) => {
+        
+       console.log('add to cart wishlist',productID);
+       removeItemFromWishList(user,wishListItemId);
+       history.push("/viewItem?"+"productId="+productID);
+      }
+    
+
+       const handleDelete = (id) => { 
 
         console.log('id',id);
-        //const { getWishList } = this.props; working
-         
-        //getWishList(this.state.id);
-        const { removeItemFromWishList} = this.props;
+        
+        
        
-        removeItemFromWishList(this.state.id,id);
+        removeItemFromWishList(user,id);
        }
 
-    render(){
+    
         return (
             <div>
                 <tr>
-                    <td className="tableDataPrice"><img  className="border border-success rounded" src={this.props.item.name} style={{width: "150px"}}/></td>
-                    <td className="tableDataQ">{this.props.item.price}LKR</td>
-                    <td className="tableDataQ">{this.props.item.quantity}</td>
-                    <td className="tableDataQ"> <MDBBtn color="primary" size="sm" 
+                    <td className="tableDataPrice"><img  className="border border-success rounded" src={"http://localhost:4000/uploads/"+props.item.image} style={{width: "150px"}}/></td>
+                    <td className="tableDataQ">{props.item.itemName}</td>
+                    <td className="tableDataQ">{props.item.mainCategory}</td>
+                    <td className="tableDataQ">{props.item.price}</td>
+                    <td className="tableDataQ">  <MDBBtn className=" fal fa-shopping-cart btn mb-1 mt-3  btn-pink"
                     
-                    onClick={() => this.handleDelete
+                    onClick={()=> addToCart(props.item.itemID,props.item._id)}
+                    />
+                    
+                    </td>
+                    <td className="tableDataQ"> <MDBBtn className=" fal fa-trash btn mb-1 mt-3  btn-pink" 
+                    
+                    onClick={() => handleDelete
 
-                        (this.props.item._id)}
-                    >
-                            X
-                    </MDBBtn></td>
-                    <td className="tableDataQ"></td>
+                        (props.item._id)}
+                    />
+                            
+                    </td>
+                   
                 </tr>
                 <br/>
             </div>
     
     
         );
-    }
+    
 
    
 
@@ -61,7 +74,8 @@ class WishListItem extends Component{
 const mapStateToProps = state => {
     return {
 
-        state:state
+        user : state.auth.userId
+        
     }
 };
 

@@ -28,31 +28,32 @@ export function registerFailAction(error) {
 	};
 }
 
-export function loginAction(email, password) {
-	return {
-		type: ACTIONS.USER_LOGIN,
-		payload: email,
-		password,
-	};
+
+export function loginAction(email,password){
+
+    return{
+        type : ACTIONS.USER_LOGIN,
+        payload: 
+          email,password
+                 
+    };
 }
 
 export function loginSuccessAction(user) {
-	return {
-		type: ACTIONS.USER_LOGIN_SUCCESS,
-		payload: {
-			user,
-		},
-	};
+    return {
+      type: ACTIONS.USER_LOGIN_SUCCESS,
+      payload: user
+    };
+  }
+
+
+export function loginFailAction() {
+    return {
+      type: ACTIONS.USER_LOGIN_FAILED,
+      payload: {},
+    };
 }
 
-export function loginFailAction(error) {
-	return {
-		type: ACTIONS.USER_LOGIN_FAILED,
-		payload: {
-			error,
-		},
-	};
-}
 
 export function update_name(name) {
 	return {
@@ -80,62 +81,6 @@ export function update_users_success(data) {
 		payload: data,
 	};
 }
-
-// export function signUpAction(user){
-
-//   return{
-//       type : ACTIONS.USER_SIGN_UP,
-//       payload: {
-//              user
-//                },
-//   };
-// }
-
-// export function registerSuccessAction(user) {
-//   return {
-//     type: ACTIONS.USER_REGISTER_SUCCESS,
-//     payload: {
-//       user,
-//     },
-//   };
-// }
-
-// export function registerFailAction(error) {
-//   return {
-//     type: ACTIONS.USER_REGISTER_FAILED,
-//     payload: {
-//       error,
-//     },
-//   };
-// }
-
-// export function loginAction(user){
-
-//   return{
-//       type : ACTIONS.USER_LOGIN,
-//       payload: {
-//              user
-//                },
-//   };
-// }
-
-// export function loginSuccessAction(user) {
-//   return {
-//     type: ACTIONS.USER_LOGIN_SUCCESS,
-//     payload: {
-//       user,
-//     },
-//   };
-// }
-
-// export function loginFailAction(error) {
-//   return {
-//     type: ACTIONS.USER_LOGIN_FAILED,
-//     payload: {
-//       error,
-//     },
-//   };
-// }
 
 export function AddRatingAction(data) {
 	return {
@@ -357,4 +302,28 @@ export function deleteRatingSuccessAction(data) {
 		type: "DELETE_RATING_SUCCESS",
 		payload: data,
 	};
+}
+
+export function checkItemIsInTheWishList(data){
+
+	return{
+		type : 'CHECK_ITEM_IN_WISHLIST',
+		payload: data
+			  
+	};
+  }
+
+
+export function logoutAction() {
+  return {
+    type: 'LOG_OUT',
+    payload: {},
+  };
+}
+
+export function tokenChecked(status) {
+  return {
+    type: 'IS_TOKEN_CHECKED',
+    payload: status,
+  };
 }
