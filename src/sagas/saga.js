@@ -46,7 +46,7 @@ function* loginUserWorker({ payload: {  email,password } }) {
 
 			yield put(globalActions.loginSuccessAction(decodedUser));
 
-			
+			// localStorage.removeItem("jwtToken");
 
 		}
 		else{
