@@ -26,30 +26,37 @@ export const fetchData = async (user) => {
 };
 
 export const fetchLogin = async (user) => {
-	try {
-		const data = user;
-		const correctData = user["user"];
-		const response = await axios
-			.request({
-				method: "POST",
-				url: `http://localhost:4000/api/login`,
-				headers: {
-					"Content-Type": "application/json;charset=UTF-8",
-					"Access-Control-Allow-Origin": "*",
-				},
-				data: JSON.stringify(correctData),
-			})
-			.then((res) => {
-				const result = res.data;
-				return result;
-			});
 
-		const resData = await response;
-		return resData;
-	} catch (e) {
-		console.log(e);
-	}
-};
+    try {
+
+      const {email,password} = user;
+      const correctData = {email,password}
+      console.log('api',correctData);
+        const response = await axios.request({
+            method: 'POST',
+            url: `http://localhost:4000/api/login`,
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*"
+            },
+            data: JSON.stringify(correctData),
+
+        }).then((res) => {
+
+            const result = res.data;
+            return result;
+        });
+
+        const resData = await response;
+        return resData;
+
+
+    } catch (e) {
+        console.log(e);
+    }
+
+
+}
 
 export async function fetchUsers() {
 	try {
