@@ -81,21 +81,25 @@ function AddItem({addItem}) {
  
     const [data, setCat] = useState( []  );
 
+    const [subs, setSub] = useState( []  );
+
     const [subCategory, setSubCat] = useState( []  );
 
     useEffect(async () => {
-      const result = await axios('http://localhost:4000/api/category');
-      
-      setCat(result.data)
-      console.log(result.data)
+      const result = await axios.get('http://localhost:4000/api/getCategoriesToNav');
+      const length = Object.keys(result.data[0]).length - 2 
+      const arr = Object.keys(result.data[0]).slice(0, length)
+      setCat(arr)
+      setSub(result.data)
       }, []);    
 
     function onChangeSubCat(cat)  {
-      var subTypeValue = data.filter(x=>x.category===cat.target.value)
-      setSubCat(subTypeValue[0].subCategory)
-      console.log(subCategory)
 
-      console.log(subTypeValue[0].subCategory)
+      const data1 = cat.target.value;
+      var sub = subs[0]
+      var subs1 = sub[data1]
+      setSubCat(subs1)
+
     }
   
 
@@ -168,18 +172,17 @@ function AddItem({addItem}) {
                 autoFocus
                 variant="outlined"
                 onChange={handleChange}
-                onClick={onChangeSubCat}>
+                onClick={onChangeSubCat}
+                >
                 {data.map(item => (
-                  <MenuItem key={item._id}
-                  value={item.category}>
-                  {item.category}
+                  <MenuItem
+                  value={item}>
+                  {item}
                   </MenuItem>
-                ))}
+                ))} 
               </Select>
               {errors.category}
             </Grid>
-            
-            
 
             <Grid className={ classes.section} item xs={12}>
             <InputLabel id="subCategory">SubCategory of Item</InputLabel> 
@@ -192,7 +195,7 @@ function AddItem({addItem}) {
                 variant="outlined"
                 onChange={handleChange}>            
                 {subCategory.map(item => (
-                  <MenuItem key={subCategory.category}
+                  <MenuItem 
                   value={item}>
                   {item}
                   </MenuItem>
@@ -200,6 +203,7 @@ function AddItem({addItem}) {
               </Select>
               {errors.subcategory}
             </Grid>
+              
             
             <Grid className={ classes.section} item xs={12}>
               <TextField
