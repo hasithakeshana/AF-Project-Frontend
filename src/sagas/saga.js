@@ -24,7 +24,9 @@ import {
 	updateRating,
 	deleteRating,
 	getAllCategories,
-	getSearchProduct, updateDiscount, deductQuantity, getCart
+	getSearchProduct, updateDiscount, deductQuantity, getCart,
+	fetchManager,
+	fetchItemData,
 } from "../common/apiRoutes";
 import * as globalActions from "../common/actions";
 
