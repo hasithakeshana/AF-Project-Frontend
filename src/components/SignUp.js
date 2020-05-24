@@ -22,7 +22,7 @@ import * as reduxActions from '../common/actions';
 
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-
+import { useHistory } from 'react-router-dom';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -68,6 +68,8 @@ const validationSchema = Yup.object({
 
 function SignUp({signUpuser}) {
 
+  const history = useHistory();
+
     const { handleSubmit, handleChange, values, errors } = useFormik({
       initialValues: {
         firstName: "",
@@ -79,6 +81,8 @@ function SignUp({signUpuser}) {
       validationSchema,
       onSubmit(values) {
           console.log(values);
+
+          history.push("/login");
         
       }
     });

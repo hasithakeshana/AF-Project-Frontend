@@ -39,3 +39,7 @@ export const ADD_ITEM_FAILED = 'app/ADD_ITEM/ADD_ITEM_FAILED';
 export const EDIT_USER = 'app/SignUpPage/USER_SIGN_UP';
 export const EDIT_USER_SUCCESS = 'app/SignUpPage/USER_REGISTER_SUCCESS'
 export const EDIT_USER_FAILED = 'app/SignUpPage/USER_REGISTER_FAILED'
+
+export const MANAGER_SIGN_UP = 'app/SignUpPage/MANAGER_SIGN_UP';
+export const MANAGER_REGISTER_SUCCESS = 'app/SignUpPage/MANAGER_REGISTER_SUCCESS'
+export const MANAGER_REGISTER_FAILED = 'app/SignUpPage/MANAGER_REGISTER_FAILED'

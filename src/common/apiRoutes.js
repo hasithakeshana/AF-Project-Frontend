@@ -478,6 +478,7 @@ export const fetchItemData = async (item) =>{
 
     const data = user ;
 
+	console.log(user);
        const correctData = user["user"];
 
 

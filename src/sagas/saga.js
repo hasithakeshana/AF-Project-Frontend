@@ -469,7 +469,7 @@ export function* rootWatcher() {
 			CONSTANTS.ADD_TO_CART_FROM_WISHLIST,
 			addToCartFromWishListWorker
 		),
-		takeLatest("SIGNUP", updateUsers),
+		takeLatest("SIGNUP", signUpUserWorker),
 		takeLatest(CONSTANTS.GET_ALL_PRODUCTS, getAllProductsWorker),
 		takeLatest("GET_CATEGORIES", getAllCategoriesWorker),
 		takeLatest("CHECK_USER_RATED", checkUserIsRatedWorker),
