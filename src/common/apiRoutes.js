@@ -1,29 +1,29 @@
 const axios = require("axios").default;
 
-export const fetchData = async (user) => {
-	try {
-		const data = user;
-		const correctData = user["user"];
-		const response = await axios
-			.request({
-				method: "POST",
-				url: `http://localhost:4000/api/signup`,
-				headers: {
-					"Content-Type": "application/json;charset=UTF-8",
-					"Access-Control-Allow-Origin": "*",
-				},
-				data: JSON.stringify(correctData),
-			})
-			.then((res) => {
-				const result = res.data;
-				return result;
-			});
-		const resData = await response;
-		return resData;
-	} catch (e) {
-		console.log(e);
-	}
-};
+// export const fetchData = async (user) => {
+// 	try {
+// 		const data = user;
+// 		const correctData = user["user"];
+// 		const response = await axios
+// 			.request({
+// 				method: "POST",
+// 				url: `http://localhost:4000/api/signup`,
+// 				headers: {
+// 					"Content-Type": "application/json;charset=UTF-8",
+// 					"Access-Control-Allow-Origin": "*",
+// 				},
+// 				data: JSON.stringify(correctData),
+// 			})
+// 			.then((res) => {
+// 				const result = res.data;
+// 				return result;
+// 			});
+// 		const resData = await response;
+// 		return resData;
+// 	} catch (e) {
+// 		console.log(e);
+// 	}
+// };
 
 export const fetchLogin = async (user) => {
 
@@ -405,3 +405,194 @@ export const getCart = async (id)=>{
 	const response = await axios.get('http://localhost:4000/api/getCart/'+id.payload);
 	return response
 }
+
+
+//api route for adding  items
+export const fetchItemData = async (item) =>{
+
+  
+ 
+	try{
+  
+	const data1 = item ;
+	 console.log('api data = ',data1);
+  
+  
+	   const correctData = item["item"];
+		console.log('correctData',correctData);
+		console.log('title', correctData.title);
+	  
+		const formData = new FormData();
+		formData.append('title',correctData.title);
+		formData.append('description',correctData.description);
+		formData.append('category',correctData.category);
+		formData.append('subCategory',correctData.subCategory);
+		formData.append('price',correctData.price);
+		formData.append('discount',correctData.discount);
+		formData.append('quantity',correctData.quantity);
+		for(const key of Object.keys(correctData.productImage.images)) {
+		  formData.append('productImage', correctData.productImage.images[key]);
+		}
+		
+	  
+  
+	const response = await axios.request({
+			method: 'POST',
+			url: "http://localhost:4000/api/items",
+			headers: {
+			  'content-type' : 'multipart/form-data'
+		  },
+			data: formData,
+		  
+		  }).then((res) => {
+  
+  
+			console.log('output',res);
+  
+			console.log('out',res.data);
+  
+			const result =  res.data;
+		   
+			return result;
+		  });
+  
+		const resData = await response;
+	   
+		console.log('responsee api',resData);
+		
+	   return resData;
+		 
+  
+  
+	}
+	catch(e){
+		console.log(e);
+	}
+  
+	
+  }
+  
+  export const fetchData = async (user) =>{
+ 
+    try{
+
+    const data = user ;
+
+       const correctData = user["user"];
+
+
+    const response = await axios.request({
+            method: 'POST',
+            url: "http://localhost:4000/api/signup",
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                      "Access-Control-Allow-Origin": "*"
+            },
+            data: JSON.stringify(correctData),
+          
+          }).then((res) => {
+
+            const result =  res.data;
+            console.log(result);
+            return result;
+          });
+
+        const resData = await response;
+       
+        console.log('responsee api',resData);
+        
+       return resData;
+         
+
+
+    }
+    catch(e){
+        console.log(e);
+    }
+
+    
+}
+
+export const fetchUser = async (email) =>{
+ 
+  try{
+
+  const data = email ;
+
+     const correctData = email["email"];
+      
+
+  const response = await axios.request({
+          method: 'POST',
+          url: "http://localhost:4000/api/edituser",
+          headers: {
+              'Content-Type': 'application/json;charset=UTF-8',
+                    "Access-Control-Allow-Origin": "*"
+          },
+          data: JSON.stringify(correctData),
+        
+        }).then((res) => {
+
+          const result =  res.data;
+         
+          return result;
+        });
+
+      const resData = await response;
+     
+      console.log('responsee api',resData);
+      
+     return resData;
+       
+
+
+  }
+  catch(e){
+      console.log(e);
+  }
+
+  
+}
+  
+//api route for adding a manager
+export const fetchManager = async (manager) =>{
+ 
+	try{
+  
+	const data = manager ;
+  
+	   const correctData = manager["manager"];
+  
+  
+	const response = await axios.request({
+			method: 'POST',
+			url: "http://localhost:4000/api/signupManager",
+			headers: {
+				'Content-Type': 'application/json;charset=UTF-8',
+					  "Access-Control-Allow-Origin": "*"
+			},
+			data: JSON.stringify(correctData),
+		  
+		  }).then((res) => {
+  
+			const result =  res.data;
+			console.log(result);
+			return result;
+		  });
+  
+		const resData = await response;
+	   
+		console.log('responsee api',resData);
+		
+	   return resData;
+		 
+  
+  
+	}
+	catch(e){
+		console.log(e);
+	}
+  
+	
+  }
+  

@@ -28,15 +28,31 @@ import {
 } from "../common/apiRoutes";
 import * as globalActions from "../common/actions";
 
-function* signUpUserWorker({ payload: { user } }) {
-	try {
-		const data = yield call(fetchData, { user }) || {};
-		if (data) yield put(globalActions.registerSuccessAction(data.user));
-	} catch (err) {
-		console.log(err);
-		yield put(globalActions.registerFailAction(err.message));
-	}
-}
+function* signUpUserWorker({ payload: { user } }){
+
+    
+	
+ 
+	console.log('saga user',user);
+ 
+  
+ 
+	 try{
+		 const data  = yield call (fetchData ,{user}) || {};
+ 
+ 
+		 if (data) yield put(globalActions.registerSuccessAction(data.user));
+ 
+		
+		 
+	 }
+	 catch(err){
+		 console.log(err);
+		 yield put(globalActions.registerFailAction(err.message));
+	 }
+	
+ 
+ }
 
 function* loginUserWorker({ payload: {  email,password } }) {
 	try {
@@ -385,6 +401,58 @@ function* getCartWorker({payload:id}) {
 		console.log(e)
 	}
 }
+
+function* signUpManager({ payload: { manager } }){
+
+    
+    console.log('saga working');
+ 
+    console.log('saga manager',manager);
+ 
+   try{
+         const data  = yield call (fetchManager ,{manager}) || {};
+ 
+ 
+         if (data) yield put(globalActions.registerManagerSuccessAction(data.manager));
+ 
+        
+         
+     }
+     catch(err){
+         console.log(err);
+         yield put(globalActions.registerManagerFailAction(err.message));
+     }
+    
+ 
+ }
+
+ function* addItem({ payload: { item } }){
+
+    
+    console.log('saga working');
+ 
+    console.log('saga item',item);
+ 
+  
+ 
+     try{
+         const data  = yield call (fetchItemData ,{item}) || {};
+ 
+         console.log('correct data',data);
+ 
+         if (data) yield put(globalActions.addItemActionSuccess(data.item));
+ 
+        
+         
+     }
+     catch(err){
+         console.log(err);
+         yield put(globalActions.addItemActionFail(err.message));
+     }
+    
+ 
+}
+
 export function* rootWatcher() {
 	yield all([
 		takeLatest(CONSTANTS.ADD_TO_WISHLIST, addToWishListWorker),
@@ -399,8 +467,6 @@ export function* rootWatcher() {
 			CONSTANTS.ADD_TO_CART_FROM_WISHLIST,
 			addToCartFromWishListWorker
 		),
-		takeLatest(CONSTANTS.USER_SIGN_UP, signUpUserWorker),
-		takeLatest(CONSTANTS.USER_LOGIN, loginUserWorker),
 		takeLatest("SIGNUP", updateUsers),
 		takeLatest(CONSTANTS.GET_ALL_PRODUCTS, getAllProductsWorker),
 		takeLatest("GET_CATEGORIES", getAllCategoriesWorker),
@@ -411,5 +477,7 @@ export function* rootWatcher() {
 		takeLatest('UPDATE_PRODUCT_DISCOUNT',updateProductWorker),
 		takeLatest('DEDUCT_QUANTITY',deductQuantityWorker),
 		takeLatest('GET_CART',getCartWorker),
+		takeLatest(CONSTANTS.MANAGER_SIGN_UP, signUpManager),
+		takeLatest(CONSTANTS.ADD_ITEM,addItem),
 	]);
 }

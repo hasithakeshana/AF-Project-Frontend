@@ -31,3 +31,11 @@ export const GET_ALL_PRODUCTS = 'app/Products/GET_ALL_PRODUCTS';
 export const  GET_ALL_PRODUCTS_SUCCESS = 'app/Products/GET_ALL_PRODUCTS_SUCCESS';
 export const GET_ALL_PRODUCTS_FAILED = 'app/Products/GET_ALL_PRODUCTS_FAILED';
 export const LOG_OUT = 'app/User/LOG_OUT';
+
+export const ADD_ITEM = 'app/AddItem/ADD_ITEM';
+export const ADD_ITEM_SUCCESS = 'app/AddItem/ADD_ITEM_SUCCESS';
+export const ADD_ITEM_FAILED = 'app/ADD_ITEM/ADD_ITEM_FAILED';
+
+export const EDIT_USER = 'app/SignUpPage/USER_SIGN_UP';
+export const EDIT_USER_SUCCESS = 'app/SignUpPage/USER_REGISTER_SUCCESS'
+export const EDIT_USER_FAILED = 'app/SignUpPage/USER_REGISTER_FAILED'
