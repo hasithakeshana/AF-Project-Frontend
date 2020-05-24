@@ -157,17 +157,10 @@ const reducer = (state = initialState, {type, payload}) => {
     }
 
     if(type === ACTIONS.GET_USER_WISHLIST_SUCCESS){
-     
-        console.log('reducer user wishlist',payload);
+
        newState.auth.wishList = payload.wishlist;
-
-        const count = payload.wishlist.length;
-
-       console.log('count',count); // wishListCount
-        
+       const count = payload.wishlist.length;
        newState.auth.wishListCount = count;
-
-       //wishListTotal
        newState.auth.wishListTotal = payload.total;
 
 
@@ -257,6 +250,10 @@ const reducer = (state = initialState, {type, payload}) => {
     if(type === "IS_TOKEN_CHECKED"){
        
         newState.auth.isTokenChecked = true;
+    }if(type === "GET_CART_SUCCESS"){
+
+        newState.user.cart = newState.payload.cart;
+
     }
     
 

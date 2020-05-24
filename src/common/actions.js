@@ -239,6 +239,7 @@ export function GetAllProducts() {
 }
 
 export function GetAllProductsSuccessAction(data) {
+
 	return {
 		type: ACTIONS.GET_ALL_PRODUCTS_SUCCESS,
 		payload: data,

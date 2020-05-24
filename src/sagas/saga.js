@@ -1,7 +1,7 @@
 import { takeLatest, all, put, call } from "redux-saga/effects";
 import {
 	get_all_categories,
-	getAllCategoriesSuccess,
+	getAllCategoriesSuccess, getCartSuccess,
 	search_product_success,
 	update_discount_success
 } from "../store/actions";
@@ -24,7 +24,7 @@ import {
 	updateRating,
 	deleteRating,
 	getAllCategories,
-	getSearchProduct, updateDiscount, deductQuantity
+	getSearchProduct, updateDiscount, deductQuantity, getCart
 } from "../common/apiRoutes";
 import * as globalActions from "../common/actions";
 
@@ -40,7 +40,6 @@ function* signUpUserWorker({ payload: { user } }) {
 
 function* loginUserWorker({ payload: {  email,password } }) {
 	try {
-		console.log('login user saga', email,password);
 
 		const data = yield call(fetchLogin, {  email,password }) || {};
 
@@ -52,8 +51,6 @@ function* loginUserWorker({ payload: {  email,password } }) {
 			localStorage.setItem('jwtToken',data.token);
 
 			const decodedUser = jwt_decode(data.token);
-			console.log(decodedUser);
-
 			yield put(globalActions.loginSuccessAction(decodedUser));
 
 			//  localStorage.removeItem("jwtToken");
@@ -104,12 +101,7 @@ function* updateUsers() {
 
 function* rateAddedWorker({ payload: { data } }) {
 	//console.log('saga working');
-
-	console.log("saga RATE ", data.itemId);
-
 	const ProductId = data.itemId;
-
-	console.log("payload rate add worker", data);
 
 	const product = data.itemId;
 	const username = data.userName;
@@ -121,7 +113,6 @@ function* rateAddedWorker({ payload: { data } }) {
 
 		const result = yield call(getRatingComments, ProductId) || {};
 
-		console.log("result get", result);
 
 		//console.log('correct data',datas);
 		if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
@@ -154,12 +145,8 @@ function* getViewItemDetails({ payload: { ProductId } }) {
 }
 
 function* getWishListWorker({ payload: { userId } }) {
-	console.log('saga product id get wishlist',userId);
 	try {
 		const datas = yield call(getUserWishList, userId) || {};
-
-		console.log('getUserWishList',datas);
-
 		if (datas)
 			yield put(globalActions.GetUserWishListSuccessAction(datas.data));
 	} catch (err) {
@@ -176,8 +163,6 @@ function* removeWishListItemWorker({ payload: { userId, wishListOredrId } }) {
 		}) || {};
 
 		const datas = yield call(getUserWishList, userId) || {};
-
-		console.log('get from removed wishlist',datas.data);
 
 		// if (data) yield put(globalActions.GetUserWishListSuccessAction(data.data.wishlist));
 
@@ -216,14 +201,12 @@ function* addToWishListWorker({ payload: data }) {
 	// addToWishList
 	const item = { data };
 
-	console.log('add to wishlist',item);
 
 	const { userId } = data;
 
 	try {
 		const res = yield call(addToWishList, item) || {};
 
-		console.log('response add to wishlist',res);
 
 		const datas = yield call(getUserWishList, userId) || {};
 
@@ -243,9 +226,9 @@ function* addToWishListWorker({ payload: data }) {
 
 
 function* getAllProductsWorker({ payload: {} }) {
+
 	try {
 		const data = yield call(getAllProducts) || {};
-
 		const products = data.data.item;
 
 		if (data) yield put(globalActions.GetAllProductsSuccessAction(products));
@@ -266,17 +249,11 @@ function* getAllCategoriesWorker() {
 
 // checkUserIsRatedWorker
 function* checkUserIsRatedWorker({ payload: product, username }) {
-	console.log("saga working", product, username);
 
 	// checkUserRated
 
 	try {
 		const data = yield call(checkUserRated, { product, username }) || {};
-
-		console.log("saga data", data);
-
-		//     const products = data.data.item;
-
 		if (data) yield put(globalActions.checkUserIsRatedSuccessAction(data));
 	} catch (err) {
 		// yield put(globalActions.GetRatingFailAction(err));
@@ -291,7 +268,6 @@ function* updateRatingWorker({
 	comment,
 	rate,
 }) {
-	console.log("saga working", productId, username, rateId, comment, rate);
 
 	// checkUserRated
 	const product = productId;
@@ -318,7 +294,7 @@ function* updateRatingWorker({
 }
 
 function* deleteRatingWorker({ payload: productId, username, rateId }) {
-	console.log("saga working", productId, username, rateId);
+
 	// console.log('saga working', productId,username,rateId,comment,rate);
 
 	// checkUserRated
@@ -331,9 +307,6 @@ function* deleteRatingWorker({ payload: productId, username, rateId }) {
 		const check = yield call(checkUserRated, { product, username }) || {};
 
 		const result = yield call(getRatingComments, product) || {};
-
-		console.log("result get", result);
-		console.log("saga data", data);
 
 		//console.log('correct data',datas);
 		if (check) yield put(globalActions.checkUserIsRatedSuccessAction(check));
@@ -380,6 +353,20 @@ function* deductQuantityWorker({payload:cart}) {
 	}
 
 }
+function* getCartWorker({payload:id}) {
+
+
+	try{
+		const data = yield call(getCart,{payload:id});
+		if(data) yield put(getCartSuccess(data.data))
+	}catch (e) {
+		console.log(e)
+	}
+
+
+
+
+}
 export function* rootWatcher() {
 	yield all([
 		takeLatest(CONSTANTS.ADD_TO_WISHLIST, addToWishListWorker),
@@ -404,6 +391,7 @@ export function* rootWatcher() {
 		takeLatest("DELETE_RATING", deleteRatingWorker),
 		takeLatest('SEARCH_PRODUCT',searchProduct),
 		takeLatest('UPDATE_PRODUCT_DISCOUNT',updateProductWorker),
-		takeLatest('DEDUCT_QUANTITY',deductQuantityWorker)
+		takeLatest('DEDUCT_QUANTITY',deductQuantityWorker),
+		takeLatest('GET_CART',getCartWorker)
 	]);
 }

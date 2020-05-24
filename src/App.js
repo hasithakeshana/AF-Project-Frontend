@@ -12,25 +12,18 @@ import SelectedProducts from "./components/SelectedProducts";
 import login from "./components/SignInSide";
 // import NotFound from './components/NotFound/PageNotFound';
 import PrivateRoute from './PrivateRoutes/PrivateRouter';
-import PrivateStoreManagerRoute from "./PrivateRoutes/PrivateRouerForStoreManager";
 import jwt_decode from 'jwt-decode';
 import {connect} from "react-redux";
 import * as reduxActions from './common/actions';
 import wishList from "./components/WishList/WishList";
+import SignUp from "./components/SignUp";
 
 function App (props) {
 
     useEffect(() => {
 
         props.getAllProducts();
-    
-        // if (Date.now() >= decodedUser.exp * 1000) { // check token expired or not
-        //     console.log('expired');
-        //   }
-        //   else{
-        //     console.log('not expired');
-        //   }
-    
+
         const token = localStorage.getItem('jwtToken');
         if(token === null || token === undefined)
         {
@@ -56,6 +49,7 @@ function App (props) {
                         <Route path="/s" exact component={SelectedProducts}/>
                         <Route path = "/products" exact component ={ItemContainer}/>
                         <Route path ="/viewItem" exact component={viewItem}/>
+                        <Route path ="/signup" exact component={SignUp}/>
                         <PrivateRoute exact path="/cart"  component={Cart}></PrivateRoute>
                         <PrivateRoute exact path="/wishlist" component={wishList}></PrivateRoute>
                         <Route path="/addDiscount" exact component={Discount}/>

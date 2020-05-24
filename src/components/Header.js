@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom'
 import {update_cart_count} from "../store/actions";
 function Header(props) {
 
-    console.log(props.cartCount)
     useEffect(()=>{
             props.cart.map(item=>{
                 props.count()
@@ -16,7 +15,6 @@ function Header(props) {
 
     return(
         <div>
-
 
             <nav class="navbar navbar-light bg-light center" style={{"height":"90px"}}>
                 <p>Hotline : 0771792083</p>
@@ -29,9 +27,6 @@ function Header(props) {
                 </Link>
                 <i className=" nav-link active fas fa-user fa-lg " style={{color: " #FF007F"}}> </i>
             </nav>
-
-
-
         </div>
 
 

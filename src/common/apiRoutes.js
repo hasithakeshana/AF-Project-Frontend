@@ -178,9 +178,6 @@ export const getAllCategories = async () => {
 export const getUserWishList = async (userId) => {
 
     const id = userId;
-
-    console.log('get user wishlist id',id);
-
     const response = await axios.get(`http://localhost:4000/api/getWishList/${id}`);
     return response;
 
@@ -282,8 +279,14 @@ export const addToWishList = async (data) => {
 }
 
 export const getAllProducts = async () => {
-	const response = await axios.get(`http://localhost:4000/api/allitems`);
-	return response;
+	try{
+		const response = await axios.get(`http://localhost:4000/api/allitems`);
+		return response;
+
+	}catch (e) {
+		console.log(e)
+	}
+
 };
 
 export const checkUserRated = async (user) => {
@@ -402,5 +405,10 @@ export const deductQuantity = async (data)=>{
 	const response = await axios.patch('http://localhost:4000/api/deductStock/'+data.id,{ color:data.color , size:data.size , quantity:data.quantity});
 	return  response.status;
 
+}
+
+export const getCart = async (id)=>{
+	const response = await axios.get('http://localhost:4000/api/getCart/'+id.payload);
+	return response
 }
 

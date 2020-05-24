@@ -1,3 +1,4 @@
+import * as ACTIONS from "../common/constants";
 
 export function update_selected_main_category(selectedMainCategory){
     return{
@@ -143,4 +144,20 @@ export function setCart(){
         type:'SET_CART',
         payload: 0
     }
+}
+
+export function getCart(data) {
+    return {
+        type:'GET_CART',
+        payload: data,
+
+    };
+}
+export function getCartSuccess(data) {
+
+    return {
+        type:'GET_CART_SUCCESS',
+        payload: data,
+
+    };
 }

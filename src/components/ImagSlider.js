@@ -5,23 +5,14 @@ import {connect} from "react-redux";
 import ReactLoading from 'react-loading';
 import '../index.css'
 import jwt_decode from 'jwt-decode';
-
-
+import {getCart} from '../store/actions'
 import * as reduxActions from '../common/actions';
 
 function ImageSlider(props) {
 
-   
   useEffect(() => {
 
     props.getAllProducts();
-
-    // if (Date.now() >= decodedUser.exp * 1000) { // check token expired or not
-    //     console.log('expired');
-    //   }
-    //   else{
-    //     console.log('not expired');
-    //   }
 
     const token = localStorage.getItem('jwtToken');
     if(token === null || token === undefined)
@@ -30,9 +21,9 @@ function ImageSlider(props) {
     }
     else{
         const decodedUser = jwt_decode(token);
-        console.log(decodedUser);
         props.setUserDetails(decodedUser); // set user using localstorage
         props.getWishList(decodedUser.id); // set userWishList using localstorage
+        props.getCart(decodedUser.id);
     }
     
     },[])
@@ -152,6 +143,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getAllProducts : () => dispatch(reduxActions.GetAllProducts()),
         getWishList : (userId) => dispatch(reduxActions.GetUserWishListAction(userId)),
+        getCart : (userId) => dispatch(getCart(userId)),
         setUserDetails : (user) => dispatch(reduxActions.loginSuccessAction(user))
 
     }
