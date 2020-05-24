@@ -1,7 +1,7 @@
 import { takeLatest, all, put, call } from "redux-saga/effects";
 import {
 	get_all_categories,
-	getAllCategoriesSuccess,
+	getAllCategoriesSuccess, getCartSuccess,
 	search_product_success,
 	update_discount_success
 } from "../store/actions";
@@ -24,7 +24,7 @@ import {
 	updateRating,
 	deleteRating,
 	getAllCategories,
-	getSearchProduct, updateDiscount, deductQuantity
+	getSearchProduct, updateDiscount, deductQuantity, getCart
 } from "../common/apiRoutes";
 import * as globalActions from "../common/actions";
 
@@ -154,12 +154,8 @@ function* getViewItemDetails({ payload: { ProductId } }) {
 }
 
 function* getWishListWorker({ payload: { userId } }) {
-	console.log('saga product id get wishlist',userId);
 	try {
 		const datas = yield call(getUserWishList, userId) || {};
-
-		console.log('getUserWishList',datas);
-
 		if (datas)
 			yield put(globalActions.GetUserWishListSuccessAction(datas.data));
 	} catch (err) {
@@ -378,7 +374,16 @@ function* deductQuantityWorker({payload:cart}) {
 	}catch (e) {
 		console.log(e)
 	}
+}
+function* getCartWorker({payload:id}) {
 
+
+	try{
+		const data = yield call(getCart,{payload:id});
+		if(data) yield put(getCartSuccess(data.data))
+	}catch (e) {
+		console.log(e)
+	}
 }
 export function* rootWatcher() {
 	yield all([
@@ -404,6 +409,7 @@ export function* rootWatcher() {
 		takeLatest("DELETE_RATING", deleteRatingWorker),
 		takeLatest('SEARCH_PRODUCT',searchProduct),
 		takeLatest('UPDATE_PRODUCT_DISCOUNT',updateProductWorker),
-		takeLatest('DEDUCT_QUANTITY',deductQuantityWorker)
+		takeLatest('DEDUCT_QUANTITY',deductQuantityWorker),
+		takeLatest('GET_CART',getCartWorker),
 	]);
 }

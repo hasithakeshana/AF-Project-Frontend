@@ -17,6 +17,7 @@ import jwt_decode from 'jwt-decode';
 import {connect} from "react-redux";
 import * as reduxActions from './common/actions';
 import wishList from "./components/WishList/WishList";
+import {getCart} from "./store/actions";
 
 function App (props) {
 
@@ -41,6 +42,7 @@ function App (props) {
             //console.log(decodedUser);
             props.setUserDetails(decodedUser); // set user using localstorage
             props.getWishList(decodedUser.id); // set userWishList using localstorage
+            props.getCart(decodedUser.id)
         }
         
         },[])
@@ -80,7 +82,8 @@ const mapStateToProps = state => {
        
       getAllProducts : () => dispatch(reduxActions.GetAllProducts()),
       getWishList : (userId) => dispatch(reduxActions.GetUserWishListAction(userId)),
-      setUserDetails : (user) => dispatch(reduxActions.loginSuccessAction(user))
+      setUserDetails : (user) => dispatch(reduxActions.loginSuccessAction(user)),
+        getCart : (userId) => dispatch(getCart(userId))
     }
   }
   

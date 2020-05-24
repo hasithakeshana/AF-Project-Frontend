@@ -105,9 +105,9 @@ function Item(props) {
 
              }}
             />
-            <MDBBtn className="fal fa-shopping-bag fa-2x mb-3"  onClick={()=>{
+          {/*  <MDBBtn className="fal fa-shopping-bag fa-2x mb-3"  onClick={()=>{
                allIn(item)
-            }}/>
+            }}/>*/}
        </MDBCol>
 
     )

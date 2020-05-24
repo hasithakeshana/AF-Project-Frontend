@@ -8,24 +8,7 @@ export const initialState = {
     userIs: "guest",
     rateUserDeatils: "",
     user: {
-        cart: [{
-            cartIn: true,
-            description: "Beautiful frock for any occasion.Blow your friends' minds",
-            discount: 7,
-            images: [{
-                0: {
-                    productImage: "2020-05-14T06-45-28.593Z-girl.jpg",
-                    _id: "5ec020267df10525e4a63c75"
-                }
-            }],
-            itemID: 3010,
-            mainCategory: "Men",
-            name: "Luxury Shirt",
-            price: 4500,
-            quantityInCart: 0,
-            cartTotal:0,
-        }
-        ],
+        cart: [],
         cartTotal: 0
     },
     products: [],
@@ -157,13 +140,10 @@ const reducer = (state = initialState, {type, payload}) => {
     }
 
     if(type === ACTIONS.GET_USER_WISHLIST_SUCCESS){
-     
-        console.log('reducer user wishlist',payload);
+
        newState.auth.wishList = payload.wishlist;
 
         const count = payload.wishlist.length;
-
-       console.log('count',count); // wishListCount
         
        newState.auth.wishListCount = count;
 
@@ -257,6 +237,10 @@ const reducer = (state = initialState, {type, payload}) => {
     if(type === "IS_TOKEN_CHECKED"){
        
         newState.auth.isTokenChecked = true;
+    }if(type=="GET_CART_SUCCESS"){
+
+       newState.user.cart = payload.cart
+
     }
     
 

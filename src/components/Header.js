@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom'
 import {update_cart_count} from "../store/actions";
 function Header(props) {
 
-    console.log(props.cartCount)
     useEffect(()=>{
             props.cart.map(item=>{
                 props.count()

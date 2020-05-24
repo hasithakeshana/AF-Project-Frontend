@@ -8,6 +8,7 @@ import jwt_decode from 'jwt-decode';
 
 
 import * as reduxActions from '../common/actions';
+import {getCart} from "../store/actions";
 
 function ImageSlider(props) {
 
@@ -30,9 +31,9 @@ function ImageSlider(props) {
     }
     else{
         const decodedUser = jwt_decode(token);
-        console.log(decodedUser);
         props.setUserDetails(decodedUser); // set user using localstorage
         props.getWishList(decodedUser.id); // set userWishList using localstorage
+        props.getCart(decodedUser.id);
     }
     
     },[])
@@ -152,6 +153,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getAllProducts : () => dispatch(reduxActions.GetAllProducts()),
         getWishList : (userId) => dispatch(reduxActions.GetUserWishListAction(userId)),
+        getCart : (userId) => dispatch(getCart(userId)),
         setUserDetails : (user) => dispatch(reduxActions.loginSuccessAction(user))
 
     }

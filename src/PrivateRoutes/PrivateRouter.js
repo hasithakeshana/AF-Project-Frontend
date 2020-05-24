@@ -50,7 +50,6 @@ import * as reduxActions from '../common/actions';
 
 
 const mapStateToProps = state => {
-    console.log('private router state',state.auth);
     return {
 
         isAuthenticate : state.auth.isAuthenticated,

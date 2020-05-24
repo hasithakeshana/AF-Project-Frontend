@@ -178,9 +178,6 @@ export const getAllCategories = async () => {
 export const getUserWishList = async (userId) => {
 
     const id = userId;
-
-    console.log('get user wishlist id',id);
-
     const response = await axios.get(`http://localhost:4000/api/getWishList/${id}`);
     return response;
 
@@ -404,3 +401,7 @@ export const deductQuantity = async (data)=>{
 
 }
 
+export const getCart = async (id)=>{
+	const response = await axios.get('http://localhost:4000/api/getCart/'+id.payload);
+	return response
+}

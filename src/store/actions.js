@@ -144,3 +144,19 @@ export function setCart(){
         payload: 0
     }
 }
+
+export function getCart(data) {
+    return {
+        type:'GET_CART',
+        payload: data,
+
+    };
+}
+export function getCartSuccess(data) {
+
+    return {
+        type:'GET_CART_SUCCESS',
+        payload: data,
+
+    };
+}
