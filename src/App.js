@@ -18,7 +18,7 @@ import {connect} from "react-redux";
 import * as reduxActions from './common/actions';
 import wishList from "./components/WishList/WishList";
 import {getCart} from "./store/actions";
-
+import Register from "./components/SignUp";
 function App (props) {
 
     useEffect(() => {
@@ -62,6 +62,7 @@ function App (props) {
                         <PrivateRoute exact path="/wishlist" component={wishList}></PrivateRoute>
                         <Route path="/addDiscount" exact component={Discount}/>
                         <Route path ="/login" exact component={login}/>
+                        <Route path ="/register" exact component={Register}/>
                     </switch>
                 <Footer/>
             </div>
